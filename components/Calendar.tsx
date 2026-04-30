@@ -214,12 +214,12 @@ export function Calendar({ events, month, year }: CalendarProps) {
 
       {/* Calendar grid */}
       <div className="mb-4 md:mb-6">
-        <div className="grid grid-cols-5 md:grid-cols-7 gap-2 md:gap-2 mb-1">
+        <div className="grid grid-cols-7 gap-2 mb-1">
           {DAYS_OF_WEEK.map((day, i) => (
             <div
               key={day}
               className={`text-center text-base font-black uppercase tracking-wider p-2 ${
-                i >= 5 ? 'hidden md:block text-pink' : 'text-teal-lt'
+                i >= 5 ? 'text-pink' : 'text-teal-lt'
               }`}
             >
               {day}
@@ -227,7 +227,8 @@ export function Calendar({ events, month, year }: CalendarProps) {
           ))}
         </div>
 
-        <div className="grid grid-cols-5 md:grid-cols-7 gap-2 md:gap-2">
+        {/* Mobile calendar (7 columns with indicator dots) */}
+        <div className="grid grid-cols-7 gap-2 md:hidden">
           {Array.from({ length: totalCellsNeeded }).map((_, i) => {
             const day = i - firstDay + 1
             const isCurrentMonth = day >= 1 && day <= daysInMonth
@@ -235,7 +236,72 @@ export function Calendar({ events, month, year }: CalendarProps) {
             const isWeekend = dow >= 5
 
             if (!isCurrentMonth) {
-              return <div key={i} className="hidden md:block min-h-20"></div>
+              return <div key={`empty-${i}`}></div>
+            }
+
+            const dayEvents = filterEvents(day)
+            const holidayEvent = events.find((e) => e.day === day && e.cat === 'feriado')
+            const isHoliday = !!holidayEvent
+
+            const hasCuerpo = dayEvents.some((e) => e.cat === 'cuerpo')
+            const hasMente = dayEvents.some((e) => e.cat === 'mente')
+            const hasComunidad = dayEvents.some((e) => e.cat === 'comunidad')
+
+            if (isHoliday && holidayEvent) {
+              return (
+                <div
+                  key={i}
+                  className="min-h-24 border-2 border-teal rounded-lg p-2 bg-gradient-to-br from-pink/10 to-orange/10 flex items-center justify-center"
+                >
+                  <div className="text-sm font-black text-teal">
+                    {day}
+                  </div>
+                </div>
+              )
+            }
+
+            return (
+              <div
+                key={i}
+                onClick={() => {
+                  if (dayEvents.length > 0 && !isWeekend) {
+                    setSelectedEvent(dayEvents[0])
+                    setModalOpen(true)
+                  }
+                }}
+                className={`min-h-24 border-1.5 rounded-lg p-2 transition-all flex flex-col items-center justify-center text-center ${
+                  isWeekend
+                    ? 'bg-arena-dk border-arena-dk'
+                    : dayEvents.length > 0
+                      ? 'bg-white border-teal cursor-pointer hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
+                      : 'bg-white border-arena-dk'
+                }`}
+              >
+                <div className={`text-sm font-black mb-1 ${isWeekend ? 'text-gray-400' : 'text-teal'}`}>
+                  {day}
+                </div>
+                {(hasCuerpo || hasMente || hasComunidad) && !isWeekend && (
+                  <div className="flex gap-0.5">
+                    {hasCuerpo && <span className="w-1.5 h-1.5 rounded-full bg-orange"></span>}
+                    {hasMente && <span className="w-1.5 h-1.5 rounded-full bg-teal"></span>}
+                    {hasComunidad && <span className="w-1.5 h-1.5 rounded-full bg-pink"></span>}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Desktop calendar (7 columns - full week) */}
+        <div className="hidden md:grid grid-cols-7 gap-2">
+          {Array.from({ length: totalCellsNeeded }).map((_, i) => {
+            const day = i - firstDay + 1
+            const isCurrentMonth = day >= 1 && day <= daysInMonth
+            const dow = i % 7
+            const isWeekend = dow >= 5
+
+            if (!isCurrentMonth) {
+              return <div key={i} className="min-h-20"></div>
             }
 
             const dayEvents = filterEvents(day)
@@ -250,14 +316,14 @@ export function Calendar({ events, month, year }: CalendarProps) {
                     setSelectedEvent(holidayEvent)
                     setModalOpen(true)
                   }}
-                  className={`${isWeekend ? 'hidden md:block' : ''} min-h-28 md:min-h-32 border-2 border-teal rounded-xl p-3 md:p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group`}
+                  className="min-h-32 border-2 border-teal rounded-xl p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-pink/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[calc(0.75rem-2px)]"></div>
                   <div className="relative z-10">
-                    <div className="text-lg md:text-xl font-black text-teal mb-1">
+                    <div className="text-xl font-black text-teal mb-1">
                       {day}
                     </div>
-                    <div className="text-xs md:text-sm font-black text-pink uppercase tracking-widest leading-tight">
+                    <div className="text-sm font-black text-pink uppercase tracking-widest leading-tight">
                       {holidayEvent.title}
                     </div>
                   </div>
@@ -268,7 +334,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
             return (
               <div
                 key={i}
-                className={`${isWeekend ? 'hidden md:block' : ''} min-h-28 md:min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
+                className={`min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
                   isWeekend
                     ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                     : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
@@ -303,19 +369,21 @@ export function Calendar({ events, month, year }: CalendarProps) {
       {/* Modal */}
       {modalOpen && selectedEvent && (
         <div
-          className="fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-4 animate-modalIn"
+          className="fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-4"
           onClick={() => setModalOpen(false)}
         >
           <div
-            className="bg-arena border-2 border-teal rounded-xl p-6 md:p-8 max-w-md w-full relative shadow-2xl animate-modalIn"
+            className="relative bg-arena border-2 border-teal rounded-xl p-3 sm:p-4 md:p-8 w-full max-w-sm md:max-w-md shadow-2xl max-h-[88vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              onClick={() => setModalOpen(false)}
-              className="absolute top-4 right-4 bg-teal text-white rounded-full w-7 h-7 flex items-center justify-center font-black hover:bg-teal/80 transition-colors"
-            >
-              ✕
-            </button>
+            <div className="flex justify-end mb-3 md:mb-0 md:absolute md:top-3 md:right-4">
+              <button
+                onClick={() => setModalOpen(false)}
+                className="bg-teal text-white rounded-full w-8 h-8 md:w-7 md:h-7 flex items-center justify-center font-black text-lg hover:bg-teal/80 transition-colors"
+              >
+                ✕
+              </button>
+            </div>
 
             <div className="text-base font-black tracking-widest uppercase mb-2 text-pink">
               {getCatLabel(selectedEvent.cat)}
@@ -339,11 +407,11 @@ export function Calendar({ events, month, year }: CalendarProps) {
               {selectedEvent.desc}
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-1.5 md:gap-2 mb-6">
               {selectedEvent.sedes.map((sede) => (
                 <span
                   key={sede}
-                  className="bg-teal text-white text-base font-black px-3 py-1 rounded-full"
+                  className="bg-teal text-white text-xs md:text-base font-black px-2 md:px-3 py-0.5 md:py-1 rounded-full"
                 >
                   {sede}
                 </span>

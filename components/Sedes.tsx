@@ -41,7 +41,7 @@ export function Sedes({ events }: SedesProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {SEDES.map((sede, i) => {
             const sedeEvents = events.filter((e) => e.sedes.includes(sede))
             const hasCuerpo = sedeEvents.some((e) => e.cat === 'cuerpo')
