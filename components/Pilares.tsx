@@ -57,11 +57,11 @@ export function Pilares() {
               {pilar.descripcion}
             </p>
 
-            <div className="flex flex-nowrap gap-2">
+            <div className="flex flex-wrap gap-2">
               {pilar.tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`text-base font-black px-3 py-1 rounded-full border-1.5 whitespace-nowrap flex-shrink-0 ${
+                  className={`text-base font-black px-3 py-1 rounded-full border-1.5 flex-shrink-0 ${
                     pilar.id === 'cuerpo'
                       ? 'border-orange text-orange bg-orange/10'
                       : pilar.id === 'mente'
