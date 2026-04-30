@@ -239,19 +239,41 @@ export function Calendar({ events, month, year }: CalendarProps) {
             }
 
             const dayEvents = filterEvents(day)
-            const isHoliday = events.some((e) => e.day === day && e.cat === 'feriado')
+            const holidayEvent = events.find((e) => e.day === day && e.cat === 'feriado')
+            const isHoliday = !!holidayEvent
+
+            if (isHoliday && holidayEvent) {
+              return (
+                <div
+                  key={i}
+                  onClick={() => {
+                    setSelectedEvent(holidayEvent)
+                    setModalOpen(true)
+                  }}
+                  className={`${isWeekend ? 'hidden md:block' : ''} min-h-28 md:min-h-32 border-2 border-teal rounded-xl p-3 md:p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-pink/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[calc(0.75rem-2px)]"></div>
+                  <div className="relative z-10">
+                    <div className="text-lg md:text-xl font-black text-teal mb-1">
+                      {day}
+                    </div>
+                    <div className="text-xs md:text-sm font-black text-pink uppercase tracking-widest leading-tight">
+                      {holidayEvent.title}
+                    </div>
+                  </div>
+                </div>
+              )
+            }
 
             return (
               <div
                 key={i}
                 className={`${isWeekend ? 'hidden md:block' : ''} min-h-28 md:min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
-                  isHoliday
-                    ? 'bg-yellow/20 border-yellow hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
-                    : isWeekend
-                      ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
-                      : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
+                  isWeekend
+                    ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
+                    : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                 }`}
-                style={isWeekend && !isHoliday ? { backgroundColor: '#f9f5ee' } : undefined}
+                style={isWeekend ? { backgroundColor: '#f9f5ee' } : undefined}
               >
                 <div className="text-base md:text-base font-black text-teal mb-1 md:mb-2">
                   {day}
@@ -281,7 +303,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
       {/* Modal */}
       {modalOpen && selectedEvent && (
         <div
-          className="fixed inset-0 z-200 bg-black/45 flex items-center justify-center p-4 animate-modalIn"
+          className="fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-4 animate-modalIn"
           onClick={() => setModalOpen(false)}
         >
           <div
@@ -317,7 +339,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
               {selectedEvent.desc}
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-2 mb-6">
               {selectedEvent.sedes.map((sede) => (
                 <span
                   key={sede}
@@ -328,14 +350,16 @@ export function Calendar({ events, month, year }: CalendarProps) {
               ))}
             </div>
             {selectedEvent.url && (
-              <a
-                href={selectedEvent.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-pink text-white text-base font-black px-6 py-2 rounded-full hover:bg-pink/80 transition-colors"
-              >
-                Inscribite
-              </a>
+              <div className="flex justify-end">
+                <a
+                  href={selectedEvent.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-pink text-white text-base font-black px-6 py-2 rounded-full hover:bg-pink/80 transition-colors"
+                >
+                  Inscribite
+                </a>
+              </div>
             )}
           </div>
         </div>
