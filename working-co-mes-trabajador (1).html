@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes del Trabajador 2026 — Working&Co</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cabinet+Grotesk:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --arena:    #eee6d3;
+    --arena-dk: #e0d5bc;
+    --teal:     #1f9ba0;
+    --teal-lt:  #88ceda;
+    --pink:     #ee4887;
+    --yellow:   #ffda04;
+    --orange:   #fa881e;
+    --black:    #1a1a1a;
+    --white:    #ffffff;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Cabinet Grotesk',sans-serif;
+    background: var(--arena);
+    color: var(--black);
+    overflow-x:hidden;
+  }
+
+  /* LOGO */
+  .logo{
+    font-family:'Cabinet Grotesk',sans-serif;
+    font-weight:900; font-size:1.1rem;
+    letter-spacing:2px; text-transform:uppercase;
+    color: var(--teal); line-height:1;
+  }
+  .logo .amp{
+    font-family:'DM Serif Display',serif;
+    font-style:italic; color: var(--pink);
+    font-size:1.25em; letter-spacing:0;
+  }
+
+  /* NAV */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background: var(--arena);
+    border-bottom: 2px solid var(--teal);
+    padding:0 3rem; height:58px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .nav-r{ display:flex; align-items:center; gap:1.5rem; }
+  .nav-slogan{ font-size:11px; font-style:italic; color:var(--teal); font-weight:600; letter-spacing:0.5px; }
+  .nav-pill{
+    background:var(--pink); color:var(--white);
+    font-size:10px; font-weight:900;
+    letter-spacing:1.5px; text-transform:uppercase;
+    padding:6px 16px; border-radius:30px;
+  }
+
+  /* HERO */
+  .hero{
+    min-height:100vh; padding-top:58px;
+    background: var(--arena);
+    display:grid; grid-template-columns:1fr 1fr;
+    position:relative; overflow:hidden;
+  }
+  /* big decorative background text */
+  .hero-bg-text{
+    position:absolute; bottom:-2rem; left:-1rem;
+    font-family:'DM Serif Display',serif;
+    font-size:22vw; font-weight:400;
+    color: rgba(31,155,160,0.06);
+    line-height:1; pointer-events:none;
+    white-space:nowrap; z-index:0;
+    letter-spacing:-2px;
+  }
+
+  .hero-left{
+    padding:5rem 3rem 4rem 5rem;
+    display:flex; flex-direction:column; justify-content:center;
+    position:relative; z-index:2;
+  }
+  .hero-tag{
+    display:inline-flex; align-items:center; gap:8px;
+    background:var(--pink); color:var(--white);
+    font-size:10px; font-weight:900;
+    letter-spacing:2.5px; text-transform:uppercase;
+    padding:7px 18px; border-radius:30px;
+    margin-bottom:2rem; width:fit-content;
+    box-shadow: 3px 3px 0 rgba(238,72,135,0.3);
+  }
+  .hero-tag::before{
+    content:''; width:7px; height:7px;
+    background:var(--white); border-radius:50%; flex-shrink:0;
+  }
+  .hero-title{
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(3.2rem,5.5vw,6rem);
+    font-weight:400; line-height:0.95;
+    color: var(--teal);
+    margin-bottom:0.3rem;
+  }
+  .hero-title .italic{ font-style:italic; color:var(--pink); }
+  .hero-year{
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(1.2rem,2vw,1.8rem);
+    color:var(--teal-lt);
+    margin-bottom:2rem; letter-spacing:1px;
+  }
+  .hero-slogan-line{
+    font-size:14px; font-weight:600;
+    color:var(--black); line-height:1.65;
+    margin-bottom:2.5rem;
+    border-left:4px solid var(--pink);
+    padding-left:1rem; max-width:380px;
+  }
+  .hero-sedes{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:2.5rem; }
+  .sp{
+    background:transparent;
+    border:1.5px solid var(--teal);
+    color:var(--teal);
+    font-size:10px; font-weight:800;
+    letter-spacing:1px; text-transform:uppercase;
+    padding:5px 13px; border-radius:30px;
+    transition:all 0.2s;
+  }
+  .sp:hover{ background:var(--teal); color:var(--white); }
+
+  .hero-btns{ display:flex; gap:10px; flex-wrap:wrap; }
+  .btn-p{
+    background:var(--pink); color:var(--white);
+    font-family:'Cabinet Grotesk',sans-serif;
+    font-size:13px; font-weight:900;
+    padding:13px 30px; border-radius:50px;
+    border:none; cursor:pointer; text-decoration:none;
+    letter-spacing:0.5px;
+    box-shadow:3px 3px 0 rgba(238,72,135,0.35);
+    transition:transform 0.15s;
+  }
+  .btn-p:hover{ transform:translateY(-2px); }
+  .btn-t{
+    background:transparent; color:var(--teal);
+    font-family:'Cabinet Grotesk',sans-serif;
+    font-size:13px; font-weight:800;
+    padding:13px 30px; border-radius:50px;
+    border:2px solid var(--teal); cursor:pointer;
+    text-decoration:none; transition:all 0.2s;
+  }
+  .btn-t:hover{ background:var(--teal); color:var(--white); }
+
+  /* hero right */
+  .hero-right{
+    display:flex; align-items:center; justify-content:center;
+    position:relative; overflow:hidden; padding:3rem; z-index:2;
+  }
+  .blob-d{
+    position:absolute; animation:bf 7s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .bd1{ top:8%; right:4%; width:190px; animation-delay:0s; }
+  .bd2{ bottom:12%; right:20%; width:140px; animation-delay:2.5s; }
+  .bd3{ top:42%; right:44%; width:85px; animation-delay:5s; }
+  @keyframes bf{
+    0%,100%{ transform:translateY(0) rotate(0deg); }
+    50%{ transform:translateY(-18px) rotate(6deg); }
+  }
+
+  .card-prev{
+    background:var(--white);
+    border-radius:20px;
+    border:2px solid var(--teal);
+    padding:1.5rem 1.5rem 1.2rem;
+    width:300px; position:relative; z-index:2;
+    box-shadow:6px 6px 0 var(--teal);
+    animation:cIn 0.9s cubic-bezier(.16,1,.3,1) 0.4s both;
+  }
+  @keyframes cIn{
+    from{ opacity:0; transform:translateY(40px) rotate(-2deg); }
+    to{ opacity:1; transform:none; }
+  }
+  .cp-hd{ display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+  .cp-tit{ font-family:'DM Serif Display',serif; font-size:1rem; color:var(--teal); }
+  .cp-badge{
+    background:var(--pink); color:var(--white);
+    font-size:9px; font-weight:900; letter-spacing:0.5px;
+    padding:3px 10px; border-radius:20px;
+  }
+  .cp-wh{ display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:3px; }
+  .cpw{ text-align:center; font-size:8px; font-weight:900; color:var(--teal-lt); text-transform:uppercase; }
+  .cp-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+  .cpd{
+    aspect-ratio:1; border-radius:4px;
+    background:var(--arena); font-size:8px;
+    font-weight:700; color:#777;
+    display:flex; flex-direction:column;
+    align-items:flex-start; justify-content:flex-start;
+    padding:2px; position:relative;
+  }
+  .cpd.empty{ background:transparent; }
+  .cpd.fer{ background:#fff9e0; }
+  .ev-d{ position:absolute; bottom:2px; left:50%; transform:translateX(-50%); display:flex; gap:1.5px; }
+  .ed{ width:4px; height:4px; border-radius:50%; }
+  .ed.c{ background:var(--orange); }
+  .ed.m{ background:var(--teal); }
+  .ed.k{ background:var(--pink); }
+  .cp-leg{ margin-top:1rem; display:flex; gap:10px; flex-wrap:wrap; }
+  .cpl{ display:flex; align-items:center; gap:5px; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px; color:#555; }
+  .cpld{ width:8px; height:8px; border-radius:50%; }
+
+  /* PILARES */
+  .pilares{
+    background:var(--arena);
+    border-top:2px solid var(--teal);
+    border-bottom:2px solid var(--teal);
+    padding:5rem;
+  }
+  .pilares-hd{ margin-bottom:3rem; }
+  .ey{ font-size:10px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:var(--pink); margin-bottom:6px; }
+  .sec-title{
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(2rem,3.5vw,3rem);
+    line-height:1.05; margin-bottom:0.8rem;
+    color:var(--teal);
+  }
+  .sec-sub{ font-size:14px; color:#555; line-height:1.65; max-width:520px; }
+
+  .pilares-row{ display:grid; grid-template-columns:repeat(3,1fr); }
+  .pilar{
+    padding:2.5rem 2rem;
+    border-right:2px solid var(--teal);
+    position:relative; overflow:hidden;
+    background:var(--arena);
+    transition:background 0.2s;
+  }
+  .pilar:last-child{ border-right:none; }
+  .pilar:hover{ background:var(--white); }
+  .p-num{
+    font-family:'DM Serif Display',serif;
+    font-size:5rem; line-height:1;
+    color:var(--teal); opacity:0.07;
+    position:absolute; top:0.5rem; right:1rem;
+  }
+  .p-dot{
+    width:48px; height:48px; border-radius:50%;
+    border:2px solid var(--teal);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; margin-bottom:1.2rem;
+  }
+  .pilar.cu .p-dot{ background:rgba(250,136,30,0.15); }
+  .pilar.me .p-dot{ background:rgba(31,155,160,0.12); }
+  .pilar.co .p-dot{ background:rgba(238,72,135,0.12); }
+  .p-cat{ font-size:10px; font-weight:900; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:4px; }
+  .pilar.cu .p-cat{ color:var(--orange); }
+  .pilar.me .p-cat{ color:var(--teal); }
+  .pilar.co .p-cat{ color:var(--pink); }
+  .p-title{
+    font-family:'DM Serif Display',serif;
+    font-size:1.4rem; line-height:1.15;
+    color:var(--teal); margin-bottom:0.7rem;
+  }
+  .p-desc{ font-size:13px; color:#555; line-height:1.65; margin-bottom:1.2rem; }
+  .p-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .ptag{ font-size:10px; font-weight:800; padding:4px 12px; border-radius:20px; border:1.5px solid currentColor; }
+  .pilar.cu .ptag{ color:var(--orange); background:rgba(250,136,30,0.08); }
+  .pilar.me .ptag{ color:var(--teal); background:rgba(31,155,160,0.08); }
+  .pilar.co .ptag{ color:var(--pink); background:rgba(238,72,135,0.08); }
+
+  /* CALENDARIO */
+  .cal-sec{
+    padding:5rem; background:var(--arena);
+    border-bottom:2px solid var(--teal);
+  }
+  .cal-top{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    flex-wrap:wrap; gap:1.5rem; margin-bottom:1.5rem;
+  }
+  .cat-fs{ display:flex; gap:8px; flex-wrap:wrap; }
+  .cf{
+    font-size:11px; font-weight:900;
+    letter-spacing:0.5px; text-transform:uppercase;
+    padding:8px 20px; border-radius:30px;
+    border:2px solid var(--teal);
+    background:transparent; color:var(--teal);
+    cursor:pointer; font-family:'Cabinet Grotesk',sans-serif;
+    transition:all 0.15s;
+  }
+  .cf:hover{ background:var(--teal); color:var(--white); }
+  .cf.on-all{ background:var(--teal); color:var(--white); }
+  .cf.on-c{ background:var(--orange); border-color:var(--orange); color:var(--white); }
+  .cf.on-m{ background:var(--teal); border-color:var(--teal); color:var(--white); }
+  .cf.on-k{ background:var(--pink); border-color:var(--pink); color:var(--white); }
+
+  .sf-row{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:1.5rem; }
+  .sf{
+    font-size:10px; font-weight:900; letter-spacing:0.5px; text-transform:uppercase;
+    padding:5px 14px; border-radius:30px;
+    border:1.5px solid var(--teal); background:transparent; color:var(--teal);
+    cursor:pointer; font-family:'Cabinet Grotesk',sans-serif; transition:all 0.15s;
+  }
+  .sf:hover,.sf.on{ background:var(--teal); color:var(--white); }
+
+  .stats-row{ display:flex; gap:10px; margin-bottom:1.8rem; flex-wrap:wrap; }
+  .stat-p{
+    display:flex; align-items:center; gap:8px;
+    background:var(--white); border:2px solid var(--teal);
+    border-radius:30px; padding:8px 20px;
+  }
+  .sp-dot{ width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .sp-n{ font-family:'DM Serif Display',serif; font-size:1.4rem; line-height:1; color:var(--teal); }
+  .sp-l{ font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:#777; }
+
+  .wh-row{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:4px; }
+  .whl{ text-align:center; font-size:10px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:5px; color:var(--teal-lt); }
+
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .cd{
+    background:var(--white); border:1.5px solid var(--arena-dk);
+    border-radius:12px; min-height:86px; padding:6px;
+    transition:all 0.15s;
+  }
+  .cd:hover{ border-color:var(--teal); box-shadow:3px 3px 0 var(--teal); }
+  .cd.empty{ background:transparent; border-color:transparent; pointer-events:none; }
+  .cd.we{ background:#f9f5ee; }
+  .cd.fer{ border-color:var(--yellow); background:#fffce5; }
+  .cdn{ font-size:12px; font-weight:900; margin-bottom:4px; color:var(--teal); display:flex; align-items:center; gap:4px; flex-wrap:wrap; }
+  .fb{ font-size:7px; font-weight:900; text-transform:uppercase; background:var(--yellow); color:var(--black); padding:1px 5px; border-radius:3px; }
+
+  .ec{
+    font-size:8px; font-weight:700;
+    padding:2px 6px; border-radius:5px;
+    margin-bottom:2px; display:block;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    cursor:pointer; line-height:1.45;
+    transition:opacity 0.1s;
+  }
+  .ec:hover{ opacity:0.75; }
+  .ec.cuerpo{ background:rgba(250,136,30,0.15); color:#a84f00; border-left:3px solid var(--orange); }
+  .ec.mente { background:rgba(31,155,160,0.12); color:#0d6e73; border-left:3px solid var(--teal); }
+  .ec.comuni{ background:rgba(238,72,135,0.12); color:#a3175b; border-left:3px solid var(--pink); }
+
+  /* MODAL */
+  .modal-bg{
+    display:none; position:fixed; inset:0; z-index:200;
+    background:rgba(0,0,0,0.45);
+    align-items:center; justify-content:center; padding:1rem;
+  }
+  .modal-bg.open{ display:flex; }
+  .modal-box{
+    background:var(--arena); border:2px solid var(--teal);
+    border-radius:20px; padding:2rem;
+    max-width:400px; width:100%;
+    position:relative;
+    box-shadow:6px 6px 0 var(--teal);
+    max-height:85vh; overflow-y:auto;
+    animation:mIn 0.25s cubic-bezier(.16,1,.3,1);
+  }
+  @keyframes mIn{ from{ transform:scale(0.92) translateY(16px); opacity:0; } }
+  .mcls{
+    position:absolute; top:14px; right:16px;
+    background:var(--teal); color:var(--white);
+    border:none; border-radius:50%;
+    width:28px; height:28px; cursor:pointer;
+    font-size:14px; font-weight:900;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cabinet Grotesk',sans-serif;
+  }
+  .m-cat{ font-size:10px; font-weight:900; letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+  .m-cat.cuerpo{ color:var(--orange); }
+  .m-cat.mente { color:var(--teal); }
+  .m-cat.comuni{ color:var(--pink); }
+  .m-title{ font-family:'DM Serif Display',serif; font-size:1.35rem; line-height:1.2; margin-bottom:6px; color:var(--teal); }
+  .m-date{ font-size:12px; color:#777; margin-bottom:14px; font-weight:500; }
+  .m-desc{ font-size:13px; line-height:1.7; color:#444; margin-bottom:16px; }
+  .m-sedes{ display:flex; flex-wrap:wrap; gap:6px; }
+  .ms{ background:var(--teal); color:var(--white); font-size:10px; font-weight:900; letter-spacing:0.5px; text-transform:uppercase; padding:4px 12px; border-radius:20px; }
+
+  /* SEDES */
+  .sedes-sec{
+    background:var(--teal);
+    padding:5rem;
+    border-bottom:2px solid var(--black);
+  }
+  .sedes-sec .ey{ color:var(--yellow); }
+  .sedes-sec .sec-title{ color:var(--white); }
+  .sedes-sec .sec-sub{ color:rgba(255,255,255,0.65); }
+  .sedes-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:2.5rem; }
+  .sc{
+    border:1.5px solid rgba(255,255,255,0.2);
+    border-radius:16px; padding:1.5rem;
+    transition:all 0.2s; background:rgba(255,255,255,0.05);
+  }
+  .sc:hover{ border-color:var(--yellow); background:rgba(255,255,255,0.1); }
+  .sc-n{ font-family:'DM Serif Display',serif; font-size:2.5rem; color:rgba(255,255,255,0.1); margin-bottom:8px; }
+  .sc-name{ font-size:15px; font-weight:900; color:var(--white); margin-bottom:3px; }
+  .sc-count{ font-size:11px; color:rgba(255,255,255,0.5); font-weight:500; }
+  .sc-dots{ display:flex; gap:5px; margin-top:12px; }
+  .scd{ width:8px; height:8px; border-radius:50%; }
+
+  /* FOOTER */
+  footer{
+    background:var(--arena);
+    border-top:2px solid var(--teal);
+    padding:2.5rem 5rem;
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:1.5rem;
+  }
+  .footer-slogan{ font-size:11px; color:var(--teal); letter-spacing:1px; font-style:italic; margin-top:4px; }
+  .footer-link{
+    color:var(--teal); text-decoration:none;
+    font-size:13px; font-weight:900;
+    border-bottom:2px solid var(--pink); padding-bottom:2px;
+    letter-spacing:0.5px; transition:color 0.2s;
+  }
+  .footer-link:hover{ color:var(--pink); }
+
+  /* REVEAL */
+  .rv{ opacity:0; transform:translateY(20px); transition:opacity 0.55s ease,transform 0.55s ease; }
+  .rv.in{ opacity:1; transform:none; }
+
+  /* ── MOBILE FIRST ── */
+  /* Base mobile: 0 → 599px */
+  @media(max-width:599px){
+    /* Nav */
+    nav{ padding:0 1rem; height:52px; }
+    .nav-slogan{ display:none; }
+    .nav-pill{ font-size:9px; padding:5px 10px; letter-spacing:1px; }
+
+    /* Hero */
+    .hero{ grid-template-columns:1fr; min-height:auto; padding-top:52px; }
+    .hero-right{ display:none; }
+    .hero-bg-text{ display:none; }
+    .hero-left{ padding:2.5rem 1.2rem 2rem; }
+    .hero-tag{ font-size:9px; padding:5px 12px; margin-bottom:1.2rem; }
+    .hero-title{ font-size:clamp(2.4rem,11vw,3.2rem); }
+    .hero-year{ font-size:1.1rem; margin-bottom:1.2rem; }
+    .hero-slogan-line{ font-size:13px; margin-bottom:1.5rem; }
+    .hero-sedes{ gap:5px; margin-bottom:1.5rem; }
+    .sp{ font-size:9px; padding:4px 10px; }
+    .hero-btns{ flex-direction:column; gap:8px; }
+    .btn-p,.btn-t{ text-align:center; padding:12px 24px; font-size:13px; }
+
+    /* Pilares */
+    .pilares{ padding:2rem 1.2rem; }
+    .pilares-row{ grid-template-columns:1fr; }
+    .pilar{ padding:1.5rem 1rem; border-right:none; border-bottom:2px solid var(--teal); }
+    .pilar:last-child{ border-bottom:none; }
+    .p-title{ font-size:1.2rem; }
+    .p-desc{ font-size:12px; }
+
+    /* Calendario */
+    .cal-sec{ padding:2rem 1.2rem; }
+    .cal-top{ flex-direction:column; align-items:flex-start; gap:1rem; }
+    .sec-title{ font-size:1.6rem; }
+    .cat-fs{ gap:6px; }
+    .cf{ font-size:10px; padding:6px 12px; }
+    .sf-row{ gap:5px; }
+    .sf{ font-size:9px; padding:4px 10px; }
+    .stats-row{ gap:6px; }
+    .stat-p{ padding:6px 12px; }
+    .sp-n{ font-size:1.1rem; }
+    .sp-l{ font-size:9px; }
+
+    /* Grilla calendario mobile: scroll horizontal + celdas más altas */
+    .wh-row,.cal-grid{
+      display:grid;
+      grid-template-columns:repeat(7,minmax(44px,1fr));
+      gap:2px;
+      overflow-x:auto;
+    }
+    .whl{ font-size:8px; padding:4px 2px; }
+    .cd{ min-height:70px; padding:4px; border-radius:8px; }
+    .cdn{ font-size:11px; }
+    .ec{ font-size:7.5px; padding:2px 4px; }
+
+    /* Modal */
+    .modal-box{ padding:1.5rem; border-radius:16px; }
+    .m-title{ font-size:1.1rem; }
+
+    /* Sorteo */
+    section[style*="background:var(--pink)"]{
+      padding:2rem 1.2rem !important;
+    }
+    section[style*="background:var(--pink)"] > div{
+      grid-template-columns:1fr !important;
+      gap:1.5rem !important;
+    }
+
+    /* CTA mensaje */
+    section[style*="background:var(--teal)"]{ padding:1.5rem 1.2rem !important; }
+    section[style*="background:var(--teal)"] p{
+      font-size:1.1rem !important;
+    }
+
+    /* Sedes */
+    .sedes-sec{ padding:2rem 1.2rem; }
+    .sedes-grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
+    .sc{ padding:1rem; }
+    .sc-name{ font-size:13px; }
+
+    /* Footer */
+    footer{ padding:1.5rem 1.2rem; flex-direction:column; text-align:center; gap:1rem; }
+    footer > div:last-child{ flex-direction:column; align-items:center; gap:8px; }
+  }
+
+  /* Tablet: 600px → 919px */
+  @media(min-width:600px) and (max-width:919px){
+    nav{ padding:0 1.5rem; }
+    .nav-slogan{ display:none; }
+    .hero{ grid-template-columns:1fr; min-height:auto; }
+    .hero-right{ display:none; }
+    .hero-bg-text{ display:none; }
+    .hero-left{ padding:3.5rem 2.5rem 3rem; }
+    .pilares,.cal-sec,.sedes-sec,footer{ padding:3rem 2rem; }
+    .pilares-row{ grid-template-columns:1fr; }
+    .pilar{ border-right:none; border-bottom:2px solid var(--teal); }
+    .pilar:last-child{ border-bottom:none; }
+    .sedes-grid{ grid-template-columns:repeat(2,1fr); }
+    .cal-top{ flex-direction:column; align-items:flex-start; }
+    .wh-row,.cal-grid{
+      overflow-x:auto;
+      grid-template-columns:repeat(7,minmax(50px,1fr));
+    }
+    .cd{ min-height:76px; }
+    footer{ flex-direction:column; text-align:center; }
+    section[style*="background:var(--pink)"] > div{
+      grid-template-columns:1fr !important;
+      gap:2rem !important;
+    }
+  }
+
+  /* Desktop: 920px+ — layout original sin cambios */
+  @media(min-width:920px){
+    .wh-row,.cal-grid{
+      grid-template-columns:repeat(7,1fr);
+      overflow-x:visible;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">WORKING<span class="amp">&</span>CO</div>
+  <div class="nav-r">
+    <span class="nav-slogan">Work your way</span>
+    <span class="nav-pill">Mes del Trabajador 2026</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">MAYO</div>
+
+  <div class="hero-left">
+    <div class="hero-tag">Mayo 2026 · Todas las sedes</div>
+    <h1 class="hero-title">
+      Mes del<br>
+      <span class="italic">Trabajador</span>
+    </h1>
+    <div class="hero-year">2026</div>
+    <p class="hero-slogan-line">
+      Trabajar mejor · Vivir mejor<br>
+      Un mes dedicado a tu cuerpo, mente y comunidad.
+    </p>
+    <div class="hero-sedes">
+      <span class="sp">Artilleros</span>
+      <span class="sp">Virrey del Pino</span>
+      <span class="sp">Salvador</span>
+      <span class="sp">Soler</span>
+      <span class="sp">Loyola</span>
+      <span class="sp">Niceto</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#calendario" class="btn-p">Ver calendario</a>
+      <a href="#pilares" class="btn-t">Conocer más</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- blobs arena + pink + teal -->
+    <svg class="blob-d bd1" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M47.5,-57.2C59.5,-46.5,65.6,-28.5,67.8,-9.8C70,8.9,68.3,28.3,58.4,42.1C48.5,55.9,30.4,64.1,10.8,67.6C-8.8,71.1,-30,69.9,-47.5,59.6C-65,49.3,-78.8,29.9,-79.2,9.8C-79.6,-10.3,-66.6,-31.1,-51.2,-43.6C-35.8,-56.1,-17.9,-60.3,1.2,-61.7C20.3,-63.1,35.5,-67.9,47.5,-57.2Z" fill="#ee4887" opacity="0.25" transform="translate(100 100)"/>
+    </svg>
+    <svg class="blob-d bd2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44.6,-52.3C55.9,-41.7,61.5,-25.1,63.2,-7.8C64.9,9.5,62.7,27.5,53.4,40.5C44.1,53.5,27.7,61.5,9.4,65.7C-8.9,69.9,-29.1,70.3,-44.2,61.2C-59.3,52.1,-69.3,33.5,-70.9,14.2C-72.5,-5.1,-65.7,-25.1,-53.1,-38.5C-40.5,-51.9,-22.1,-58.7,-3.5,-56C15.1,-53.3,33.3,-62.9,44.6,-52.3Z" fill="#1f9ba0" opacity="0.2" transform="translate(100 100)"/>
+    </svg>
+    <svg class="blob-d bd3" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M39.7,-46.9C50.8,-35.5,58.6,-20.5,61.1,-3.9C63.6,12.7,60.8,30.9,51.1,44.5C41.4,58.1,24.8,67.1,6.3,69.3C-12.2,71.5,-32.6,66.9,-46.8,54.8C-61,42.7,-68.9,23.1,-69.5,3C-70.1,-17.1,-63.4,-37.7,-49.8,-50.2C-36.2,-62.7,-15.7,-67.1,1.2,-68.5C18.1,-69.9,28.6,-58.3,39.7,-46.9Z" fill="#fa881e" opacity="0.18" transform="translate(100 100)"/>
+    </svg>
+
+    <div class="card-prev">
+      <div class="cp-hd">
+        <div class="cp-tit">Mayo 2026</div>
+        <div class="cp-badge">15 eventos</div>
+      </div>
+      <div class="cp-wh">
+        <div class="cpw">L</div><div class="cpw">M</div><div class="cpw">M</div>
+        <div class="cpw">J</div><div class="cpw">V</div>
+        <div class="cpw" style="color:var(--pink)">S</div>
+        <div class="cpw" style="color:var(--pink)">D</div>
+      </div>
+      <div class="cp-grid" id="mini-grid"></div>
+      <div class="cp-leg">
+        <div class="cpl"><div class="cpld" style="background:var(--orange)"></div>Cuerpo</div>
+        <div class="cpl"><div class="cpld" style="background:var(--teal)"></div>Mente</div>
+        <div class="cpl"><div class="cpld" style="background:var(--pink)"></div>Comunidad</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section class="pilares rv" id="pilares">
+  <div class="pilares-hd">
+    <div class="ey">El programa</div>
+    <h2 class="sec-title">3 pilares, un mes entero</h2>
+    <p class="sec-sub">Actividades para que cuides tu cuerpo, entrenes tu mente y fortalezcas tu comunidad. Work your way.</p>
+  </div>
+  <div class="pilares-row">
+    <div class="pilar cu">
+      <div class="p-num">01</div>
+      <div class="p-dot">🧘</div>
+      <div class="p-cat">Cuerpo — Wellness</div>
+      <h3 class="p-title">Movimiento &amp; bienestar</h3>
+      <p class="p-desc">Actividades pensadas para cuidar tu cuerpo mientras trabajás: yoga, ergonomía y técnicas de bienestar que podés aplicar desde tu escritorio.</p>
+      <div class="p-tags"><span class="ptag">Yoga</span><span class="ptag">Ergonomía</span><span class="ptag">Técnicas de bienestar</span></div>
+    </div>
+    <div class="pilar me">
+      <div class="p-num">02</div>
+      <div class="p-dot">🧠</div>
+      <div class="p-cat">Mente</div>
+      <h3 class="p-title">Masterclass &amp; charlas</h3>
+      <p class="p-desc">Una semana de masterclasses que transforman la manera en que trabajás y pensás tu carrera.</p>
+      <div class="p-tags"><span class="ptag">Masterclass</span><span class="ptag">Productividad</span><span class="ptag">Neurociencia</span></div>
+    </div>
+    <div class="pilar co">
+      <div class="p-num">03</div>
+      <div class="p-dot">🎉</div>
+      <div class="p-cat">Comunidad</div>
+      <h3 class="p-title">After &amp; Coffee Parties</h3>
+      <p class="p-desc">Actividades distendidas, interactivas de networking y disfrute para nuestra comunidad.</p>
+      <div class="p-tags"><span class="ptag">Piano Bar</span><span class="ptag">Coffee Party</span><span class="ptag">Party &amp; Play</span><span class="ptag">Networking</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDARIO -->
+<section class="cal-sec" id="calendario">
+  <div class="cal-top rv">
+    <div>
+      <div class="ey">Agenda completa</div>
+      <h2 class="sec-title">Calendario de mayo</h2>
+    </div>
+    <div class="cat-fs">
+      <button class="cf on-all" id="cf-all"  onclick="fCat('all',this)">Todas</button>
+      <button class="cf" id="cf-c"           onclick="fCat('cuerpo',this)">Cuerpo</button>
+      <button class="cf" id="cf-m"           onclick="fCat('mente',this)">Mente</button>
+      <button class="cf" id="cf-k"           onclick="fCat('comuni',this)">Comunidad</button>
+    </div>
+  </div>
+  <div class="sf-row rv">
+    <button class="sf on" id="sf-all"            onclick="fS('all',this)">Todas las sedes</button>
+    <button class="sf" onclick="fS('Artilleros',this)">Artilleros</button>
+    <button class="sf" onclick="fS('Virrey del Pino',this)">Virrey del Pino</button>
+    <button class="sf" onclick="fS('Salvador',this)">Salvador</button>
+    <button class="sf" onclick="fS('Soler',this)">Soler</button>
+    <button class="sf" onclick="fS('Loyola',this)">Loyola</button>
+    <button class="sf" onclick="fS('Niceto',this)">Niceto</button>
+  </div>
+  <div class="stats-row rv">
+    <div class="stat-p">
+      <div class="sp-dot" style="background:var(--orange)"></div>
+      <div class="sp-n" id="sc-c">5</div>
+      <div class="sp-l">Cuerpo</div>
+    </div>
+    <div class="stat-p">
+      <div class="sp-dot" style="background:var(--teal)"></div>
+      <div class="sp-n" id="sc-m">4</div>
+      <div class="sp-l">Mente</div>
+    </div>
+    <div class="stat-p">
+      <div class="sp-dot" style="background:var(--pink)"></div>
+      <div class="sp-n" id="sc-k">6</div>
+      <div class="sp-l">Comunidad</div>
+    </div>
+  </div>
+  <div class="wh-row">
+    <div class="whl">Lun</div><div class="whl">Mar</div><div class="whl">Mié</div>
+    <div class="whl">Jue</div><div class="whl">Vie</div>
+    <div class="whl" style="color:var(--pink)">Sáb</div>
+    <div class="whl" style="color:var(--pink)">Dom</div>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+</section>
+
+<!-- SEDES -->
+<section style="background:var(--teal);padding:2.5rem 5rem;border-top:2px solid var(--black);border-bottom:2px solid var(--black);">
+  <div style="max-width:800px;margin:0 auto;text-align:center;">
+    <div style="font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:10px;">Sumate al mes</div>
+    <p style="font-family:'DM Serif Display',serif;font-size:1.7rem;color:var(--white);line-height:1.3;font-style:italic;margin-bottom:0;">
+      Para ser parte de las actividades y ser contado en los sorteos, escribí o anotate en el front de tu sede principal a todas las actividades que tenemos para vos.
+    </p>
+  </div>
+</section>
+
+<section class="sedes-sec" id="sedes">
+  <div class="rv">
+    <div class="ey">Dónde encontrarnos</div>
+    <h2 class="sec-title">6 sedes, 1 comunidad</h2>
+    <p class="sec-sub">El programa se distribuye en todas nuestras sedes para que siempre tengas una actividad cerca.</p>
+  </div>
+  <div class="sedes-grid" id="sedes-grid"></div>
+</section>
+
+<!-- FOOTER -->
+<!-- SORTEO -->
+<section style="background:var(--pink);padding:3rem 5rem;border-top:2px solid var(--black);border-bottom:2px solid var(--black);">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;">
+    <div>
+      <div style="font-size:10px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;">Sorteo del mes</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:2.4rem;color:var(--white);line-height:1.05;margin-bottom:1rem;">Cada actividad es<br><span style="font-style:italic;">una chance más</span></h2>
+      <p style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.7;margin-bottom:1.5rem;">Con tu participación en nuestras actividades sumás, por cada actividad en la que participes de nuestra comunidad, <strong style="color:var(--yellow);">una posibilidad para el sorteo</strong> por el Mes del Trabajador.</p>
+      <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.15);border-radius:16px;padding:1rem 1.2rem;">
+        <div style="font-size:2.5rem;">🗓️</div>
+        <div>
+          <div style="font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);">Fecha del sorteo</div>
+          <div style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--white);font-weight:400;">Jueves 29 de mayo de 2026</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">Al cierre del Mes del Trabajador</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.25);border-radius:20px;padding:1.8rem;">
+        <div style="font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;">¿Cómo funciona?</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div style="width:26px;height:26px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:var(--black);flex-shrink:0;">1</div>
+            <p style="font-size:13px;color:rgba(255,255,255,0.9);line-height:1.5;margin:0;">Participá de cualquier actividad del mes — churros, masterclass, after, coffee party, yoga, ergonomía...</p>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div style="width:26px;height:26px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:var(--black);flex-shrink:0;">2</div>
+            <p style="font-size:13px;color:rgba(255,255,255,0.9);line-height:1.5;margin:0;">Cada actividad que completás suma <strong style="color:var(--yellow);">+1 chance</strong> al sorteo. ¡Más participás, más probabilidades tenés!</p>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <div style="width:26px;height:26px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;color:var(--black);flex-shrink:0;">3</div>
+            <p style="font-size:13px;color:rgba(255,255,255,0.9);line-height:1.5;margin:0;">El <strong style="color:var(--yellow);">29 de mayo</strong> hacemos el sorteo en vivo con toda la comunidad W&Co.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="logo" style="font-size:1.3rem">WORKING<span class="amp">&</span>CO</div>
+    <div class="footer-slogan">Work your way · Mes del Trabajador 2026</div>
+  </div>
+  <div style="text-align:center">
+    <div style="font-size:13px;color:var(--teal);font-style:italic;font-weight:600">Trabajar mejor · Vivir mejor</div>
+    <div style="font-size:11px;color:#888;margin-top:4px">Un mes dedicado a tu cuerpo, mente y comunidad</div>
+  </div>
+  <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+    <a href="https://www.workingand.co" class="footer-link" target="_blank">workingand.co →</a>
+    <a href="https://ar.linkedin.com/company/workingandco" target="_blank" style="display:flex;align-items:center;gap:6px;text-decoration:none;background:#0077B5;color:#fff;font-size:11px;font-weight:800;padding:6px 14px;border-radius:20px;letter-spacing:0.5px;">
+      <span style="font-size:13px;font-weight:900;">in</span> LinkedIn
+    </a>
+    <a href="https://www.instagram.com/workingandcoar/" target="_blank" style="display:flex;align-items:center;gap:6px;text-decoration:none;background:var(--pink);color:#fff;font-size:11px;font-weight:800;padding:6px 14px;border-radius:20px;letter-spacing:0.5px;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+      </svg>
+      @workingandcoar
+    </a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal-bg" onclick="closeM(event)">
+  <div class="modal-box">
+    <button class="mcls" onclick="closeMBtn()">✕</button>
+    <div class="m-cat" id="mcat"></div>
+    <div class="m-title" id="mtit"></div>
+    <div class="m-date" id="mdat"></div>
+    <div class="m-desc" id="mdesc"></div>
+    <div class="m-sedes" id="msed"></div>
+  </div>
+</div>
+
+<script>
+const DSW=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+const SEDES=['Artilleros','Virrey del Pino','Salvador','Soler','Loyola','Niceto'];
+const EVENTS=[
+  {day:4,  title:'Hoy festejamos tu dia con Churros', cat:'comuni',time:'A confirmar',desc:'Celebramos el Dia del Trabajador con churros para toda la comunidad W&Co.',sedes:['Artilleros','Virrey del Pino','Salvador','Soler','Loyola','Niceto']},
+  {day:5,  title:'Degustacion de Te', cat:'comuni',time:'A confirmar',desc:'Una experiencia sensorial para empezar el martes con calma.',sedes:['Virrey del Pino']},
+  {day:6,  title:'Coffee Party & Balance', cat:'comuni',time:'9.30 a 11 hs',desc:'Cafe de especialidad, networking y balance con la comunidad.',sedes:['Niceto']},
+  {day:7,  title:'Piano Bar After', cat:'comuni',time:'17.30 hs',desc:'Musica en vivo de piano bar. Cierre de semana con estilo.',sedes:['Salvador']},
+  {day:11, title:'Coffee Party & Balance', cat:'comuni',time:'9.30 a 11 hs',desc:'Conectate, toma un buen cafe y hace balance de la semana.',sedes:['Artilleros']},
+  {day:12, title:'Ergonomia con OnFit', cat:'cuerpo',time:'17 hs',desc:'Clase de ergonomia junto a OnFit. Aprende a cuidar tu cuerpo frente a la pantalla.',sedes:['Niceto']},
+  {day:14, title:'Piano Bar After', cat:'comuni',time:'17.30 hs',desc:'Segunda edicion del Piano Bar After. Musica en vivo, drinks y comunidad.',sedes:['Loyola']},
+  {day:18, title:'Masterclass: Concentracion', cat:'mente',time:'11 hs',desc:'Atencion bajo amenaza: por que se te escapa el foco y como recuperarlo.',sedes:['Artilleros']},
+  {day:19, title:'Masterclass: Habitos', cat:'mente',time:'17 hs',desc:'Arrancas siempre, terminas nunca: la neurociencia de los habitos que no aguantan.',sedes:['Soler']},
+  {day:19, title:'After Comunidad', cat:'comuni',time:'Tras Masterclass',desc:'After de comunidad a continuacion de la Masterclass Habitos.',sedes:['Soler']},
+  {day:20, title:'Masterclass: Procrastinacion', cat:'mente',time:'11 hs',desc:'Se lo que tengo que hacer pero no me sale: la mecanica neuronal de postergar.',sedes:['Niceto']},
+  {day:26, title:'Pastelitos - Dia de la Patria', cat:'comuni',time:'A confirmar',desc:'Celebramos el 25 de Mayo con pastelitos para toda la comunidad.',sedes:['Artilleros','Virrey del Pino','Salvador','Soler','Loyola','Niceto']},
+  {day:27, title:'Clase de Yoga', cat:'cuerpo',time:'A confirmar',desc:'Clase de yoga para cerrar la semana cuidando tu cuerpo y mente. Sede a confirmar.',sedes:['A confirmar']},
+  {day:28, title:'After W&Co: Party & Play', cat:'comuni',time:'17.30 hs',desc:'El gran after de cierre. Party & Play: actividades, musica y celebracion.',sedes:['Virrey del Pino']},
+];
+
+let aS='all',aC='all';
+function fe(d){return EVENTS.filter(e=>(aS==='all'||e.sedes.includes(aS))&&(aC==='all'||e.cat===aC)&&e.day===d);}
+
+function renderCal(){
+  const g=document.getElementById('cal-grid');g.innerHTML='';
+  const first=4,total=31;
+  for(let i=0;i<first;i++){const d=document.createElement('div');d.className='cd empty';g.appendChild(d);}
+  for(let d=1;d<=total;d++){
+    const dow=(first+d-1)%7;
+    const cell=document.createElement('div');
+    cell.className='cd'+(dow>=5?' we':'')+(d===1?' fer':'');
+    const nd=document.createElement('div');nd.className='cdn';
+    nd.innerHTML=d+(d===1?' <span class="fb">Feriado</span>':'');
+    cell.appendChild(nd);
+    fe(d).forEach(ev=>{
+      const ch=document.createElement('div');ch.className='ec '+ev.cat;ch.textContent=ev.title;
+      ch.onclick=e=>{e.stopPropagation();openM2(ev,d);};cell.appendChild(ch);
+    });
+    g.appendChild(cell);
+  }
+  const all=EVENTS.filter(e=>aS==='all'||e.sedes.includes(aS));
+  document.getElementById('sc-c').textContent=all.filter(e=>e.cat==='cuerpo').length;
+  document.getElementById('sc-m').textContent=all.filter(e=>e.cat==='mente').length;
+  document.getElementById('sc-k').textContent=all.filter(e=>e.cat==='comuni').length;
+}
+
+function renderMini(){
+  const g=document.getElementById('mini-grid');if(!g)return;
+  const dots={4:'c',5:'c',6:'k',7:'k',11:'k',12:'c',13:'c',14:'k',18:'m',19:'m',20:'m',21:'m',26:'c',27:'k',28:'k'};
+  const first=4,total=31;
+  for(let i=0;i<first;i++){const d=document.createElement('div');d.className='cpd empty';g.appendChild(d);}
+  for(let d=1;d<=total;d++){
+    const c=document.createElement('div');c.className='cpd'+(d===1?' fer':'');
+    c.innerHTML=`<span>${d}</span>`;
+    if(dots[d])c.innerHTML+=`<span class="ev-d"><span class="ed ${dots[d]}"></span></span>`;
+    g.appendChild(c);
+  }
+}
+
+function renderSedes(){
+  const g=document.getElementById('sedes-grid');
+  SEDES.forEach((s,i)=>{
+    const evs=EVENTS.filter(e=>e.sedes.includes(s));
+    const hc=evs.some(e=>e.cat==='cuerpo'),hm=evs.some(e=>e.cat==='mente'),hk=evs.some(e=>e.cat==='comuni');
+    const card=document.createElement('div');card.className='sc rv';card.style.transitionDelay=(i*0.07)+'s';
+    card.innerHTML=`<div class="sc-n">0${i+1}</div><div class="sc-name">${s}</div><div class="sc-count">${evs.length} actividad${evs.length!==1?'es':''} en mayo</div><div class="sc-dots">${hc?`<span class="scd" style="background:var(--orange)"></span>`:''} ${hm?`<span class="scd" style="background:var(--white)"></span>`:''} ${hk?`<span class="scd" style="background:var(--yellow)"></span>`:''}</div>`;
+    g.appendChild(card);
+  });obs();
+}
+
+function fCat(c,el){
+  aC=c;
+  ['cf-all','cf-c','cf-m','cf-k'].forEach(id=>{const b=document.getElementById(id);if(b)b.className='cf';});
+  el.className='cf on-'+({'all':'all','cuerpo':'c','mente':'m','comuni':'k'}[c]);
+  renderCal();
+}
+function fS(s,el){
+  aS=s;document.querySelectorAll('.sf').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderCal();
+}
+function openM2(ev,day){
+  const dow=(4+day-1)%7;
+  document.getElementById('mcat').className='m-cat '+ev.cat;
+  document.getElementById('mcat').textContent=ev.cat==='cuerpo'?'Cuerpo — Wellness':ev.cat==='mente'?'Mente — Masterclass':'Comunidad — After & Coffee';
+  document.getElementById('mtit').textContent=ev.title;
+  document.getElementById('mdat').textContent=DSW[dow]+' '+day+' de mayo 2026  ·  '+ev.time;
+  document.getElementById('mdesc').textContent=ev.desc;
+  document.getElementById('msed').innerHTML=ev.sedes.map(s=>`<span class="ms">${s}</span>`).join('');
+  document.getElementById('modal-bg').classList.add('open');
+}
+function closeM(e){if(e.target===document.getElementById('modal-bg'))document.getElementById('modal-bg').classList.remove('open');}
+function closeMBtn(){document.getElementById('modal-bg').classList.remove('open');}
+function obs(){
+  const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.08});
+  document.querySelectorAll('.rv:not(.in)').forEach(el=>io.observe(el));
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});});});
+renderCal();renderMini();renderSedes();obs();
+</script>
+</body>
+</html>
