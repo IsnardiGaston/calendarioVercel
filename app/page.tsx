@@ -4,6 +4,7 @@ import { Pilares } from '@/components/Pilares'
 import { Calendar } from '@/components/Calendar'
 import { Raffle } from '@/components/Raffle'
 import { Sedes } from '@/components/Sedes'
+import { Newsletter } from '@/components/Newsletter'
 import { Footer } from '@/components/Footer'
 import { MOCK_EVENTS } from '@/data/events'
 import { fetchEvents, fetchConfig } from '@/lib/strapi'
@@ -36,6 +37,7 @@ export default async function Home() {
       <Calendar events={events} month={month} year={year} />
       <Raffle />
       <Sedes events={events} />
+      <Newsletter />
       <Footer />
     </main>
   )

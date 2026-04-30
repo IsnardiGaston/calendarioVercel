@@ -32,6 +32,26 @@ export function Calendar({ events, month, year }: CalendarProps) {
     updateStats()
   }, [selectedSede, events])
 
+  useEffect(() => {
+    const handleSedeSelected = (evt: any) => {
+      setSelectedSede(evt.detail.sede)
+    }
+
+    window.addEventListener('sedeSelected', handleSedeSelected)
+
+    return () => {
+      window.removeEventListener('sedeSelected', handleSedeSelected)
+    }
+  }, [])
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const sedeParam = params.get('sede')
+    if (sedeParam) {
+      setSelectedSede(sedeParam)
+    }
+  }, [])
+
   const filterEvents = (day: number) => {
     return events.filter((e) => {
       if (e.cat === 'feriado') return e.day === day
@@ -77,9 +97,6 @@ export function Calendar({ events, month, year }: CalendarProps) {
         return ''
     }
   }
-
-  console.log(Event);
-  
 
   return (
     <section ref={ref} id="calendario" className={`bg-arena border-b-2 border-teal p-5 md:p-12 lg:p-20 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
@@ -197,12 +214,12 @@ export function Calendar({ events, month, year }: CalendarProps) {
 
       {/* Calendar grid */}
       <div className="mb-4 md:mb-6">
-        <div className="grid grid-cols-7 gap-2 md:gap-2 mb-1">
+        <div className="grid grid-cols-5 md:grid-cols-7 gap-2 md:gap-2 mb-1">
           {DAYS_OF_WEEK.map((day, i) => (
             <div
               key={day}
               className={`text-center text-base font-black uppercase tracking-wider p-2 ${
-                i >= 5 ? 'text-pink' : 'text-teal-lt'
+                i >= 5 ? 'hidden md:block text-pink' : 'text-teal-lt'
               }`}
             >
               {day}
@@ -210,38 +227,56 @@ export function Calendar({ events, month, year }: CalendarProps) {
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-2 md:gap-2">
+        <div className="grid grid-cols-5 md:grid-cols-7 gap-2 md:gap-2">
           {Array.from({ length: totalCellsNeeded }).map((_, i) => {
             const day = i - firstDay + 1
             const isCurrentMonth = day >= 1 && day <= daysInMonth
             const dow = i % 7
             const isWeekend = dow >= 5
 
-            if (!isCurrentMonth)
-              return <div key={i} className="min-h-20 md:min-h-24"></div>
+            if (!isCurrentMonth) {
+              return <div key={i} className="hidden md:block min-h-20"></div>
+            }
 
             const dayEvents = filterEvents(day)
-            const isHoliday = events.some((e) => e.day === day && e.cat === 'feriado')
+            const holidayEvent = events.find((e) => e.day === day && e.cat === 'feriado')
+            const isHoliday = !!holidayEvent
+
+            if (isHoliday && holidayEvent) {
+              return (
+                <div
+                  key={i}
+                  onClick={() => {
+                    setSelectedEvent(holidayEvent)
+                    setModalOpen(true)
+                  }}
+                  className={`${isWeekend ? 'hidden md:block' : ''} min-h-28 md:min-h-32 border-2 border-teal rounded-xl p-3 md:p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group`}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-pink/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[calc(0.75rem-2px)]"></div>
+                  <div className="relative z-10">
+                    <div className="text-lg md:text-xl font-black text-teal mb-1">
+                      {day}
+                    </div>
+                    <div className="text-xs md:text-sm font-black text-pink uppercase tracking-widest leading-tight">
+                      {holidayEvent.title}
+                    </div>
+                  </div>
+                </div>
+              )
+            }
 
             return (
               <div
                 key={i}
-                className={`min-h-28 md:min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
-                  isHoliday
-                    ? 'bg-yellow/20 border-yellow hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
-                    : isWeekend
-                      ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
-                      : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
+                className={`${isWeekend ? 'hidden md:block' : ''} min-h-28 md:min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
+                  isWeekend
+                    ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
+                    : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                 }`}
-                style={isWeekend && !isHoliday ? { backgroundColor: '#f9f5ee' } : undefined}
+                style={isWeekend ? { backgroundColor: '#f9f5ee' } : undefined}
               >
-                <div className="text-base md:text-base font-black text-teal mb-1 md:mb-2 flex items-center gap-1">
+                <div className="text-base md:text-base font-black text-teal mb-1 md:mb-2">
                   {day}
-                  {isHoliday && (
-                    <span className="text-base font-black bg-yellow text-black px-1 rounded">
-                      Feriado
-                    </span>
-                  )}
                 </div>
                 <div className="flex flex-col gap-1">
                   {dayEvents.map((ev) => (
@@ -268,7 +303,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
       {/* Modal */}
       {modalOpen && selectedEvent && (
         <div
-          className="fixed inset-0 z-200 bg-black/45 flex items-center justify-center p-4 animate-modalIn"
+          className="fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-4 animate-modalIn"
           onClick={() => setModalOpen(false)}
         >
           <div
@@ -304,7 +339,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
               {selectedEvent.desc}
             </p>
 
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-2 mb-6">
               {selectedEvent.sedes.map((sede) => (
                 <span
                   key={sede}
@@ -315,14 +350,16 @@ export function Calendar({ events, month, year }: CalendarProps) {
               ))}
             </div>
             {selectedEvent.url && (
-              <a
-                href={selectedEvent.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block bg-pink text-white text-base font-black px-6 py-2 rounded-full hover:bg-pink/80 transition-colors"
-              >
-                Inscribite
-              </a>
+              <div className="flex justify-end">
+                <a
+                  href={selectedEvent.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-pink text-white text-base font-black px-6 py-2 rounded-full hover:bg-pink/80 transition-colors"
+                >
+                  Inscribite
+                </a>
+              </div>
             )}
           </div>
         </div>

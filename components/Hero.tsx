@@ -63,12 +63,23 @@ export function Hero({ events, month, year }: HeroProps) {
 
         <div className="flex flex-wrap gap-2 md:gap-1.5 mb-6 md:mb-8">
           {SEDES.map((sede) => (
-            <span
+            <button
               key={sede}
-              className="btn-small border-teal text-teal bg-transparent hover:bg-teal hover:text-white text-base px-3 py-1"
+              onClick={() => {
+                const calendarEl = document.getElementById('calendario')
+                if (calendarEl) {
+                  const url = new URL(window.location.href)
+                  url.searchParams.set('sede', sede)
+                  window.history.pushState({}, '', url)
+                  calendarEl.scrollIntoView({ behavior: 'smooth' })
+                  const event = new CustomEvent('sedeSelected', { detail: { sede } })
+                  window.dispatchEvent(event)
+                }
+              }}
+              className="btn-small border-teal text-teal bg-transparent hover:bg-teal hover:text-white text-base px-3 py-1 cursor-pointer transition-colors"
             >
               {sede}
-            </span>
+            </button>
           ))}
         </div>
 

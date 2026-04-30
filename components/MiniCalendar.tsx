@@ -56,21 +56,29 @@ export function MiniCalendar({ events, month, year }: MiniCalendarProps) {
 
           if (!isCurrentMonth) return <div key={i}></div>
 
-          const hasMiniEvent = events.some((e) => e.day === day)
+          const dayEvents = events.filter((e) => e.day === day)
+          const hasFeriado = dayEvents.some((e) => e.cat === 'feriado')
+          const hasCuerpo = dayEvents.some((e) => e.cat === 'cuerpo')
+          const hasMente = dayEvents.some((e) => e.cat === 'mente')
+          const hasComunidad = dayEvents.some((e) => e.cat === 'comunidad')
 
           return (
             <div
               key={i}
-              className={`aspect-square text-center text-base font-bold rounded flex items-center justify-center relative ${
-                isWeekend
-                  ? 'bg-arena-dk text-gray-600'
-                  : 'bg-arena text-teal'
+              className={`aspect-square text-center text-base font-bold rounded flex flex-col items-center justify-center relative ${
+                hasFeriado
+                  ? 'bg-yellow/30 border-2 border-yellow text-yellow'
+                  : isWeekend
+                    ? 'bg-arena-dk text-gray-600'
+                    : 'bg-arena text-teal'
               }`}
             >
               {day}
-              {hasMiniEvent && (
+              {(hasCuerpo || hasMente || hasComunidad) && !hasFeriado && (
                 <span className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-0.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-orange"></span>
+                  {hasCuerpo && <span className="w-1.5 h-1.5 rounded-full bg-orange"></span>}
+                  {hasMente && <span className="w-1.5 h-1.5 rounded-full bg-teal"></span>}
+                  {hasComunidad && <span className="w-1.5 h-1.5 rounded-full bg-pink"></span>}
                 </span>
               )}
             </div>

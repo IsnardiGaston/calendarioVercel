@@ -25,12 +25,12 @@ export function Pilares() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {PILARES.map((pilar, idx) => (
           <div
             key={pilar.id}
-            className={`p-6 md:p-8 relative overflow-hidden transition-colors duration-200 hover:bg-white ${
-              idx !== PILARES.length - 1 ? 'border-r-2 border-teal' : ''
+            className={`p-4 md:p-6 lg:p-8 relative overflow-hidden transition-colors duration-200 hover:bg-white ${
+              idx !== PILARES.length - 1 ? 'md:border-r-2 border-teal' : ''
             }`}
           >
             <div className="absolute top-0 right-0 text-6xl font-serif text-teal opacity-10 pointer-events-none">
@@ -49,7 +49,7 @@ export function Pilares() {
               {pilar.categoria}
             </div>
 
-            <h3 className="font-serif text-3xl text-teal mb-3 leading-tight">
+            <h3 className="font-serif text-2xl md:text-3xl text-teal mb-3 leading-tight">
               {pilar.titulo}
             </h3>
 
