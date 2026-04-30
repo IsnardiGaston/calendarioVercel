@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Event } from '@/data/events'
+import type { Event } from '@/data/events'
 import { SEDES, DAYS_OF_WEEK, MONTHS } from '@/data/config'
 import { useInView } from '@/hooks/useInView'
 import { getCalendarDays } from '@/utils/calendar'

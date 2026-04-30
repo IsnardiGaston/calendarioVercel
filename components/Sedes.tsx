@@ -1,6 +1,6 @@
 'use client'
 
-import { Event } from '@/data/events'
+import type { Event } from '@/data/events'
 import { SEDES } from '@/data/config'
 import { useInView } from '@/hooks/useInView'
 

@@ -1,4 +1,4 @@
-import { Event } from '@/data/events'
+import type { Event } from '@/data/events'
 
 const STRAPI_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337').replace(/\/admin\/?$/, '').replace(/\/$/, '')
 

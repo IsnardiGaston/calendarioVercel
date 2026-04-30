@@ -2,7 +2,7 @@
 
 import { SEDES, MONTHS } from '@/data/config'
 import { MiniCalendar } from './MiniCalendar'
-import { Event } from '@/data/events'
+import type { Event } from '@/data/events'
 
 interface HeroProps {
   events: Event[]

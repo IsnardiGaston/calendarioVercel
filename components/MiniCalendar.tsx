@@ -1,6 +1,6 @@
 'use client'
 
-import { Event } from '@/data/events'
+import type { Event } from '@/data/events'
 import { MONTHS } from '@/data/config'
 import { getCalendarDays } from '@/utils/calendar'
 
