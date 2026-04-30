@@ -32,6 +32,26 @@ export function Calendar({ events, month, year }: CalendarProps) {
     updateStats()
   }, [selectedSede, events])
 
+  useEffect(() => {
+    const handleSedeSelected = (evt: any) => {
+      setSelectedSede(evt.detail.sede)
+    }
+
+    window.addEventListener('sedeSelected', handleSedeSelected)
+
+    return () => {
+      window.removeEventListener('sedeSelected', handleSedeSelected)
+    }
+  }, [])
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const sedeParam = params.get('sede')
+    if (sedeParam) {
+      setSelectedSede(sedeParam)
+    }
+  }, [])
+
   const filterEvents = (day: number) => {
     return events.filter((e) => {
       if (e.cat === 'feriado') return e.day === day
@@ -197,12 +217,12 @@ export function Calendar({ events, month, year }: CalendarProps) {
 
       {/* Calendar grid */}
       <div className="mb-4 md:mb-6">
-        <div className="grid grid-cols-7 gap-2 md:gap-2 mb-1">
+        <div className="grid grid-cols-5 md:grid-cols-7 gap-2 md:gap-2 mb-1">
           {DAYS_OF_WEEK.map((day, i) => (
             <div
               key={day}
               className={`text-center text-base font-black uppercase tracking-wider p-2 ${
-                i >= 5 ? 'text-pink' : 'text-teal-lt'
+                i >= 5 ? 'hidden md:block text-pink' : 'text-teal-lt'
               }`}
             >
               {day}
@@ -210,15 +230,16 @@ export function Calendar({ events, month, year }: CalendarProps) {
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-2 md:gap-2">
+        <div className="grid grid-cols-5 md:grid-cols-7 gap-2 md:gap-2">
           {Array.from({ length: totalCellsNeeded }).map((_, i) => {
             const day = i - firstDay + 1
             const isCurrentMonth = day >= 1 && day <= daysInMonth
             const dow = i % 7
             const isWeekend = dow >= 5
 
-            if (!isCurrentMonth)
-              return <div key={i} className="min-h-20 md:min-h-24"></div>
+            if (!isCurrentMonth) {
+              return <div key={i} className="hidden md:block min-h-20"></div>
+            }
 
             const dayEvents = filterEvents(day)
             const isHoliday = events.some((e) => e.day === day && e.cat === 'feriado')
@@ -226,7 +247,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
             return (
               <div
                 key={i}
-                className={`min-h-28 md:min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
+                className={`${isWeekend ? 'hidden md:block' : ''} min-h-28 md:min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
                   isHoliday
                     ? 'bg-yellow/20 border-yellow hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                     : isWeekend
@@ -235,13 +256,8 @@ export function Calendar({ events, month, year }: CalendarProps) {
                 }`}
                 style={isWeekend && !isHoliday ? { backgroundColor: '#f9f5ee' } : undefined}
               >
-                <div className="text-base md:text-base font-black text-teal mb-1 md:mb-2 flex items-center gap-1">
+                <div className="text-base md:text-base font-black text-teal mb-1 md:mb-2">
                   {day}
-                  {isHoliday && (
-                    <span className="text-base font-black bg-yellow text-black px-1 rounded">
-                      Feriado
-                    </span>
-                  )}
                 </div>
                 <div className="flex flex-col gap-1">
                   {dayEvents.map((ev) => (
