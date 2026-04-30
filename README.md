@@ -1,6 +1,6 @@
 # 🎉 Mes del Trabajador 2026 — Working&Co
 
-**Next.js 15** + **Strapi Cloud** + **Vercel** + **Tailwind CSS** test
+**Next.js 15** + **Strapi Cloud** + **Vercel** + **Tailwind CSS**
 
 Landing page para 5k usuarios con calendario interactivo de eventos, pilares del programa y sorteo.
 
