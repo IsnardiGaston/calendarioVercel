@@ -18,6 +18,7 @@ module.exports = {
       fontFamily: {
         serif: ['DM Serif Display', 'serif'],
         sans: ['Cabinet Grotesk', 'sans-serif'],
+        playful: ['New Sun Playful', 'cursive'],
       },
       keyframes: {
         float: {

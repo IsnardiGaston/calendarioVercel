@@ -18,14 +18,14 @@ export function Pilares() {
         <div className="text-base font-black tracking-widest uppercase text-pink mb-2">
           El programa
         </div>
-        <h2 className="section-title mb-2">3 pilares, un mes entero</h2>
+        <h2 className="section-title mb-2">3 pilares, pensadas para vos</h2>
         <p className="section-desc">
           Actividades para que cuides tu cuerpo, entrenes tu mente y fortalezcas tu comunidad.
-          Work your way.
+          <span className="font-playful text-lg text-pink">Work your way</span>.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {PILARES.map((pilar, idx) => (
           <div
             key={pilar.id}
@@ -57,11 +57,11 @@ export function Pilares() {
               {pilar.descripcion}
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-nowrap gap-2">
               {pilar.tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`text-base font-black px-3 py-1 rounded-full border-1.5 ${
+                  className={`text-base font-black px-3 py-1 rounded-full border-1.5 whitespace-nowrap flex-shrink-0 ${
                     pilar.id === 'cuerpo'
                       ? 'border-orange text-orange bg-orange/10'
                       : pilar.id === 'mente'

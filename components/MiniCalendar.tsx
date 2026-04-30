@@ -57,17 +57,14 @@ export function MiniCalendar({ events, month, year }: MiniCalendarProps) {
           if (!isCurrentMonth) return <div key={i}></div>
 
           const hasMiniEvent = events.some((e) => e.day === day)
-          const hasFeriado = events.some((e) => e.day === day && e.cat === 'feriado')
 
           return (
             <div
               key={i}
               className={`aspect-square text-center text-base font-bold rounded flex items-center justify-center relative ${
-                hasFeriado
-                  ? 'bg-yellow/40 text-black'
-                  : isWeekend
-                    ? 'bg-arena-dk text-gray-600'
-                    : 'bg-arena text-teal'
+                isWeekend
+                  ? 'bg-arena-dk text-gray-600'
+                  : 'bg-arena text-teal'
               }`}
             >
               {day}

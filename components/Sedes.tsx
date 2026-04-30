@@ -47,7 +47,6 @@ export function Sedes({ events }: SedesProps) {
             const hasCuerpo = sedeEvents.some((e) => e.cat === 'cuerpo')
             const haMente = sedeEvents.some((e) => e.cat === 'mente')
             const haComunidad = sedeEvents.some((e) => e.cat === 'comunidad')
-            const haFeriado = sedeEvents.some((e) => e.cat === 'feriado')
 
             return (
               <div
@@ -72,9 +71,6 @@ export function Sedes({ events }: SedesProps) {
                     <span className="w-2 h-2 rounded-full bg-white flex-shrink-0"></span>
                   )}
                   {haComunidad && (
-                    <span className="w-2 h-2 rounded-full bg-yellow flex-shrink-0"></span>
-                  )}
-                  {haFeriado && (
                     <span className="w-2 h-2 rounded-full bg-yellow flex-shrink-0"></span>
                   )}
                 </div>

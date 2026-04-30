@@ -34,7 +34,8 @@ export function Calendar({ events, month, year }: CalendarProps) {
 
   const filterEvents = (day: number) => {
     return events.filter((e) => {
-      const matchesSede = selectedSede === 'all' || e.sedes.includes(selectedSede)
+      if (e.cat === 'feriado') return e.day === day
+      const matchesSede = selectedSede === 'all' || !e.sedes?.length || e.sedes.includes(selectedSede)
       const matchesCategory = selectedCategory === 'all' || e.cat === selectedCategory
       return e.day === day && matchesSede && matchesCategory
     })
@@ -59,8 +60,6 @@ export function Calendar({ events, month, year }: CalendarProps) {
         return 'bg-teal/20 text-teal border-l-4 border-teal'
       case 'comunidad':
         return 'bg-pink/20 text-pink border-l-4 border-pink'
-      case 'feriado':
-        return 'bg-yellow/20 text-yellow border-l-4 border-yellow'
       default:
         return ''
     }
@@ -74,8 +73,6 @@ export function Calendar({ events, month, year }: CalendarProps) {
         return 'Mente — Masterclass'
       case 'comunidad':
         return 'Comunidad — After & Coffee'
-      case 'feriado':
-        return 'Feriado'
       default:
         return ''
     }
@@ -133,16 +130,6 @@ export function Calendar({ events, month, year }: CalendarProps) {
               }`}
             >
               Comunidad
-            </button>
-            <button
-              onClick={() => setSelectedCategory('feriado')}
-              className={`btn-small ${
-                selectedCategory === 'feriado'
-                  ? 'bg-yellow text-black border-yellow'
-                  : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
-              }`}
-            >
-              Feriado
             </button>
           </div>
         </div>
@@ -234,7 +221,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
               return <div key={i} className="min-h-20 md:min-h-24"></div>
 
             const dayEvents = filterEvents(day)
-            const isHoliday = dayEvents.some((e) => e.cat === 'feriado')
+            const isHoliday = events.some((e) => e.day === day && e.cat === 'feriado')
 
             return (
               <div
@@ -246,7 +233,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                       ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                       : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                 }`}
-                style={isWeekend ? { backgroundColor: '#f9f5ee' } : undefined}
+                style={isWeekend && !isHoliday ? { backgroundColor: '#f9f5ee' } : undefined}
               >
                 <div className="text-base md:text-base font-black text-teal mb-1 md:mb-2 flex items-center gap-1">
                   {day}
@@ -308,16 +295,16 @@ export function Calendar({ events, month, year }: CalendarProps) {
                 const [year, month, day] = selectedEvent.date.split('-')
                 const monthName = MONTHS[parseInt(month) - 1]
                 const dayOfWeek = DAYS_OF_WEEK[(firstDay + parseInt(day) - 1) % 7]
-                return `${dayOfWeek} ${day} de ${monthName.toLowerCase()} ${year}`
-              })()} ·
-              {selectedEvent.time}
+                const timeOnly = selectedEvent.time.split(':').slice(0, 2).join(':')
+                return `${dayOfWeek} ${day} de ${monthName.toLowerCase()} ${year} · ${timeOnly}`
+              })()}
             </div>
 
             <p className="text-base leading-relaxed text-gray-700 mb-4">
               {selectedEvent.desc}
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-4">
               {selectedEvent.sedes.map((sede) => (
                 <span
                   key={sede}
@@ -327,6 +314,16 @@ export function Calendar({ events, month, year }: CalendarProps) {
                 </span>
               ))}
             </div>
+            {selectedEvent.url && (
+              <a
+                href={selectedEvent.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-pink text-white text-base font-black px-6 py-2 rounded-full hover:bg-pink/80 transition-colors"
+              >
+                Inscribite
+              </a>
+            )}
           </div>
         </div>
       )}

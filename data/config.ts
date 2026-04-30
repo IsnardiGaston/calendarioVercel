@@ -44,8 +44,8 @@ export const PILARES = [
     categoria: 'Cuerpo — Wellness',
     titulo: 'Movimiento & bienestar',
     descripcion:
-      'Actividades pensadas para cuidar tu cuerpo mientras trabajás: yoga, ergonomía y técnicas de bienestar que podés aplicar desde tu escritorio.',
-    tags: ['Yoga', 'Ergonomía', 'Técnicas de bienestar'],
+      'Un espacio para activar el cuerpo y sentirte mejor durante el día. Propuestas que combinan yoga y actividades deportivas para moverte, liberar tensiones y recargar energía, incluso en medio de la jornada.',
+    tags: ['Yoga', 'Entrenamiento funcional', 'Técnicas'],
     color: COLORS.orange,
   },
   {
@@ -55,8 +55,8 @@ export const PILARES = [
     categoria: 'Mente',
     titulo: 'Masterclass & charlas',
     descripcion:
-      'Una semana de masterclasses que transforman la manera en que trabajás y pensás tu carrera.',
-    tags: ['Masterclass', 'Productividad', 'Neurociencia'],
+      'De la mano de Nicolás Fernández Miranda — TEDx speaker, autor de Hackea tu Cerebro y maestría en Neurociencia — una serie de masterclasses que transforman la manera en que trabajás y pensás tu carrera.',
+    tags: ['Concentración', 'Hábitos', 'Procrastinación'],
     color: COLORS.teal,
   },
   {
@@ -66,8 +66,8 @@ export const PILARES = [
     categoria: 'Comunidad',
     titulo: 'After & Coffee Parties',
     descripcion:
-      'Actividades distendidas, interactivas de networking y disfrute para nuestra comunidad.',
-    tags: ['Piano Bar', 'Coffee Party', 'Party & Play', 'Networking'],
+      'Porque los mejores aprendizajes también pasan fuera del escritorio. Espacios diseñados para conectar, distenderse y disfrutar en comunidad — donde las conversaciones informales se convierten en las conexiones más valiosas.',
+    tags: ['Piano Bar', 'Coffee Party', 'After Office'],
     color: COLORS.pink,
   },
 ]

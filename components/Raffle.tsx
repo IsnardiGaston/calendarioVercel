@@ -51,7 +51,7 @@ export function Raffle() {
               {[
                 {
                   number: '1',
-                  text: 'Participá de cualquier actividad del mes — churros, masterclass, after, coffee party, yoga, ergonomía...',
+                  text: 'Participá de cualquier actividad del mes — masterclass, after, coffee party, yoga...',
                 },
                 {
                   number: '2',

@@ -53,14 +53,13 @@ export async function fetchEvents(): Promise<Event[]> {
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
       },
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     })
     if (!res.ok) {
       console.error('Strapi error:', res.statusText)
       return []
     }
     const data = await res.json()
-    console.log(data);
     
     
 
@@ -79,6 +78,7 @@ export async function fetchEvents(): Promise<Event[]> {
         time: item.Time || item.time || 'A confirmar',
         desc: item.Description || item.description || '',
         sedes: item.sedes?.map((s: any) => s.name || s) || item.sede || [],
+        url: item.URL || item.url,
       }
     }) || []
   } catch (error) {
