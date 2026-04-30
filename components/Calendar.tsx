@@ -98,9 +98,6 @@ export function Calendar({ events, month, year }: CalendarProps) {
     }
   }
 
-  console.log(Event);
-  
-
   return (
     <section ref={ref} id="calendario" className={`bg-arena border-b-2 border-teal p-5 md:p-12 lg:p-20 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
       {/* Header */}
