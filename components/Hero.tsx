@@ -22,7 +22,7 @@ export function Hero({ events, month, year }: HeroProps) {
   }
 
   return (
-    <section className="min-h-screen grid grid-cols-1 lg:grid-cols-2 pt-14 md:pt-14.5 relative overflow-hidden bg-arena">
+    <section className="min-h-[70vh] md:min-h-[80vh] lg:min-h-screen grid grid-cols-1 lg:grid-cols-2 pt-14 md:pt-14.5 relative overflow-hidden bg-arena">
       {/* Background text - Mes gigante */}
       <div
         className="hidden md:block absolute font-serif font-normal pointer-events-none leading-none whitespace-nowrap"
