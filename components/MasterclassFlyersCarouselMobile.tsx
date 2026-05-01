@@ -235,6 +235,35 @@ export function MasterclassFlyersCarouselMobile({ masterclasses = [] }: Props) {
   }
 
   useEffect(() => {
+    let touchStartX = 0
+    let touchEndX = 0
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.changedTouches[0].screenX
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEndX = e.changedTouches[0].screenX
+      if (touchStartX - touchEndX > 50) {
+        setNextIndex((currentIndex + 1) % masterclasses.length)
+        setSlideDirection('left')
+      } else if (touchEndX - touchStartX > 50) {
+        setNextIndex((currentIndex - 1 + masterclasses.length) % masterclasses.length)
+        setSlideDirection('right')
+      }
+    }
+
+    const section = document.querySelector('section')
+    section?.addEventListener('touchstart', handleTouchStart, false)
+    section?.addEventListener('touchend', handleTouchEnd, false)
+
+    return () => {
+      section?.removeEventListener('touchstart', handleTouchStart)
+      section?.removeEventListener('touchend', handleTouchEnd)
+    }
+  }, [currentIndex, masterclasses.length])
+
+  useEffect(() => {
     const interval = setInterval(() => {
       setNextIndex((currentIndex + 1) % masterclasses.length)
       setSlideDirection('left')
@@ -319,12 +348,27 @@ export function MasterclassFlyersCarouselMobile({ masterclasses = [] }: Props) {
           }
         }
 
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
         .flyer-enter-mobile {
           animation: ${slideDirection === 'left' ? 'slideInFromLeft' : 'slideInFromRight'} 0.5s ease-in-out forwards;
         }
 
         .flyer-exit-mobile {
           animation: ${slideDirection === 'left' ? 'slideOutToLeft' : 'slideOutToRight'} 0.5s ease-in-out forwards;
+        }
+
+        @media (max-width: 768px) {
+          p {
+            animation: fadeIn 0.6s ease-in;
+          }
         }
       `}</style>
 
@@ -340,39 +384,56 @@ export function MasterclassFlyersCarouselMobile({ masterclasses = [] }: Props) {
         <FlyerCardMobile flyer={displayFlyer} colorIndex={displayIndex} />
       </div>
 
-      {/* Dots Navigation */}
+      {/* Dots Navigation with Counter */}
       {masterclasses.length > 1 && (
         <div
           style={{
             display: 'flex',
-            justifyContent: 'center',
-            gap: '8px',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '12px',
             padding: '16px 0',
           }}
         >
-          {masterclasses.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleDotClick(idx)}
-              style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                border: 'none',
-                cursor: 'pointer',
-                background: idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)',
-                transition: 'all 0.3s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.6)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)'
-              }}
-              aria-label={`Ir al masterclass ${idx + 1}`}
-              aria-current={idx === currentIndex ? 'true' : 'false'}
-            />
-          ))}
+          <span
+            style={{
+              fontSize: '11px',
+              fontWeight: 500,
+              color: 'rgba(241, 234, 220, 0.7)',
+              letterSpacing: '0.05em',
+              textTransform: 'uppercase',
+            }}
+            role="status"
+            aria-live="polite"
+          >
+            {currentIndex + 1} / {masterclasses.length}
+          </span>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            {masterclasses.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleDotClick(idx)}
+                style={{
+                  width: '10px',
+                  height: '10px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '4px',
+                  background: idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.6)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)'
+                }}
+                aria-label={`Ir al masterclass ${idx + 1}`}
+                aria-current={idx === currentIndex ? 'true' : 'false'}
+              />
+            ))}
+          </div>
         </div>
       )}
     </section>
