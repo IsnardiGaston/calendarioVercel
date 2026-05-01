@@ -115,6 +115,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-teal text-white border-teal'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'all'}
             >
               Todas
             </button>
@@ -125,6 +126,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-orange text-white border-orange'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'cuerpo'}
             >
               Cuerpo
             </button>
@@ -135,6 +137,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-teal text-white border-teal'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'mente'}
             >
               Mente
             </button>
@@ -145,6 +148,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-pink text-white border-pink'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'comunidad'}
             >
               Comunidad
             </button>
@@ -301,7 +305,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
             const isWeekend = dow >= 5
 
             if (!isCurrentMonth) {
-              return <div key={i} className="min-h-16 md:min-h-20 lg:min-h-24"></div>
+              return <div key={i} className="min-h-20 md:min-h-24 lg:min-h-32"></div>
             }
 
             const dayEvents = filterEvents(day)
@@ -316,7 +320,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                     setSelectedEvent(holidayEvent)
                     setModalOpen(true)
                   }}
-                  className="min-h-24 md:min-h-28 lg:min-h-32 border-2 border-teal rounded-xl p-2 md:p-3 lg:p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group"
+                  className="min-h-20 md:min-h-24 lg:min-h-32 border-2 border-teal rounded-xl p-2 md:p-3 lg:p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-pink/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[calc(0.75rem-2px)]"></div>
                   <div className="relative z-10">
@@ -334,17 +338,17 @@ export function Calendar({ events, month, year }: CalendarProps) {
             return (
               <div
                 key={i}
-                className={`min-h-24 md:min-h-28 lg:min-h-32 border-1.5 rounded-xl p-1 md:p-1.5 transition-all cursor-pointer ${
+                className={`min-h-20 md:min-h-24 lg:min-h-32 border-1.5 rounded-xl p-1 md:p-1.5 transition-all cursor-pointer ${
                   isWeekend
                     ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                     : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                 }`}
                 style={isWeekend ? { backgroundColor: '#f9f5ee' } : undefined}
               >
-                <div className="text-base md:text-base font-black text-teal mb-1 md:mb-2">
+                <div className="text-sm md:text-base font-black text-teal mb-1 md:mb-2">
                   {day}
                 </div>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-0.5 md:gap-1">
                   {dayEvents.map((ev) => (
                     <button
                       key={ev.id}
@@ -352,9 +356,10 @@ export function Calendar({ events, month, year }: CalendarProps) {
                         setSelectedEvent(ev)
                         setModalOpen(true)
                       }}
-                      className={`text-sm p-1 rounded cursor-pointer hover:opacity-75 line-clamp-2 transition-opacity ${getCatColor(
+                      className={`text-xs md:text-sm p-0.5 md:p-1 rounded cursor-pointer hover:opacity-75 line-clamp-1 md:line-clamp-2 transition-opacity ${getCatColor(
                         ev.cat
                       )}`}
+                      aria-label={`${ev.title} - ${getCatLabel(ev.cat)}`}
                     >
                       {ev.title}
                     </button>

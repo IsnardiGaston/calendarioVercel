@@ -17,11 +17,11 @@ export function Sedes({ events }: SedesProps) {
       <section ref={ref} className={`bg-teal border-t-2 border-b-2 border-black p-6 md:p-10 lg:p-12 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="text-base font-black tracking-widest uppercase text-yellow mb-3">
-            Sumate al mes
+            ¡No te quedés afuera!
           </div>
           <p className="font-serif text-2xl md:text-3xl text-white/90 leading-relaxed italic">
             Para ser parte de las actividades y ser contado en los sorteos, escribí o anotate en el
-            front de tu sede principal a todas las actividades que tenemos para vos.
+            front de tu sede principal o inscribite desde la web a todas las actividades que tenemos para vos.
           </p>
         </div>
       </section>

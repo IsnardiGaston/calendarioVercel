@@ -1,12 +1,6 @@
-'use client'
-
-import { useInView } from '@/hooks/useInView'
-
 export function Footer() {
-  const { ref, isInView } = useInView()
-
   return (
-    <footer ref={ref} className={`bg-arena border-t-2 border-teal p-5 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-8 flex-wrap ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
+    <footer className="bg-arena border-t-2 border-teal p-5 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-8 flex-wrap">
       <div>
         <div className="logo text-lg md:text-2xl">
           WORKING<span className="amp">&</span>CO
@@ -20,7 +14,7 @@ export function Footer() {
         <div className="text-base md:text-base text-teal italic font-semibold">
           Trabajar mejor · Vivir mejor
         </div>
-        <div className="text-base text-gray-500 mt-1">
+        <div className="text-base text-gray-700 mt-1">
           Un mes dedicado a tu cuerpo, mente y comunidad
         </div>
       </div>

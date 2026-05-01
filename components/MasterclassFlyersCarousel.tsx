@@ -81,7 +81,7 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
   }
 
   return (
-    <div className="w-full min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] bg-arena text-black grid grid-cols-[1fr_280px] lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_400px] gap-8 lg:gap-12 xl:gap-16 p-6 lg:p-10 xl:p-12">
+    <div className="w-full bg-arena text-black grid grid-cols-1 lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_400px] gap-6 lg:gap-12 xl:gap-16 p-6 lg:p-10 xl:p-12 min-h-[420px] lg:min-h-[560px] xl:min-h-[680px]">
       <div className="flex flex-col justify-between min-w-0">
         <div className="flex justify-between items-center">
           <div className="inline-flex items-center gap-2 border border-black rounded-full px-3 py-1.5">
@@ -96,7 +96,7 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
           <div className="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full" style={{ background: topicColor }}></div>
         </div>
 
-        <h2 className="font-black text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-none mt-3 uppercase overflow-hidden" style={{ color: topicColor }}>{flyer.topic}</h2>
+        <h2 className="font-black text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-none mt-3 uppercase overflow-hidden break-words" style={{ color: topicColor }}>{flyer.topic}</h2>
 
         <h3 className="font-black text-xl lg:text-2xl xl:text-3xl leading-tight mt-3">{flyer.title}</h3>
 
@@ -112,7 +112,7 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
         </div>
       </div>
 
-      <div className="flex items-center justify-center h-full relative">
+      <div className="hidden lg:flex items-center justify-center h-full relative">
         <div className="w-full h-full rounded-2xl lg:rounded-3xl overflow-hidden relative" style={{ background: topicColor }}>
           {flyer.imageUrl && (
             <Image
