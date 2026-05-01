@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { Navigation } from '@/components/Navigation'
 import { Hero } from '@/components/Hero'
 import { Pilares } from '@/components/Pilares'
@@ -8,7 +9,9 @@ import { Newsletter } from '@/components/Newsletter'
 import { Footer } from '@/components/Footer'
 import { MOCK_EVENTS } from '@/data/events'
 import { fetchEvents, fetchConfig, fetchMasterclasses, type Masterclass } from '@/lib/strapi'
-import { MasterclassFlyersResponsive } from '@/components/MasterclassFlyersResponsive'
+import { MasterclassFlyersCarousel } from '@/components/MasterclassFlyersCarousel'
+import { MasterclassesSkeleton } from '@/components/MasterclassesSkeleton'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 export default async function Home() {
   // Try to fetch from Strapi, fallback to mock events
@@ -30,7 +33,9 @@ export default async function Home() {
     year = config.year
     masterclasses = strapiMasterclasses
   } catch (error) {
-    console.warn('Using mock data - Strapi not available')
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Using mock data - Strapi not available')
+    }
   }
 
   return (
@@ -41,7 +46,11 @@ export default async function Home() {
       <Calendar events={events} month={month} year={year} />
       <Raffle />
       <Sedes events={events} />
-      {masterclasses.length > 0 && <MasterclassFlyersResponsive masterclasses={masterclasses} />}
+      <ErrorBoundary>
+        <Suspense fallback={<MasterclassesSkeleton />}>
+          {masterclasses.length > 0 && <MasterclassFlyersCarousel masterclasses={masterclasses} />}
+        </Suspense>
+      </ErrorBoundary>
       <Newsletter />
       <Footer />
     </main>

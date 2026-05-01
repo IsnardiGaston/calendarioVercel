@@ -3,11 +3,12 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import type { Masterclass } from '@/lib/strapi'
+import { useCarousel, SWIPE_THRESHOLD_PX, SLIDE_DURATION_MS } from '@/hooks/useCarousel'
 
 const ICON_COLORS = [
-  'rgb(31, 143, 143)',   // Teal
-  'rgb(217, 119, 87)',   // Orange
-  'rgb(201, 162, 39)',   // Gold
+  'rgb(31, 143, 143)',
+  'rgb(217, 119, 87)',
+  'rgb(201, 162, 39)',
 ]
 
 const ICON_TYPES = ['circles', 'smiles', 'clock'] as const
@@ -40,228 +41,92 @@ const ICON_COMPONENTS = {
   ),
 }
 
-function FlyerCard({ flyer, colorIndex }: { flyer: Masterclass; colorIndex: number }) {
+function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorIndex: number; isMobile: boolean }) {
   const topicColor = ICON_COLORS[colorIndex % 3]
   const iconType = ICON_TYPES[colorIndex % 3]
   const iconSvg = ICON_COMPONENTS[iconType]
 
-  return (
-    <div
-      style={{
-        width: '100%',
-        height: '600px',
-        background: 'rgb(241, 234, 220)',
-        color: 'rgb(14, 27, 27)',
-        position: 'relative',
-        overflow: 'hidden',
-        fontFamily: 'Inter, system-ui, sans-serif',
-        display: 'grid',
-        gridTemplateColumns: '1fr 320px',
-        gap: '44px',
-        padding: '36px 48px 28px',
-        boxSizing: 'border-box',
-      }}
-    >
-      {/* Left Content */}
-      <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0, height: '100%' }}>
-        {/* Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '10px',
-              border: '1.5px solid rgb(14, 27, 27)',
-              borderRadius: '999px',
-              padding: '6px 13px 6px 7px',
-              fontSize: '13px',
-              fontWeight: 600,
-              letterSpacing: '0.02em',
-            }}
-          >
-            <span
-              style={{
-                width: '22px',
-                height: '22px',
-                borderRadius: '50%',
-                background: 'rgb(14, 27, 27)',
-                color: 'rgb(241, 234, 220)',
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '10px',
-                fontWeight: 800,
-              }}
-            >
-              {flyer.initials}
-            </span>
-            <span>{flyer.presenter}</span>
+  if (isMobile) {
+    return (
+      <div className="w-full min-h-72 bg-arena text-black p-4 flex flex-col gap-2">
+        <div className="flex justify-between items-center gap-2">
+          <div className="inline-flex items-center gap-1.5 border border-black rounded-full px-2 py-1">
+            <span className="w-4 h-4 rounded-full bg-black text-arena text-xs font-bold flex items-center justify-center">{flyer.initials}</span>
+            <span className="text-xs font-semibold">{flyer.presenter}</span>
           </div>
-          <div
-            style={{
-              fontFamily: 'Archivo, sans-serif',
-              fontWeight: 800,
-              fontSize: '15px',
-              letterSpacing: '0.08em',
-              opacity: 0.55,
-            }}
-          >
-            {flyer.date}
-          </div>
+          <div className="font-black text-xs opacity-55 whitespace-nowrap">{flyer.date}</div>
         </div>
 
-        {/* MasterClass Label */}
-        <div style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div
-            style={{
-              background: 'rgb(14, 27, 27)',
-              color: 'rgb(241, 234, 220)',
-              fontFamily: '"Archivo Black", sans-serif',
-              fontSize: '22px',
-              letterSpacing: '0.04em',
-              padding: '11px 22px',
-              borderRadius: '999px',
-              textTransform: 'uppercase',
-              lineHeight: 1,
-            }}
-          >
-            MasterClass
-          </div>
-          <div
-            style={{
-              width: '12px',
-              height: '12px',
-              borderRadius: '50%',
-              background: topicColor,
-            }}
-          ></div>
+        <div className="flex items-center gap-1.5">
+          <div className="bg-black text-arena font-black text-xs px-2.5 py-1 rounded-full uppercase">MasterClass</div>
+          <div className="w-1.5 h-1.5 rounded-full" style={{ background: topicColor }}></div>
         </div>
 
-        {/* Topic Title */}
-        <div style={{ marginTop: '14px' }}>
-          <div
-            style={{
-              fontFamily: '"Archivo Black", sans-serif',
-              fontSize: '89px',
-              lineHeight: 0.9,
-              letterSpacing: '-0.04em',
-              color: topicColor,
-              textTransform: 'uppercase',
-              whiteSpace: 'nowrap',
-              display: 'inline-block',
-            }}
-          >
-            {flyer.topic}
-          </div>
-        </div>
+        <h2 className="font-black text-lg leading-tight uppercase" style={{ color: topicColor }}>{flyer.topic}</h2>
 
-        {/* Main Title */}
-        <h1
-          style={{
-            margin: '14px 0px 0px',
-            fontFamily: 'Archivo, sans-serif',
-            fontWeight: 800,
-            fontSize: '28px',
-            lineHeight: 1.08,
-            letterSpacing: '-0.02em',
-            color: 'rgb(14, 27, 27)',
-            maxWidth: '760px',
-          }}
-        >
-          {flyer.title}
-        </h1>
+        <h3 className="font-bold text-sm leading-tight">{flyer.title}</h3>
 
-        {/* Description */}
-        <p
-          style={{
-            marginTop: '18px',
-            marginBottom: 0,
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '19px',
-            lineHeight: 1.42,
-            color: 'rgb(14, 27, 27)',
-            opacity: 0.86,
-            maxWidth: '760px',
-            fontWeight: 400,
-          }}
-        >
-          {flyer.description}
-        </p>
+        <p className="text-xs leading-relaxed opacity-86 line-clamp-2 flex-grow">{flyer.description}</p>
 
-        {/* Spacer */}
-        <div style={{ flex: '1 1 0%' }}></div>
-
-        {/* Footer */}
-        <div
-          style={{
-            borderTop: '1px solid rgb(14, 27, 27)',
-            paddingTop: '11px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            fontSize: '11px',
-            fontWeight: 500,
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-          }}
-        >
+        <div className="border-t border-black pt-1.5 text-xs font-semibold uppercase flex justify-between">
           <span>WORKING&CO</span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span
-              style={{
-                width: '6px',
-                height: '6px',
-                borderRadius: '50%',
-                background: topicColor,
-              }}
-            ></span>
+          <span className="flex items-center gap-1">
+            <span className="w-1 h-1 rounded-full" style={{ background: topicColor }}></span>
+            <span className="text-xs">{flyer.category}</span>
+          </span>
+          <span>2026</span>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="w-full h-96 bg-arena text-black grid grid-cols-[1fr_320px] gap-11 p-9">
+      <div className="flex flex-col justify-between min-w-0">
+        <div>
+          <div className="inline-flex items-center gap-2.5 border border-black rounded-full px-3 py-1.5">
+            <span className="w-5.5 h-5.5 rounded-full bg-black text-arena text-xs font-black flex items-center justify-center">{flyer.initials}</span>
+            <span className="text-sm font-semibold">{flyer.presenter}</span>
+          </div>
+
+          <div className="text-right font-black text-base opacity-55 mt-4">{flyer.date}</div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-3">
+          <div className="bg-black text-arena font-black text-lg px-5 py-3 rounded-full uppercase">MasterClass</div>
+          <div className="w-3 h-3 rounded-full" style={{ background: topicColor }}></div>
+        </div>
+
+        <h2 className="font-black text-5xl leading-tight mt-3 uppercase" style={{ color: topicColor }}>{flyer.topic}</h2>
+
+        <h3 className="font-black text-2xl leading-tight mt-3">{flyer.title}</h3>
+
+        <p className="text-lg leading-relaxed opacity-86 mt-4">{flyer.description}</p>
+
+        <div className="border-t border-black pt-2.5 text-xs font-semibold uppercase flex justify-between mt-auto">
+          <span>WORKING&CO</span>
+          <span className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: topicColor }}></span>
             {flyer.category}
           </span>
           <span>2026</span>
         </div>
       </div>
 
-      {/* Right Image */}
-      <div style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: '24px',
-            overflow: 'hidden',
-            position: 'relative',
-            background: topicColor,
-          }}
-        >
+      <div className="flex items-center justify-center h-full relative">
+        <div className="w-full h-full rounded-3xl overflow-hidden relative" style={{ background: topicColor }}>
           {flyer.imageUrl && (
             <Image
               src={flyer.imageUrl}
               alt={flyer.presenter}
               fill
-              sizes="100%"
-              style={{
-                objectFit: 'cover',
-              }}
+              sizes="320px"
+              style={{ objectFit: 'cover' }}
+              priority={false}
             />
           )}
         </div>
-        <div
-          style={{
-            position: 'absolute',
-            left: '-16px',
-            bottom: '-16px',
-            width: '64px',
-            height: '64px',
-            borderRadius: '50%',
-            background: 'rgb(14, 27, 27)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px',
-            boxSizing: 'border-box',
-            border: '3px solid rgb(241, 234, 220)',
-          }}
-        >
+        <div className="absolute -left-2 -bottom-2 w-16 h-16 rounded-full bg-black flex items-center justify-center p-4 border-2 border-arena">
           {iconSvg}
         </div>
       </div>
@@ -274,206 +139,132 @@ interface Props {
 }
 
 export function MasterclassFlyersCarousel({ masterclasses = [] }: Props) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [nextIndex, setNextIndex] = useState<number | null>(null)
-  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('left')
+  const [isMobile, setIsMobile] = useState(false)
+  const [isClient, setIsClient] = useState(false)
+  const [touchStartX, setTouchStartX] = useState(0)
 
-  if (!masterclasses || masterclasses.length === 0) {
-    return null
-  }
+  const carousel = useCarousel(masterclasses.length)
 
   useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
-        setNextIndex((currentIndex + 1) % masterclasses.length)
-        setSlideDirection('left')
-      } else if (e.key === 'ArrowLeft') {
-        setNextIndex((currentIndex - 1 + masterclasses.length) % masterclasses.length)
-        setSlideDirection('right')
+    setIsClient(true)
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    const handleTouchStart = (e: Event) => {
+      const touch = e as TouchEvent
+      setTouchStartX(touch.changedTouches[0].screenX)
+    }
+
+    const handleTouchEnd = (e: Event) => {
+      const touch = e as TouchEvent
+      const touchEndX = touch.changedTouches[0].screenX
+      if (touchStartX - touchEndX > SWIPE_THRESHOLD_PX) {
+        carousel.setIsPaused(true)
+        carousel.handleDotClick((carousel.currentIndex + 1) % masterclasses.length)
+        setTimeout(() => carousel.setIsPaused(false), SLIDE_DURATION_MS)
+      } else if (touchEndX - touchStartX > SWIPE_THRESHOLD_PX) {
+        carousel.setIsPaused(true)
+        carousel.handleDotClick((carousel.currentIndex - 1 + masterclasses.length) % masterclasses.length)
+        setTimeout(() => carousel.setIsPaused(false), SLIDE_DURATION_MS)
       }
     }
 
-    window.addEventListener('keydown', handleKeyPress)
-    return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentIndex, masterclasses.length])
+    const section = document.querySelector('section[data-carousel]')
+    section?.addEventListener('touchstart', handleTouchStart as EventListener, false)
+    section?.addEventListener('touchend', handleTouchEnd as EventListener, false)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setNextIndex((currentIndex + 1) % masterclasses.length)
-      setSlideDirection('left')
-    }, 8000)
-
-    return () => clearInterval(interval)
-  }, [currentIndex, masterclasses.length])
-
-  useEffect(() => {
-    if (nextIndex !== null) {
-      const timer = setTimeout(() => {
-        setCurrentIndex(nextIndex)
-        setNextIndex(null)
-      }, 500)
-      return () => clearTimeout(timer)
+    return () => {
+      section?.removeEventListener('touchstart', handleTouchStart as EventListener)
+      section?.removeEventListener('touchend', handleTouchEnd as EventListener)
     }
-  }, [nextIndex])
+  }, [touchStartX, carousel, masterclasses.length])
 
-  const handleDotClick = (index: number) => {
-    if (index > currentIndex) {
-      setSlideDirection('left')
-    } else if (index < currentIndex) {
-      setSlideDirection('right')
-    }
-    setNextIndex(index)
+  if (!isClient || masterclasses.length === 0) {
+    return (
+      <section className="w-full py-8 px-4 text-center">
+        <p className="text-gray-500">Próximamente — masterclasses en preparación</p>
+      </section>
+    )
   }
 
-  const currentFlyer = masterclasses[currentIndex]
-  const displayFlyer = nextIndex !== null ? masterclasses[nextIndex] : currentFlyer
-  const displayIndex = nextIndex !== null ? nextIndex : currentIndex
+  const currentFlyer = masterclasses[carousel.currentIndex]
+  const displayFlyer = carousel.nextIndex !== null ? masterclasses[carousel.nextIndex] : currentFlyer
+  const displayIndex = carousel.nextIndex !== null ? carousel.nextIndex : carousel.currentIndex
 
   return (
     <section
-      style={{
-        position: 'relative',
-        width: '100%',
-        overflow: 'hidden',
-      }}
+      data-carousel
+      className="w-full overflow-hidden relative"
+      onMouseEnter={carousel.handleMouseEnter}
+      onMouseLeave={carousel.handleMouseLeave}
     >
       <style>{`
         @keyframes slideInFromLeft {
-          from {
-            transform: translateX(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
+          from { transform: translateX(100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
         }
-
         @keyframes slideInFromRight {
-          from {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
+          from { transform: translateX(-100%); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
         }
-
         @keyframes slideOutToLeft {
-          from {
-            transform: translateX(0);
-            opacity: 1;
-          }
-          to {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(-100%); opacity: 0; }
         }
-
         @keyframes slideOutToRight {
-          from {
-            transform: translateX(0);
-            opacity: 1;
-          }
-          to {
-            transform: translateX(100%);
-            opacity: 0;
-          }
+          from { transform: translateX(0); opacity: 1; }
+          to { transform: translateX(100%); opacity: 0; }
         }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
         .flyer-enter {
-          animation: ${slideDirection === 'left' ? 'slideInFromLeft' : 'slideInFromRight'} 0.5s ease-in-out forwards;
+          animation: ${carousel.slideDirection === 'left' ? 'slideInFromLeft' : 'slideInFromRight'} 0.5s ease-in-out forwards;
         }
-
         .flyer-exit {
-          animation: ${slideDirection === 'left' ? 'slideOutToLeft' : 'slideOutToRight'} 0.5s ease-in-out forwards;
-        }
-
-        img {
-          animation: fadeIn 0.8s ease-in;
+          animation: ${carousel.slideDirection === 'left' ? 'slideOutToLeft' : 'slideOutToRight'} 0.5s ease-in-out forwards;
         }
       `}</style>
 
-      {/* Current Flyer (exiting) */}
-      {nextIndex !== null && (
-        <div className="flyer-exit" style={{ position: 'absolute', width: '100%', height: '100%', zIndex: 1 }}>
-          <FlyerCard flyer={currentFlyer} colorIndex={currentIndex} />
+      {carousel.nextIndex !== null && (
+        <div className="flyer-exit absolute w-full h-full z-10">
+          <FlyerCard flyer={currentFlyer} colorIndex={carousel.currentIndex} isMobile={isMobile} />
         </div>
       )}
 
-      {/* Display Flyer (entering or static) */}
-      <div className={nextIndex !== null ? 'flyer-enter' : ''} style={{ position: 'relative', width: '100%', zIndex: 2 }}>
-        <FlyerCard flyer={displayFlyer} colorIndex={displayIndex} />
+      <div className={carousel.nextIndex !== null ? 'flyer-enter' : ''}>
+        <FlyerCard flyer={displayFlyer} colorIndex={displayIndex} isMobile={isMobile} />
       </div>
 
-      {/* Preload next slide image */}
+      {/* Preload next image */}
       {masterclasses.length > 1 && (
-        <link
-          rel="preload"
-          as="image"
-          href={masterclasses[(currentIndex + 1) % masterclasses.length].imageUrl}
-        />
+        <link rel="preload" as="image" href={masterclasses[(carousel.currentIndex + 1) % masterclasses.length].imageUrl} />
       )}
 
-      {/* Dots Navigation with Counter */}
+      {/* Navigation */}
       {masterclasses.length > 1 && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '20px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: '16px',
-            zIndex: 100,
-          }}
-        >
-          <span
-            style={{
-              fontSize: '12px',
-              fontWeight: 500,
-              color: 'rgba(241, 234, 220, 0.7)',
-              letterSpacing: '0.05em',
-            }}
-            role="status"
-            aria-live="polite"
-          >
-            {currentIndex + 1} / {masterclasses.length}
+        <div className={`flex items-center justify-center gap-4 z-20 relative ${isMobile ? 'flex-col py-4' : 'absolute bottom-5 left-1/2 -translate-x-1/2'}`}>
+          <span className="text-xs font-semibold text-arena opacity-70 uppercase tracking-wider" role="status" aria-live="polite">
+            {carousel.currentIndex + 1} / {masterclasses.length}
           </span>
-          <div style={{ display: 'flex', gap: '12px' }}>
+          <div className={`flex ${isMobile ? 'gap-2.5' : 'gap-3'}`}>
             {masterclasses.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => handleDotClick(idx)}
+                onClick={() => carousel.handleDotClick(idx)}
+                className={`rounded-full border-none cursor-pointer transition-all focus-visible:ring-2 focus-visible:ring-arena focus-visible:ring-offset-2 ${isMobile ? 'w-2.5 h-2.5 p-1' : 'w-3 h-3'}`}
                 style={{
-                  width: '12px',
-                  height: '12px',
-                  borderRadius: '50%',
-                  border: 'none',
-                  cursor: 'pointer',
-                  background: idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)',
-                  transition: 'all 0.3s ease',
+                  background: idx === carousel.currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.6)'
+                  e.currentTarget.style.background = idx === carousel.currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.6)'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = idx === currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)'
+                  e.currentTarget.style.background = idx === carousel.currentIndex ? 'rgb(241, 234, 220)' : 'rgba(241, 234, 220, 0.4)'
                 }}
                 aria-label={`Ir al masterclass ${idx + 1}`}
-                aria-current={idx === currentIndex ? 'true' : 'false'}
+                aria-current={idx === carousel.currentIndex ? 'true' : 'false'}
               />
             ))}
           </div>
