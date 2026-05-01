@@ -18,7 +18,7 @@ export function Pilares() {
         <div className="text-sm md:text-base font-black tracking-widest uppercase text-pink mb-2">
           El programa
         </div>
-        <h2 className="section-title mb-2">3 pilares, pensadas para vos</h2>
+        <h2 className="section-title mb-2">3 pilares, pensados para vos</h2>
         <p className="section-desc">
           Actividades para que cuides tu cuerpo, entrenes tu mente y fortalezcas tu comunidad.
           <span className="font-playful text-lg text-pink">Work your way</span>.
