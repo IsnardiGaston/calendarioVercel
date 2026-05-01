@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Serif_Display } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import { Navigation } from '@/components/Navigation'
 
@@ -53,6 +54,7 @@ export default function RootLayout({
       <body className="font-sans bg-arena text-black">
         <Navigation />
         {children}
+        <Analytics />
       </body>
     </html>
   )
