@@ -29,7 +29,8 @@ export function Footer() {
         href="https://www.workingand.co"
         target="_blank"
         rel="noopener noreferrer"
-        className="text-teal no-underline text-base md:text-base font-black border-b-2 border-pink pb-0.5 hover:text-pink transition-colors"
+        className="text-teal no-underline text-base md:text-base font-black border-b-2 border-pink pb-0.5 hover:text-pink active:scale-95 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 transition-all duration-200"
+        aria-label="Ir a workingand.co - abre en una nueva ventana"
       >
         workingand.co →
       </a>

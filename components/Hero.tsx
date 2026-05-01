@@ -25,7 +25,7 @@ export function Hero({ events, month, year }: HeroProps) {
     <section className="min-h-screen grid grid-cols-1 lg:grid-cols-2 pt-14 md:pt-14.5 relative overflow-hidden bg-arena">
       {/* Background text - Mes gigante */}
       <div
-        className="absolute font-serif font-normal pointer-events-none leading-none whitespace-nowrap"
+        className="hidden md:block absolute font-serif font-normal pointer-events-none leading-none whitespace-nowrap"
         style={{
           fontSize: '22vw',
           bottom: '-2rem',
@@ -76,7 +76,8 @@ export function Hero({ events, month, year }: HeroProps) {
                   window.dispatchEvent(event)
                 }
               }}
-              className="btn-small border-teal text-teal bg-transparent hover:bg-teal hover:text-white text-base px-3 py-1 cursor-pointer transition-colors"
+              className="btn-small border-teal text-teal bg-transparent hover:bg-teal hover:text-white text-base px-3 py-1 cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 rounded active:scale-95"
+              aria-label={`Filtrar por sede ${sede}`}
             >
               {sede}
             </button>
@@ -84,10 +85,18 @@ export function Hero({ events, month, year }: HeroProps) {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2 md:gap-2.5">
-          <button onClick={scrollToCalendar} className="btn-primary">
+          <button
+            onClick={scrollToCalendar}
+            className="btn-primary focus:outline-none focus:ring-2 focus:ring-pink focus:ring-offset-2 active:scale-95 transition-all duration-200"
+            aria-label="Desplazarse al calendario completo"
+          >
             Ver calendario
           </button>
-          <button onClick={scrollToPilares} className="btn-secondary">
+          <button
+            onClick={scrollToPilares}
+            className="btn-secondary focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:scale-95 transition-all duration-200"
+            aria-label="Desplazarse a los pilares del programa"
+          >
             Conocer más
           </button>
         </div>

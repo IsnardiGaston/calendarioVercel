@@ -26,8 +26,8 @@ export function Raffle() {
           </p>
 
           {/* Draw date card */}
-          <div className="flex items-center gap-3 md:gap-4 bg-white/15 rounded-2xl p-4 md:p-5">
-            <div className="text-3xl md:text-4xl flex-shrink-0">🗓️</div>
+          <div className="flex items-center gap-3 md:gap-4 bg-white/15 rounded-2xl p-4 md:p-5 border-1.5 border-white/20 hover:bg-white/20 hover:border-white/40 transition-all duration-300 focus-within:ring-2 focus-within:ring-yellow focus-within:ring-offset-2 focus-within:ring-offset-pink">
+            <div className="text-3xl md:text-4xl flex-shrink-0" aria-hidden="true">🗓️</div>
             <div>
               <div className="text-base font-black tracking-widest uppercase text-yellow">
                 Fecha del sorteo
@@ -47,7 +47,7 @@ export function Raffle() {
               ¿Cómo funciona?
             </div>
 
-            <div className="space-y-4">
+            <ol className="space-y-4">
               {[
                 {
                   number: '1',
@@ -62,16 +62,16 @@ export function Raffle() {
                   text: 'El 29 de mayo hacemos el sorteo en vivo con toda la comunidad W&Co.',
                 },
               ].map((step) => (
-                <div key={step.number} className="flex items-start gap-3 md:gap-4">
-                  <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-yellow flex items-center justify-center font-black text-base md:text-base text-black flex-shrink-0">
+                <li key={step.number} className="flex items-start gap-3 md:gap-4">
+                  <span className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-yellow flex items-center justify-center font-black text-base md:text-base text-black flex-shrink-0" aria-label={`Paso ${step.number}`}>
                     {step.number}
-                  </div>
+                  </span>
                   <p className="text-base md:text-base text-white/90 leading-relaxed pt-1">
                     {step.text}
                   </p>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </div>

@@ -51,27 +51,29 @@ export function Sedes({ events }: SedesProps) {
             return (
               <div
                 key={sede}
-                className="border-1.5 border-white/20 rounded-2xl p-4 md:p-6 transition-all hover:border-yellow hover:bg-white/10"
+                className="border-1.5 border-white/20 rounded-2xl p-4 md:p-6 transition-all hover:border-yellow hover:bg-white/10 focus-within:border-yellow focus-within:ring-2 focus-within:ring-yellow focus-within:ring-offset-2 focus-within:ring-offset-teal cursor-pointer group"
                 style={{ transitionDelay: `${i * 0.07}s` }}
+                role="article"
+                aria-label={`Sede ${sede} con ${sedeEvents.length} actividad${sedeEvents.length !== 1 ? 'es' : ''}`}
               >
-                <div className="font-serif text-5xl text-white/40 font-light mb-2">
+                <div className="font-serif text-6xl md:text-7xl text-white/50 font-light mb-3 group-hover:text-white/70 transition-colors">
                   0{i + 1}
                 </div>
-                <div className="text-lg md:text-xl font-black text-white mb-1">
+                <div className="text-lg md:text-xl font-black text-white mb-2">
                   {sede}
                 </div>
-                <div className="text-base text-white font-medium mb-3">
-                  {sedeEvents.length} actividad{sedeEvents.length !== 1 ? 'es' : ''} en mayo
+                <div className="text-base text-white/90 font-medium mb-4">
+                  <span className="font-black text-yellow">{sedeEvents.length}</span> actividad{sedeEvents.length !== 1 ? 'es' : ''} en mayo
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2" aria-label="Categorías disponibles">
                   {hasCuerpo && (
-                    <span className="w-2 h-2 rounded-full bg-orange flex-shrink-0"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-orange flex-shrink-0" aria-label="Cuerpo - Wellness"></span>
                   )}
                   {haMente && (
-                    <span className="w-2 h-2 rounded-full bg-white flex-shrink-0"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-white flex-shrink-0" aria-label="Mente - Masterclass"></span>
                   )}
                   {haComunidad && (
-                    <span className="w-2 h-2 rounded-full bg-yellow flex-shrink-0"></span>
+                    <span className="w-2.5 h-2.5 rounded-full bg-yellow flex-shrink-0" aria-label="Comunidad - After & Coffee"></span>
                   )}
                 </div>
               </div>

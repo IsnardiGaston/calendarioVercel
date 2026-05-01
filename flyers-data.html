@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MasterClass Flyers - Working&Co</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #0E1B1B;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .flyer-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .flyer {
+            flex-shrink: 0;
+            width: 1280px;
+            height: 720px;
+            background: rgb(241, 234, 220);
+            color: rgb(14, 27, 27);
+            position: relative;
+            overflow: hidden;
+            font-family: Inter, system-ui, sans-serif;
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 44px;
+            padding: 36px 48px 28px;
+            box-sizing: border-box;
+        }
+
+        .flyer-content {
+            display: flex;
+            flex-direction: column;
+            min-width: 0px;
+            height: 100%;
+        }
+
+        .flyer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .presenter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 1.5px solid rgb(14, 27, 27);
+            border-radius: 999px;
+            padding: 6px 13px 6px 7px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        .presenter-initials {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: rgb(14, 27, 27);
+            color: rgb(241, 234, 220);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .date {
+            font-family: Archivo, sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0.08em;
+            opacity: 0.55;
+        }
+
+        .masterclass-label {
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .masterclass-badge {
+            background: rgb(14, 27, 27);
+            color: rgb(241, 234, 220);
+            font-family: "Archivo Black", sans-serif;
+            font-size: 22px;
+            letter-spacing: 0.04em;
+            padding: 11px 22px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .topic-title {
+            margin-top: 14px;
+            font-family: "Archivo Black", sans-serif;
+            font-size: 89px;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .flyer h1 {
+            margin: 14px 0px 0px;
+            font-family: Archivo, sans-serif;
+            font-weight: 800;
+            font-size: 28px;
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            color: rgb(14, 27, 27);
+            text-wrap: pretty;
+            max-width: 760px;
+        }
+
+        .flyer p {
+            margin-top: 18px;
+            margin-bottom: 0px;
+            font-family: Inter, sans-serif;
+            font-size: 19px;
+            line-height: 1.42;
+            color: rgb(14, 27, 27);
+            opacity: 0.86;
+            max-width: 760px;
+            font-weight: 400;
+            text-wrap: pretty;
+        }
+
+        .flyer-spacer {
+            flex: 1 1 0%;
+        }
+
+        .flyer-footer {
+            border-top: 1px solid rgb(14, 27, 27);
+            padding-top: 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .flyer-image-container {
+            position: relative;
+            height: 100%;
+        }
+
+        .flyer-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .flyer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .flyer-icon {
+            position: absolute;
+            left: -16px;
+            bottom: -16px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: rgb(14, 27, 27);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            box-sizing: border-box;
+            border: 3px solid rgb(241, 234, 220);
+        }
+
+        .flyer-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="flyer-container">
+        <!-- FLYER 1: CONCENTRACIÓN -->
+        <div class="flyer">
+            <div class="flyer-content">
+                <div class="flyer-header">
+                    <div class="presenter-badge">
+                        <span class="presenter-initials">NF</span>
+                        <span>Nico Fernández Miranda</span>
+                    </div>
+                    <div class="date">18 / 05</div>
+                </div>
+                <div class="masterclass-label">
+                    <div class="masterclass-badge">MasterClass</div>
+                    <div class="color-dot" style="background: rgb(31, 143, 143);"></div>
+                </div>
+                <div style="margin-top: 14px;">
+                    <div class="topic-title" style="color: rgb(31, 143, 143);">CONCENTRACIÓN</div>
+                </div>
+                <h1>Atención bajo amenaza: por qué se te escapa el foco y cómo recuperarlo</h1>
+                <p>Trabajás más horas que nunca y rendís menos que antes. Te muestro qué le está pasando a tu cerebro y qué dice la evidencia para volver a concentrarte.</p>
+                <div class="flyer-spacer"></div>
+                <div class="flyer-footer">
+                    <span>WORKING&CO</span>
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 6px; height: 6px; border-radius: 50%; background: rgb(31, 143, 143);"></span>
+                        Neurociencia aplicada
+                    </span>
+                    <span>2026</span>
+                </div>
+            </div>
+            <div class="flyer-image-container">
+                <div class="flyer-image" style="background: rgb(31, 143, 143);">
+                    <img src="blob:null/3fc92144-c73c-4285-8320-a0eddb979761" alt="Nico Fernández Miranda">
+                </div>
+                <div class="flyer-icon">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="44" fill="none" stroke="#F1EADC" stroke-width="6"></circle>
+                        <circle cx="50" cy="50" r="28" fill="none" stroke="#F1EADC" stroke-width="6"></circle>
+                        <circle cx="50" cy="50" r="10" fill="#F1EADC"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLYER 2: HÁBITOS -->
+        <div class="flyer">
+            <div class="flyer-content">
+                <div class="flyer-header">
+                    <div class="presenter-badge">
+                        <span class="presenter-initials">NF</span>
+                        <span>Nico Fernández Miranda</span>
+                    </div>
+                    <div class="date">19 / 05</div>
+                </div>
+                <div class="masterclass-label">
+                    <div class="masterclass-badge">MasterClass</div>
+                    <div class="color-dot" style="background: rgb(217, 119, 87);"></div>
+                </div>
+                <div style="margin-top: 14px;">
+                    <div class="topic-title" style="color: rgb(217, 119, 87);">HÁBITOS</div>
+                </div>
+                <h1>Arrancás siempre, terminás nunca: la neurociencia de los hábitos que no aguantan</h1>
+                <p>La motivación dura tres semanas; un sistema bien diseñado dura años. Vamos a ver qué tiene que pasar en tu cerebro para que un hábito se instale de verdad.</p>
+                <div class="flyer-spacer"></div>
+                <div class="flyer-footer">
+                    <span>WORKING&CO</span>
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 6px; height: 6px; border-radius: 50%; background: rgb(217, 119, 87);"></span>
+                        Neurociencia aplicada
+                    </span>
+                    <span>2026</span>
+                </div>
+            </div>
+            <div class="flyer-image-container">
+                <div class="flyer-image" style="background: rgb(217, 119, 87);">
+                    <img src="blob:null/5caf454d-2103-42c3-b7d9-43affff2946f" alt="Nico Fernández Miranda">
+                </div>
+                <div class="flyer-icon">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100">
+                        <path d="M 14 70 A 18 18 0 0 1 50 70" fill="none" stroke="#F1EADC" stroke-width="7" stroke-linecap="round"></path>
+                        <path d="M 38 56 A 22 22 0 0 1 82 56" fill="none" stroke="#F1EADC" stroke-width="7" stroke-linecap="round"></path>
+                        <circle cx="14" cy="70" r="5" fill="#F1EADC"></circle>
+                        <circle cx="50" cy="70" r="5" fill="#F1EADC"></circle>
+                        <circle cx="38" cy="56" r="5" fill="#F1EADC"></circle>
+                        <circle cx="82" cy="56" r="5" fill="#F1EADC"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLYER 3: PROCRASTINACIÓN -->
+        <div class="flyer">
+            <div class="flyer-content">
+                <div class="flyer-header">
+                    <div class="presenter-badge">
+                        <span class="presenter-initials">NF</span>
+                        <span>Nico Fernández Miranda</span>
+                    </div>
+                    <div class="date">20 / 05</div>
+                </div>
+                <div class="masterclass-label">
+                    <div class="masterclass-badge">MasterClass</div>
+                    <div class="color-dot" style="background: rgb(201, 162, 39);"></div>
+                </div>
+                <div style="margin-top: 14px;">
+                    <div class="topic-title" style="color: rgb(201, 162, 39);">PROCRASTINACIÓN</div>
+                </div>
+                <h1>Sé lo que tengo que hacer, pero no me sale: la mecánica neuronal de postergar</h1>
+                <p>Procrastinar no es vagancia ni falta de carácter, es una respuesta emocional con un mapa cerebral preciso. Vas a entender por qué tu cerebro frena justo cuando más necesitás avanzar.</p>
+                <div class="flyer-spacer"></div>
+                <div class="flyer-footer">
+                    <span>WORKING&CO</span>
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        <span style="width: 6px; height: 6px; border-radius: 50%; background: rgb(201, 162, 39);"></span>
+                        Neurociencia aplicada
+                    </span>
+                    <span>2026</span>
+                </div>
+            </div>
+            <div class="flyer-image-container">
+                <div class="flyer-image" style="background: rgb(201, 162, 39);">
+                    <img src="blob:null/f5059a34-9bec-4997-bf8c-fbddf0d834f2" alt="Nico Fernández Miranda">
+                </div>
+                <div class="flyer-icon">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="38" fill="none" stroke="#F1EADC" stroke-width="6" stroke-dasharray="180 40" transform="rotate(-90 50 50)" stroke-linecap="round"></circle>
+                        <line x1="50" y1="50" x2="50" y2="22" stroke="#F1EADC" stroke-width="6" stroke-linecap="round"></line>
+                        <line x1="50" y1="50" x2="72" y2="50" stroke="#F1EADC" stroke-width="6" stroke-linecap="round"></line>
+                        <circle cx="50" cy="50" r="6" fill="#F1EADC"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

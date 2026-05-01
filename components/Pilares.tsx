@@ -29,15 +29,28 @@ export function Pilares() {
         {PILARES.map((pilar, idx) => (
           <div
             key={pilar.id}
-            className={`p-4 md:p-6 lg:p-8 relative overflow-hidden transition-colors duration-200 hover:bg-white ${
-              idx !== PILARES.length - 1 ? 'md:border-r-2 border-teal' : ''
-            }`}
+            className={`p-4 md:p-6 lg:p-8 relative overflow-hidden transition-all duration-300 hover:bg-white focus-within:bg-white focus-within:ring-2 focus-within:ring-offset-2 rounded-lg group ${
+              pilar.id === 'cuerpo'
+                ? 'focus-within:ring-orange'
+                : pilar.id === 'mente'
+                  ? 'focus-within:ring-teal'
+                  : 'focus-within:ring-pink'
+            } ${idx !== PILARES.length - 1 ? 'md:border-r-2 border-teal' : ''}`}
           >
-            <div className="absolute top-0 right-0 text-6xl font-serif text-teal opacity-10 pointer-events-none">
+            <div className="absolute top-0 right-0 text-6xl md:text-7xl font-serif text-teal opacity-10 group-hover:opacity-20 pointer-events-none transition-opacity">
               {pilar.numero}
             </div>
 
-            <div className="flex items-center justify-center w-12 h-12 rounded-full border-2 border-teal mb-3 text-3xl flex-shrink-0">
+            <div
+              className={`flex items-center justify-center w-12 h-12 rounded-full border-2 mb-3 text-3xl flex-shrink-0 transition-all ${
+                pilar.id === 'cuerpo'
+                  ? 'border-orange group-hover:bg-orange/10'
+                  : pilar.id === 'mente'
+                    ? 'border-teal group-hover:bg-teal/10'
+                    : 'border-pink group-hover:bg-pink/10'
+              }`}
+              aria-label={`Icono de ${pilar.categoria}`}
+            >
               {pilar.emoji}
             </div>
 
@@ -57,16 +70,17 @@ export function Pilares() {
               {pilar.descripcion}
             </p>
 
-            <div className="flex flex-nowrap gap-2">
+            <div className="flex flex-wrap gap-2" role="list">
               {pilar.tags.map((tag) => (
                 <span
                   key={tag}
-                  className={`text-base font-black px-3 py-1 rounded-full border-1.5 whitespace-nowrap flex-shrink-0 ${
+                  role="listitem"
+                  className={`text-base font-black px-3 py-1 rounded-full border-1.5 flex-shrink-0 transition-all ${
                     pilar.id === 'cuerpo'
-                      ? 'border-orange text-orange bg-orange/10'
+                      ? 'border-orange text-orange bg-orange/10 group-hover:bg-orange/20'
                       : pilar.id === 'mente'
-                        ? 'border-teal text-teal bg-teal/10'
-                        : 'border-pink text-pink bg-pink/10'
+                        ? 'border-teal text-teal bg-teal/10 group-hover:bg-teal/20'
+                        : 'border-pink text-pink bg-pink/10 group-hover:bg-pink/20'
                   }`}
                 >
                   {tag}
