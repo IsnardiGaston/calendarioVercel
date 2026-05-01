@@ -1,12 +1,6 @@
-'use client'
-
-import { useInView } from '@/hooks/useInView'
-
 export function Footer() {
-  const { ref, isInView } = useInView({ threshold: 0 })
-
   return (
-    <footer ref={ref} className={`bg-arena border-t-2 border-teal p-5 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-8 flex-wrap ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
+    <footer className="bg-arena border-t-2 border-teal p-5 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-8 flex-wrap">
       <div>
         <div className="logo text-lg md:text-2xl">
           WORKING<span className="amp">&</span>CO
