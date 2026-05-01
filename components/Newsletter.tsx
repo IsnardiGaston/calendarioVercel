@@ -8,7 +8,7 @@ export function Newsletter() {
   return (
     <section
       ref={ref}
-      className={`bg-arena border-t-2 border-teal border-b-2 p-5 md:p-12 lg:p-20 relative overflow-hidden ${
+      className={`bg-arena border-t-2 border-teal border-b-2 p-5 md:p-8 lg:p-12 xl:p-20 relative overflow-hidden ${
         isInView ? 'animate-revealIn' : 'opacity-0'
       }`}
     >

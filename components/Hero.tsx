@@ -39,29 +39,29 @@ export function Hero({ events, month, year }: HeroProps) {
       </div>
 
       {/* Left content */}
-      <div className="flex flex-col justify-center p-5 md:p-8 lg:p-20 relative z-10">
-        <div className="inline-flex items-center gap-2 bg-pink text-white text-base font-black px-4 py-2 rounded-full mb-6 md:mb-8 w-fit shadow-lg">
+      <div className="flex flex-col justify-center p-5 md:p-10 lg:p-14 xl:p-20 relative z-10">
+        <div className="inline-flex items-center gap-2 bg-pink text-white text-sm md:text-base font-black px-4 py-2 rounded-full mb-5 md:mb-8 w-fit shadow-lg">
           <span className="w-1.5 h-1.5 bg-white rounded-full flex-shrink-0"></span>
           {currentMonth} {currentYear} · Todas las sedes
         </div>
 
-        <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl text-teal leading-tight font-light mb-2">
+        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-teal leading-tight font-light mb-2">
           Mes del
           <br />
           <span className="italic text-pink">Trabajador</span>
         </h1>
 
-        <div className="font-serif text-2xl md:text-3xl text-teal-lt mb-6 md:mb-8 tracking-wider">
+        <div className="font-serif text-xl sm:text-2xl md:text-3xl text-teal-lt mb-5 md:mb-8 tracking-wider">
           {currentYear}
         </div>
 
-        <p className="text-base md:text-lg font-medium text-black mb-6 md:mb-8 border-l-4 border-pink pl-4 max-w-md leading-relaxed">
+        <p className="text-sm sm:text-base md:text-lg font-medium text-black mb-5 md:mb-8 border-l-4 border-pink pl-4 max-w-md leading-relaxed">
           Trabajar mejor · Vivir mejor
           <br />
           Un mes dedicado a tu cuerpo, mente y comunidad.
         </p>
 
-        <div className="flex flex-wrap gap-2 md:gap-1.5 mb-6 md:mb-8">
+        <div className="flex flex-wrap gap-2 md:gap-1.5 mb-5 md:mb-8">
           {SEDES.map((sede) => (
             <button
               key={sede}
