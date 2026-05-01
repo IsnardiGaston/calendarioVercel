@@ -81,27 +81,26 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
   }
 
   return (
-    <div className="w-full h-screen bg-arena text-black grid grid-cols-[1fr_400px] gap-16 p-12">
+    <div className="w-full min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] bg-arena text-black grid grid-cols-[1fr_280px] lg:grid-cols-[1fr_320px] xl:grid-cols-[1fr_400px] gap-8 lg:gap-12 xl:gap-16 p-6 lg:p-10 xl:p-12">
       <div className="flex flex-col justify-between min-w-0">
-        <div>
-          <div className="inline-flex items-center gap-2.5 border border-black rounded-full px-3 py-1.5">
-            <span className="w-5.5 h-5.5 rounded-full bg-black text-arena text-xs font-black flex items-center justify-center">{flyer.initials}</span>
+        <div className="flex justify-between items-center">
+          <div className="inline-flex items-center gap-2 border border-black rounded-full px-3 py-1.5">
+            <span className="w-5 h-5 rounded-full bg-black text-arena text-xs font-black flex items-center justify-center">{flyer.initials}</span>
             <span className="text-sm font-semibold">{flyer.presenter}</span>
           </div>
-
-          <div className="text-right font-black text-base opacity-55 mt-4">{flyer.date}</div>
+          <div className="font-black text-sm lg:text-base opacity-55">{flyer.date}</div>
         </div>
 
-        <div className="mt-4 flex items-center gap-3">
-          <div className="bg-black text-arena font-black text-lg px-5 py-3 rounded-full uppercase">MasterClass</div>
-          <div className="w-3 h-3 rounded-full" style={{ background: topicColor }}></div>
+        <div className="mt-4 flex items-center gap-2 lg:gap-3">
+          <div className="bg-black text-arena font-black text-base lg:text-lg px-4 lg:px-5 py-2.5 lg:py-3 rounded-full uppercase">MasterClass</div>
+          <div className="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full" style={{ background: topicColor }}></div>
         </div>
 
-        <h2 className="font-black text-7xl leading-tight mt-4 uppercase" style={{ color: topicColor }}>{flyer.topic}</h2>
+        <h2 className="font-black text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl leading-none mt-3 uppercase overflow-hidden" style={{ color: topicColor }}>{flyer.topic}</h2>
 
-        <h3 className="font-black text-3xl leading-tight mt-4">{flyer.title}</h3>
+        <h3 className="font-black text-xl lg:text-2xl xl:text-3xl leading-tight mt-3">{flyer.title}</h3>
 
-        <p className="text-xl leading-relaxed opacity-86 mt-6">{flyer.description}</p>
+        <p className="text-base lg:text-lg xl:text-xl leading-relaxed opacity-80 mt-4">{flyer.description}</p>
 
         <div className="border-t border-black pt-2.5 text-xs font-semibold uppercase flex justify-between mt-auto">
           <span>WORKING&CO</span>
@@ -114,19 +113,19 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
       </div>
 
       <div className="flex items-center justify-center h-full relative">
-        <div className="w-full h-full rounded-3xl overflow-hidden relative" style={{ background: topicColor }}>
+        <div className="w-full h-full rounded-2xl lg:rounded-3xl overflow-hidden relative" style={{ background: topicColor }}>
           {flyer.imageUrl && (
             <Image
               src={flyer.imageUrl}
               alt={flyer.presenter}
               fill
-              sizes="400px"
+              sizes="(max-width: 1024px) 280px, (max-width: 1280px) 320px, 400px"
               style={{ objectFit: 'cover' }}
               priority={false}
             />
           )}
         </div>
-        <div className="absolute -left-4 -bottom-4 w-20 h-20 rounded-full bg-black flex items-center justify-center p-5 border-3 border-arena">
+        <div className="absolute -left-3 -bottom-3 lg:-left-4 lg:-bottom-4 w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-black flex items-center justify-center p-4 lg:p-5 border-2 border-arena">
           {iconSvg}
         </div>
       </div>
