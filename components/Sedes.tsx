@@ -27,12 +27,12 @@ export function Sedes({ events }: SedesProps) {
       </section>
 
       {/* Sedes Section */}
-      <section id="sedes" className="bg-teal p-6 md:p-12 lg:p-20 border-b-2 border-black">
-        <div className="mb-8 md:mb-12">
-          <div className="text-base font-black tracking-widest uppercase text-yellow mb-3">
+      <section id="sedes" className="bg-teal p-6 md:p-8 lg:p-12 xl:p-20 border-b-2 border-black">
+        <div className="mb-6 md:mb-10 lg:mb-12">
+          <div className="text-sm md:text-base font-black tracking-widest uppercase text-yellow mb-3">
             Dónde encontrarnos
           </div>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white leading-tight font-light mb-3">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-tight font-light mb-3">
             6 sedes, 1 comunidad
           </h2>
           <p className="text-base md:text-lg text-white/85 leading-relaxed max-w-2xl">
@@ -41,7 +41,7 @@ export function Sedes({ events }: SedesProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-5">
           {SEDES.map((sede, i) => {
             const sedeEvents = events.filter((e) => e.sedes.includes(sede))
             const hasCuerpo = sedeEvents.some((e) => e.cat === 'cuerpo')
@@ -56,10 +56,10 @@ export function Sedes({ events }: SedesProps) {
                 role="article"
                 aria-label={`Sede ${sede} con ${sedeEvents.length} actividad${sedeEvents.length !== 1 ? 'es' : ''}`}
               >
-                <div className="font-serif text-6xl md:text-7xl text-white/50 font-light mb-3 group-hover:text-white/70 transition-colors">
+                <div className="font-serif text-5xl md:text-6xl lg:text-7xl text-white/50 font-light mb-3 group-hover:text-white/70 transition-colors">
                   0{i + 1}
                 </div>
-                <div className="text-lg md:text-xl font-black text-white mb-2">
+                <div className="text-base md:text-lg lg:text-xl font-black text-white mb-2">
                   {sede}
                 </div>
                 <div className="text-base text-white/90 font-medium mb-4">
