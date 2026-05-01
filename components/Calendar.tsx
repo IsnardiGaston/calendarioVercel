@@ -115,6 +115,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-teal text-white border-teal'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'all'}
             >
               Todas
             </button>
@@ -125,6 +126,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-orange text-white border-orange'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'cuerpo'}
             >
               Cuerpo
             </button>
@@ -135,6 +137,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-teal text-white border-teal'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'mente'}
             >
               Mente
             </button>
@@ -145,6 +148,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   ? 'bg-pink text-white border-pink'
                   : 'border-teal text-teal bg-transparent hover:bg-teal hover:text-white'
               }`}
+              aria-pressed={selectedCategory === 'comunidad'}
             >
               Comunidad
             </button>
@@ -355,6 +359,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                       className={`text-xs md:text-sm p-0.5 md:p-1 rounded cursor-pointer hover:opacity-75 line-clamp-1 md:line-clamp-2 transition-opacity ${getCatColor(
                         ev.cat
                       )}`}
+                      aria-label={`${ev.title} - ${getCatLabel(ev.cat)}`}
                     >
                       {ev.title}
                     </button>

@@ -14,7 +14,7 @@ export function Footer() {
         <div className="text-base md:text-base text-teal italic font-semibold">
           Trabajar mejor · Vivir mejor
         </div>
-        <div className="text-base text-gray-500 mt-1">
+        <div className="text-base text-gray-700 mt-1">
           Un mes dedicado a tu cuerpo, mente y comunidad
         </div>
       </div>

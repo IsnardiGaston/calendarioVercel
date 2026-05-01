@@ -1,0 +1,24 @@
+{
+  "name": "Mes del Trabajador 2026 — Working&Co",
+  "short_name": "Mes del Trabajador",
+  "description": "Trabajar mejor · Vivir mejor. Un mes dedicado a tu cuerpo, mente y comunidad.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#1f9ba0",
+  "background_color": "#eee6d3",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

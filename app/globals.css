@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cabinet+Grotesk:wght@400;500;700;800;900&family=New+Sun+Playful&display=swap');
+/* DM Serif Display loaded via next/font/google in app/layout.tsx */
+/* Cabinet Grotesk y New Sun Playful cargadas via @font-face fallback */
 
 @tailwind base;
 @tailwind components;

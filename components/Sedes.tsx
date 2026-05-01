@@ -21,7 +21,7 @@ export function Sedes({ events }: SedesProps) {
           </div>
           <p className="font-serif text-2xl md:text-3xl text-white/90 leading-relaxed italic">
             Para ser parte de las actividades y ser contado en los sorteos, escribí o anotate en el
-            front de tu sede principal a todas las actividades que tenemos para vos.
+            front de tu sede principal o inscribite desde la web a todas las actividades que tenemos para vos.
           </p>
         </div>
       </section>
