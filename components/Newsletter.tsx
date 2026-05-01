@@ -71,7 +71,8 @@ export function Newsletter() {
             href="https://ar.linkedin.com/company/workingandco"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 no-underline bg-blue-600 text-white text-base md:text-base font-black px-4 md:px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors"
+            className="flex items-center gap-2 no-underline bg-blue-600 text-white text-base md:text-base font-black px-4 md:px-6 py-2.5 rounded-full hover:bg-blue-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 transition-all duration-200"
+            aria-label="Seguinos en LinkedIn - abre en una nueva ventana"
           >
             <span>in</span> LinkedIn
           </a>
@@ -80,9 +81,10 @@ export function Newsletter() {
             href="https://www.instagram.com/workingandcoar/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 no-underline bg-pink text-white text-base md:text-base font-black px-4 md:px-6 py-2.5 rounded-full hover:bg-pink/90 transition-colors"
+            className="flex items-center gap-2 no-underline bg-pink text-white text-base md:text-base font-black px-4 md:px-6 py-2.5 rounded-full hover:bg-pink/90 active:scale-95 focus:outline-none focus:ring-2 focus:ring-pink focus:ring-offset-2 transition-all duration-200"
+            aria-label="Seguinos en Instagram (@workingandcoar) - abre en una nueva ventana"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <rect x="2" y="2" width="20" height="20" rx="6" stroke="white" strokeWidth="2" />
               <circle cx="12" cy="12" r="4.5" stroke="white" strokeWidth="2" />
               <circle cx="17.5" cy="6.5" r="1.2" fill="white" />

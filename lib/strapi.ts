@@ -86,3 +86,48 @@ export async function fetchEvents(): Promise<Event[]> {
     return []
   }
 }
+
+export interface Masterclass {
+  id: string | number
+  initials: string
+  presenter: string
+  date: string
+  topic: string
+  title: string
+  description: string
+  category: string
+  imageUrl: string
+}
+
+export async function fetchMasterclasses(): Promise<Masterclass[]> {
+  try {
+    const res = await fetch(`${STRAPI_URL}/api/masterclasses?populate=*`, {
+      headers: {
+        Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+      },
+      next: { revalidate: 3600 },
+    })
+    if (!res.ok) {
+      console.warn(`Masterclasses endpoint returned ${res.status}. Using mock data.`)
+      const { MOCK_MASTERCLASSES } = await import('@/data/masterclasses')
+      return MOCK_MASTERCLASSES
+    }
+    const data = await res.json()
+
+    return data.data?.map((item: any) => ({
+      id: item.id,
+      initials: item.initials || item.Initials || '',
+      presenter: item.presenter || item.Presenter || '',
+      date: item.date || item.Date || '',
+      topic: item.topic || item.Topic || '',
+      title: item.title || item.Title || '',
+      description: item.description || item.Description || '',
+      category: item.category || item.Category || 'Neurociencia aplicada',
+      imageUrl: item.imageUrl || item.image?.url || '',
+    })) || []
+  } catch (error) {
+    console.warn('Masterclasses not available, using mock data:', error)
+    const { MOCK_MASTERCLASSES } = await import('@/data/masterclasses')
+    return MOCK_MASTERCLASSES
+  }
+}

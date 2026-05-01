@@ -29,16 +29,20 @@
   }
 
   .btn-primary {
-    @apply bg-pink text-white font-sans text-sm font-black px-8 py-3 rounded-full border-none cursor-pointer no-underline tracking-wider transition-transform duration-150 hover:scale-y-95 shadow-lg;
+    @apply bg-pink text-white font-sans text-sm font-black px-8 py-3 rounded-full border-none cursor-pointer no-underline tracking-wider transition-all duration-200 hover:scale-y-95 shadow-lg focus:outline-none focus:ring-2 focus:ring-pink focus:ring-offset-2 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
     box-shadow: 3px 3px 0 rgba(238, 72, 135, 0.35);
   }
 
+  .btn-primary:hover {
+    box-shadow: 3px 3px 0 rgba(238, 72, 135, 0.5);
+  }
+
   .btn-secondary {
-    @apply bg-transparent text-teal font-sans text-sm font-black px-8 py-3 rounded-full border-2 border-teal cursor-pointer no-underline transition-all duration-200 hover:bg-teal hover:text-white;
+    @apply bg-transparent text-teal font-sans text-sm font-black px-8 py-3 rounded-full border-2 border-teal cursor-pointer no-underline transition-all duration-200 hover:bg-teal hover:text-white focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-small {
-    @apply text-xs font-black px-4 py-1 rounded-full border-2 cursor-pointer font-sans transition-all duration-200 uppercase tracking-wider;
+    @apply text-xs font-black px-4 py-1 rounded-full border-2 cursor-pointer font-sans transition-all duration-200 uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-offset-2 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .section-title {
@@ -76,5 +80,66 @@
 
   .animate-modalScaleIn {
     animation: modalScaleIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .animate-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .scale-in-95 {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  /* Skip to content link for accessibility */
+  .skip-to-content {
+    @apply absolute top-0 left-0 bg-teal text-white px-4 py-2 transform -translate-y-full focus:translate-y-0 transition-transform z-50;
+  }
+
+  /* Better focus visible states */
+  *:focus-visible {
+    @apply outline-none;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply ring-2 ring-offset-2;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

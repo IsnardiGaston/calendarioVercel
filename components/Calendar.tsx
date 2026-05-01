@@ -251,7 +251,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
               return (
                 <div
                   key={i}
-                  className="min-h-24 border-2 border-teal rounded-lg p-2 bg-gradient-to-br from-pink/10 to-orange/10 flex items-center justify-center"
+                  className="aspect-square border-2 border-teal rounded-lg p-2 bg-gradient-to-br from-pink/10 to-orange/10 flex items-center justify-center"
                 >
                   <div className="text-sm font-black text-teal">
                     {day}
@@ -269,7 +269,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                     setModalOpen(true)
                   }
                 }}
-                className={`min-h-24 border-1.5 rounded-lg p-2 transition-all flex flex-col items-center justify-center text-center ${
+                className={`aspect-square border-1.5 rounded-lg p-2 transition-all flex flex-col items-center justify-center text-center ${
                   isWeekend
                     ? 'bg-arena-dk border-arena-dk'
                     : dayEvents.length > 0
@@ -369,17 +369,21 @@ export function Calendar({ events, month, year }: CalendarProps) {
       {/* Modal */}
       {modalOpen && selectedEvent && (
         <div
-          className="fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="event-title"
         >
           <div
-            className="relative bg-arena border-2 border-teal rounded-xl p-3 sm:p-4 md:p-8 w-full max-w-sm md:max-w-md shadow-2xl max-h-[88vh] overflow-y-auto"
+            className="relative bg-arena border-2 border-teal rounded-xl p-3 sm:p-4 md:p-8 w-full max-w-sm md:max-w-md shadow-2xl max-h-[88vh] overflow-y-auto animate-in scale-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-end mb-3 md:mb-0 md:absolute md:top-3 md:right-4">
               <button
                 onClick={() => setModalOpen(false)}
-                className="bg-teal text-white rounded-full w-8 h-8 md:w-7 md:h-7 flex items-center justify-center font-black text-lg hover:bg-teal/80 transition-colors"
+                className="bg-teal text-white rounded-full w-8 h-8 md:w-7 md:h-7 flex items-center justify-center font-black text-lg hover:bg-teal/80 active:scale-95 focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 transition-all duration-200"
+                aria-label="Cerrar diálogo"
               >
                 ✕
               </button>
@@ -389,25 +393,27 @@ export function Calendar({ events, month, year }: CalendarProps) {
               {getCatLabel(selectedEvent.cat)}
             </div>
 
-            <h2 className="font-serif text-3xl text-teal mb-2 leading-tight">
+            <h2 id="event-title" className="font-serif text-3xl text-teal mb-2 leading-tight">
               {selectedEvent.title}
             </h2>
 
-            <div className="text-base text-gray-600 mb-4">
-              {(() => {
-                const [year, month, day] = selectedEvent.date.split('-')
-                const monthName = MONTHS[parseInt(month) - 1]
-                const dayOfWeek = DAYS_OF_WEEK[(firstDay + parseInt(day) - 1) % 7]
-                const timeOnly = selectedEvent.time.split(':').slice(0, 2).join(':')
-                return `${dayOfWeek} ${day} de ${monthName.toLowerCase()} ${year} · ${timeOnly}`
-              })()}
+            <div className="text-base text-gray-600 mb-4 flex items-center gap-2">
+              <span aria-label="Fecha y hora del evento">
+                {(() => {
+                  const [year, month, day] = selectedEvent.date.split('-')
+                  const monthName = MONTHS[parseInt(month) - 1]
+                  const dayOfWeek = DAYS_OF_WEEK[(firstDay + parseInt(day) - 1) % 7]
+                  const timeOnly = selectedEvent.time.split(':').slice(0, 2).join(':')
+                  return `${dayOfWeek} ${day} de ${monthName.toLowerCase()} ${year} · ${timeOnly}`
+                })()}
+              </span>
             </div>
 
             <p className="text-base leading-relaxed text-gray-700 mb-4">
               {selectedEvent.desc}
             </p>
 
-            <div className="flex flex-wrap gap-1.5 md:gap-2 mb-6">
+            <div className="flex flex-wrap gap-1.5 md:gap-2 mb-6" aria-label="Sedes donde se realiza el evento">
               {selectedEvent.sedes.map((sede) => (
                 <span
                   key={sede}
@@ -423,7 +429,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                   href={selectedEvent.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-pink text-white text-base font-black px-6 py-2 rounded-full hover:bg-pink/80 transition-colors"
+                  className="bg-pink text-white text-base font-black px-6 py-2 rounded-full hover:bg-pink/80 active:scale-95 focus:outline-none focus:ring-2 focus:ring-pink focus:ring-offset-2 transition-all duration-200"
                 >
                   Inscribite
                 </a>

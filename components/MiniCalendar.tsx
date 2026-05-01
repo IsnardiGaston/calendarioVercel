@@ -34,15 +34,16 @@ export function MiniCalendar({ events, month, year }: MiniCalendarProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-2 mb-2">
-        {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, i) => (
+      <div className="grid grid-cols-7 gap-2 mb-2" role="presentation">
+        {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((day, i) => (
           <div
-            key={day + i}
+            key={day}
             className={`text-center text-base font-black uppercase tracking-wider p-1 ${
               i >= 5 ? 'text-pink' : 'text-teal-lt'
             }`}
+            aria-label={day}
           >
-            {day}
+            {day.substring(0, 1)}
           </div>
         ))}
       </div>
@@ -86,21 +87,21 @@ export function MiniCalendar({ events, month, year }: MiniCalendarProps) {
         })}
       </div>
 
-      <div className="flex gap-2 flex-wrap text-base">
-        <div className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-orange"></span>
+      <div className="flex gap-2 flex-wrap text-base mt-4 pt-4 border-t border-teal/20" role="list">
+        <div className="flex items-center gap-1" role="listitem">
+          <span className="w-2 h-2 rounded-full bg-orange" aria-hidden="true"></span>
           <span className="font-black">Cuerpo</span>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-teal"></span>
+        <div className="flex items-center gap-1" role="listitem">
+          <span className="w-2 h-2 rounded-full bg-teal" aria-hidden="true"></span>
           <span className="font-black">Mente</span>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-pink"></span>
+        <div className="flex items-center gap-1" role="listitem">
+          <span className="w-2 h-2 rounded-full bg-pink" aria-hidden="true"></span>
           <span className="font-black">Comunidad</span>
         </div>
-        <div className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-yellow"></span>
+        <div className="flex items-center gap-1" role="listitem">
+          <span className="w-2 h-2 rounded-full bg-yellow" aria-hidden="true"></span>
           <span className="font-black">Feriado</span>
         </div>
       </div>
