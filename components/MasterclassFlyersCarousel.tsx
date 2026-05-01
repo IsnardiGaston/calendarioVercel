@@ -81,7 +81,7 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
   }
 
   return (
-    <div className="w-full h-96 bg-arena text-black grid grid-cols-[1fr_320px] gap-11 p-9">
+    <div className="w-full h-screen bg-arena text-black grid grid-cols-[1fr_400px] gap-16 p-12">
       <div className="flex flex-col justify-between min-w-0">
         <div>
           <div className="inline-flex items-center gap-2.5 border border-black rounded-full px-3 py-1.5">
@@ -97,11 +97,11 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
           <div className="w-3 h-3 rounded-full" style={{ background: topicColor }}></div>
         </div>
 
-        <h2 className="font-black text-5xl leading-tight mt-3 uppercase" style={{ color: topicColor }}>{flyer.topic}</h2>
+        <h2 className="font-black text-7xl leading-tight mt-4 uppercase" style={{ color: topicColor }}>{flyer.topic}</h2>
 
-        <h3 className="font-black text-2xl leading-tight mt-3">{flyer.title}</h3>
+        <h3 className="font-black text-3xl leading-tight mt-4">{flyer.title}</h3>
 
-        <p className="text-lg leading-relaxed opacity-86 mt-4">{flyer.description}</p>
+        <p className="text-xl leading-relaxed opacity-86 mt-6">{flyer.description}</p>
 
         <div className="border-t border-black pt-2.5 text-xs font-semibold uppercase flex justify-between mt-auto">
           <span>WORKING&CO</span>
@@ -120,13 +120,13 @@ function FlyerCard({ flyer, colorIndex, isMobile }: { flyer: Masterclass; colorI
               src={flyer.imageUrl}
               alt={flyer.presenter}
               fill
-              sizes="320px"
+              sizes="400px"
               style={{ objectFit: 'cover' }}
               priority={false}
             />
           )}
         </div>
-        <div className="absolute -left-2 -bottom-2 w-16 h-16 rounded-full bg-black flex items-center justify-center p-4 border-2 border-arena">
+        <div className="absolute -left-4 -bottom-4 w-20 h-20 rounded-full bg-black flex items-center justify-center p-5 border-3 border-arena">
           {iconSvg}
         </div>
       </div>
