@@ -99,15 +99,15 @@ export function Calendar({ events, month, year }: CalendarProps) {
   }
 
   return (
-    <section ref={ref} id="calendario" className={`bg-arena border-b-2 border-teal p-5 md:p-12 lg:p-20 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
+    <section ref={ref} id="calendario" className={`bg-arena border-b-2 border-teal p-5 md:p-8 lg:p-12 xl:p-20 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
       {/* Header */}
-      <div className="mb-8 md:mb-10">
-        <div className="text-base font-black tracking-widest uppercase text-teal mb-2">
+      <div className="mb-6 md:mb-8 lg:mb-10">
+        <div className="text-sm md:text-base font-black tracking-widest uppercase text-teal mb-2">
           Agenda completa
         </div>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between md:gap-4 mb-6">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between md:gap-4 mb-4 md:mb-6">
           <h2 className="section-title">Calendario de {currentMonth.toLowerCase()}</h2>
-          <div className="flex gap-2 md:gap-3 flex-wrap mt-4 md:mt-0">
+          <div className="flex gap-1.5 md:gap-2 lg:gap-3 flex-wrap mt-3 md:mt-0">
             <button
               onClick={() => setSelectedCategory('all')}
               className={`btn-small ${
@@ -293,7 +293,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
         </div>
 
         {/* Desktop calendar (7 columns - full week) */}
-        <div className="hidden md:grid grid-cols-7 gap-2">
+        <div className="hidden md:grid grid-cols-7 gap-1.5 lg:gap-2">
           {Array.from({ length: totalCellsNeeded }).map((_, i) => {
             const day = i - firstDay + 1
             const isCurrentMonth = day >= 1 && day <= daysInMonth
@@ -301,7 +301,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
             const isWeekend = dow >= 5
 
             if (!isCurrentMonth) {
-              return <div key={i} className="min-h-20"></div>
+              return <div key={i} className="min-h-16 md:min-h-20 lg:min-h-24"></div>
             }
 
             const dayEvents = filterEvents(day)
@@ -316,7 +316,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
                     setSelectedEvent(holidayEvent)
                     setModalOpen(true)
                   }}
-                  className="min-h-32 border-2 border-teal rounded-xl p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group"
+                  className="min-h-24 md:min-h-28 lg:min-h-32 border-2 border-teal rounded-xl p-2 md:p-3 lg:p-4 transition-all cursor-pointer bg-gradient-to-br from-pink/10 to-orange/10 hover:from-pink/20 hover:to-orange/20 hover:border-pink hover:shadow-[3px_3px_0_#c93860] flex flex-col items-center justify-center text-center relative overflow-hidden group"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-pink/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[calc(0.75rem-2px)]"></div>
                   <div className="relative z-10">
@@ -334,7 +334,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
             return (
               <div
                 key={i}
-                className={`min-h-32 border-1.5 rounded-xl p-1.5 transition-all cursor-pointer ${
+                className={`min-h-24 md:min-h-28 lg:min-h-32 border-1.5 rounded-xl p-1 md:p-1.5 transition-all cursor-pointer ${
                   isWeekend
                     ? 'border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
                     : 'bg-white border-arena-dk hover:border-teal hover:shadow-[3px_3px_0_#1f9ba0]'
