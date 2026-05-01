@@ -6,14 +6,14 @@ export function Raffle() {
   const { ref, isInView } = useInView()
 
   return (
-    <section ref={ref} className={`bg-pink border-t-2 border-b-2 border-black p-6 md:p-12 lg:p-20 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
+    <section ref={ref} className={`bg-pink border-t-2 border-b-2 border-black p-6 md:p-8 lg:p-12 xl:p-20 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
       <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
         {/* Left content */}
         <div>
-          <div className="text-base font-black tracking-widest uppercase text-yellow mb-3">
+          <div className="text-sm md:text-base font-black tracking-widest uppercase text-yellow mb-3">
             Sorteo del mes
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white leading-tight font-light mb-4">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-tight font-light mb-4">
             Cada actividad es
             <br />
             <span className="italic">una chance más</span>
