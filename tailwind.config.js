@@ -14,6 +14,13 @@ module.exports = {
         pink: '#c93860',
         yellow: '#ffda04',
         orange: '#fa881e',
+        masterclass: {
+          teal: 'rgb(31, 143, 143)',
+          orange: 'rgb(217, 119, 87)',
+          gold: 'rgb(201, 162, 39)',
+          arena: 'rgb(241, 234, 220)',
+          dark: 'rgb(14, 27, 27)',
+        },
       },
       fontFamily: {
         serif: ['DM Serif Display', 'serif'],
