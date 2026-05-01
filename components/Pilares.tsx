@@ -10,12 +10,12 @@ export function Pilares() {
     <section
       ref={ref}
       id="pilares"
-      className={`bg-arena border-t-2 border-teal p-5 md:p-12 lg:p-20 border-b-2 ${
+      className={`bg-arena border-t-2 border-teal p-5 md:p-8 lg:p-12 xl:p-20 border-b-2 ${
         isInView ? 'animate-revealIn' : 'opacity-0'
       }`}
     >
-      <div className="mb-8 md:mb-12">
-        <div className="text-base font-black tracking-widest uppercase text-pink mb-2">
+      <div className="mb-6 md:mb-10 lg:mb-12">
+        <div className="text-sm md:text-base font-black tracking-widest uppercase text-pink mb-2">
           El programa
         </div>
         <h2 className="section-title mb-2">3 pilares, pensadas para vos</h2>
@@ -25,11 +25,11 @@ export function Pilares() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6">
         {PILARES.map((pilar, idx) => (
           <div
             key={pilar.id}
-            className={`p-4 md:p-6 lg:p-8 relative overflow-hidden transition-all duration-300 hover:bg-white focus-within:bg-white focus-within:ring-2 focus-within:ring-offset-2 rounded-lg group ${
+            className={`p-4 md:p-5 lg:p-6 xl:p-8 relative overflow-hidden transition-all duration-300 hover:bg-white focus-within:bg-white focus-within:ring-2 focus-within:ring-offset-2 rounded-lg group ${
               pilar.id === 'cuerpo'
                 ? 'focus-within:ring-orange'
                 : pilar.id === 'mente'
@@ -37,7 +37,7 @@ export function Pilares() {
                   : 'focus-within:ring-pink'
             } ${idx !== PILARES.length - 1 ? 'md:border-r-2 border-teal' : ''}`}
           >
-            <div className="absolute top-0 right-0 text-6xl md:text-7xl font-serif text-teal opacity-10 group-hover:opacity-20 pointer-events-none transition-opacity">
+            <div className="absolute top-0 right-0 text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif text-teal opacity-10 group-hover:opacity-20 pointer-events-none transition-opacity">
               {pilar.numero}
             </div>
 
@@ -62,7 +62,7 @@ export function Pilares() {
               {pilar.categoria}
             </div>
 
-            <h3 className="font-serif text-2xl md:text-3xl text-teal mb-3 leading-tight">
+            <h3 className="font-serif text-xl md:text-2xl lg:text-3xl text-teal mb-3 leading-tight">
               {pilar.titulo}
             </h3>
 
