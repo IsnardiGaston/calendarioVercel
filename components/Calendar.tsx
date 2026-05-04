@@ -107,7 +107,7 @@ export function Calendar({ events, month, year }: CalendarProps) {
         </div>
         <div className="flex flex-col md:flex-row md:items-end md:justify-between md:gap-4 mb-4 md:mb-6">
           <h2 className="section-title">Calendario de {currentMonth.toLowerCase()}</h2>
-          <div className="flex gap-1.5 md:gap-2 lg:gap-3 flex-wrap mt-3 md:mt-0">
+          <div className="flex gap-1.5 md:gap-2 lg:gap-3 flex-wrap mt-3 md:mt-0 print-hide">
             <button
               onClick={() => setSelectedCategory('all')}
               className={`btn-small ${
@@ -153,12 +153,35 @@ export function Calendar({ events, month, year }: CalendarProps) {
               Comunidad
             </button>
           </div>
+          <button
+            onClick={() => window.print()}
+            className="print-hide btn-secondary flex items-center gap-2 mt-3 md:mt-0 self-end"
+            aria-label="Imprimir calendario"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 9 6 2 18 2 18 9"/>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+              <rect x="6" y="14" width="12" height="8"/>
+            </svg>
+            Imprimir
+          </button>
         </div>
       </div>
 
       {/* Sedes filter */}
       <div className="mb-6 md:mb-8">
-        <div className="flex gap-2 md:gap-3 flex-wrap">
+        <div className="flex gap-2 md:gap-3 flex-wrap print-hide">
           <button
             onClick={() => setSelectedSede('all')}
             className={`text-base font-black px-3 md:px-4 py-1.5 rounded-full border-1.5 transition-all ${

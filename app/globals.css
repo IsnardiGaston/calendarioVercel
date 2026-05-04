@@ -144,3 +144,81 @@
     }
   }
 }
+
+/* ─── A3 Landscape Print Styles ─── */
+@media print {
+
+  @page {
+    size: A3 landscape;
+    margin: 10mm 12mm;
+  }
+
+  *, *::before, *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Ocultar todo excepto el calendario */
+  body > * { display: none !important; }
+  body > main { display: block !important; }
+  main > *:not(#calendario) { display: none !important; }
+
+  .print-hide { display: none !important; }
+
+  /* Sección calendario */
+  #calendario {
+    display: block !important;
+    width: 100% !important;
+    padding: 6mm 8mm !important;
+    background-color: #eee6d3 !important;
+    page-break-inside: avoid;
+  }
+
+  /* Forzar layout desktop */
+  #calendario .md\:hidden { display: none !important; }
+  #calendario .hidden { display: grid !important; }
+
+  /* Grid y celdas */
+  #calendario .grid.grid-cols-7 { gap: 2mm !important; }
+  #calendario .min-h-20,
+  #calendario .min-h-24,
+  #calendario .lg\:min-h-32 { min-height: 28mm !important; }
+
+  /* Números de día */
+  #calendario .text-sm.font-black.text-teal { font-size: 9pt !important; }
+
+  /* Cabecera días de la semana */
+  #calendario .grid.grid-cols-7 > div.text-center { font-size: 8pt !important; }
+
+  /* Pills de eventos — colores literales */
+  .bg-orange\/20 { background-color: rgba(250,136,30,0.20) !important; }
+  .border-orange  { border-color: #fa881e !important; }
+  .text-orange    { color: #fa881e !important; }
+
+  .bg-teal\/20  { background-color: rgba(13,117,121,0.20) !important; }
+  .border-teal  { border-color: #0d7579 !important; }
+  .text-teal    { color: #0d7579 !important; }
+
+  .bg-pink\/20  { background-color: rgba(201,56,96,0.20) !important; }
+  .border-pink  { border-color: #c93860 !important; }
+  .text-pink    { color: #c93860 !important; }
+
+  /* Pills: texto completo sin truncar */
+  #calendario button.text-xs,
+  #calendario button.text-sm {
+    font-size: 7pt !important;
+    padding: 1mm 1.5mm !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+
+  /* Anulación de animación opacity-0 */
+  #calendario.opacity-0 { opacity: 1 !important; }
+
+  /* Ocultar modal si está abierto */
+  .fixed.inset-0.z-50 { display: none !important; }
+
+  /* Sin corte de página dentro del grid */
+  #calendario .grid { page-break-inside: avoid; break-inside: avoid; }
+}
