@@ -188,17 +188,23 @@ export async function fetchMasterclasses(): Promise<Masterclass[]> {
     }
     const data = await res.json()
 
-    return data.data?.map((item: any) => ({
-      id: item.id,
-      initials: item.initials || item.Initials || '',
-      presenter: item.presenter || item.Presenter || '',
-      date: item.date || item.Date || '',
-      topic: item.topic || item.Topic || '',
-      title: item.title || item.Title || '',
-      description: item.description || item.Description || '',
-      category: item.category || item.Category || 'Neurociencia aplicada',
-      imageUrl: item.imageUrl || item.image?.url || '',
-    })) || []
+    return data.data?.map((item: any) => {
+      // image puede venir como objeto (single media) o array (multiple media)
+      const img = Array.isArray(item.image) ? item.image[0] : item.image
+      const rawUrl = item.imageUrl || img?.url || ''
+      const imageUrl = rawUrl && rawUrl.startsWith('/') ? `${STRAPI_URL}${rawUrl}` : rawUrl
+      return {
+        id: item.id,
+        initials: item.initials || item.Initials || '',
+        presenter: item.presenter || item.Presenter || '',
+        date: item.date || item.Date || '',
+        topic: item.topic || item.Topic || '',
+        title: item.title || item.Title || '',
+        description: item.description || item.Description || '',
+        category: item.category || item.Category || 'Neurociencia aplicada',
+        imageUrl,
+      }
+    }) || []
   } catch (error) {
     console.warn('Masterclasses not available, using mock data:', error)
     const { MOCK_MASTERCLASSES } = await import('@/data/masterclasses')
