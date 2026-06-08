@@ -26,6 +26,7 @@ export default async function Home() {
   let mostrarSorteo = true
   let fechaSorteo = 'Jueves 29 de mayo de 2026'
   let fechaSorteoCorta = '29 de mayo'
+  let mostrarMasterclasses = true
   let masterclasses: Masterclass[] = []
 
   try {
@@ -46,6 +47,7 @@ export default async function Home() {
     mostrarSorteo = config.mostrarSorteo
     fechaSorteo = config.fechaSorteo
     fechaSorteoCorta = config.fechaSorteoCorta
+    mostrarMasterclasses = config.mostrarMasterclasses
     masterclasses = strapiMasterclasses
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
@@ -63,7 +65,7 @@ export default async function Home() {
       <Sedes events={events} />
       <ErrorBoundary>
         <Suspense fallback={<MasterclassesSkeleton />}>
-          {masterclasses.length > 0 && <MasterclassFlyersCarousel masterclasses={masterclasses} />}
+          {mostrarMasterclasses && masterclasses.length > 0 && <MasterclassFlyersCarousel masterclasses={masterclasses} />}
         </Suspense>
       </ErrorBoundary>
       <Newsletter />

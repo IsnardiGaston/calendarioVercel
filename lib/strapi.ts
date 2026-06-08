@@ -12,6 +12,7 @@ export interface Config {
   mostrarSorteo: boolean // mostrar/ocultar la seccion de sorteo
   fechaSorteo: string // ej: "Jueves 29 de mayo de 2026"
   fechaSorteoCorta: string // ej: "29 de mayo"
+  mostrarMasterclasses: boolean // mostrar/ocultar la seccion de masterclasses
 }
 
 const DEFAULT_CONFIG: Config = {
@@ -24,6 +25,7 @@ const DEFAULT_CONFIG: Config = {
   mostrarSorteo: true,
   fechaSorteo: 'Jueves 29 de mayo de 2026',
   fechaSorteoCorta: '29 de mayo',
+  mostrarMasterclasses: true,
 }
 
 export async function fetchConfig(): Promise<Config> {
@@ -61,6 +63,7 @@ export async function fetchConfig(): Promise<Config> {
       mostrarSorteo: data.data?.mostrarSorteo ?? data.data?.MostrarSorteo ?? DEFAULT_CONFIG.mostrarSorteo,
       fechaSorteo: data.data?.fechaSorteo ?? data.data?.FechaSorteo ?? DEFAULT_CONFIG.fechaSorteo,
       fechaSorteoCorta: data.data?.fechaSorteoCorta ?? data.data?.FechaSorteoCorta ?? DEFAULT_CONFIG.fechaSorteoCorta,
+      mostrarMasterclasses: data.data?.mostrarMasterclasses ?? data.data?.MostrarMasterclasses ?? DEFAULT_CONFIG.mostrarMasterclasses,
     }
   } catch (error) {
     console.warn('Config not available, using defaults:', error)
