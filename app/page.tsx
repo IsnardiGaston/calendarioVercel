@@ -9,7 +9,8 @@ import { Sedes } from '@/components/Sedes'
 import { Newsletter } from '@/components/Newsletter'
 import { Footer } from '@/components/Footer'
 import { MOCK_EVENTS } from '@/data/events'
-import { fetchEvents, fetchConfig, fetchMasterclasses, type Masterclass } from '@/lib/strapi'
+import { fetchEvents, fetchConfig, fetchMasterclasses, fetchGaleria, type Masterclass, type GaleriaFoto } from '@/lib/strapi'
+import { Galeria } from '@/components/Galeria'
 import { MasterclassFlyersCarousel } from '@/components/MasterclassFlyersCarousel'
 import { MasterclassesSkeleton } from '@/components/MasterclassesSkeleton'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
@@ -27,13 +28,18 @@ export default async function Home() {
   let fechaSorteo = 'Jueves 29 de mayo de 2026'
   let fechaSorteoCorta = '29 de mayo'
   let mostrarMasterclasses = true
+  let mostrarGaleria = true
+  let tituloGaleria = 'El mes pasado'
+  let subtituloGaleria = 'Así lo vivimos'
   let masterclasses: Masterclass[] = []
+  let galeria: GaleriaFoto[] = []
 
   try {
-    const [strapiEvents, config, strapiMasterclasses] = await Promise.all([
+    const [strapiEvents, config, strapiMasterclasses, strapiGaleria] = await Promise.all([
       fetchEvents(),
       fetchConfig(),
       fetchMasterclasses(),
+      fetchGaleria(),
     ])
     if (strapiEvents.length > 0) {
       events = strapiEvents
@@ -48,7 +54,11 @@ export default async function Home() {
     fechaSorteo = config.fechaSorteo
     fechaSorteoCorta = config.fechaSorteoCorta
     mostrarMasterclasses = config.mostrarMasterclasses
+    mostrarGaleria = config.mostrarGaleria
+    tituloGaleria = config.tituloGaleria
+    subtituloGaleria = config.subtituloGaleria
     masterclasses = strapiMasterclasses
+    galeria = strapiGaleria
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
       console.warn('Using mock data - Strapi not available')
@@ -68,6 +78,7 @@ export default async function Home() {
           {mostrarMasterclasses && masterclasses.length > 0 && <MasterclassFlyersCarousel masterclasses={masterclasses} />}
         </Suspense>
       </ErrorBoundary>
+      {mostrarGaleria && <Galeria fotos={galeria} titulo={tituloGaleria} subtitulo={subtituloGaleria} />}
       <Newsletter />
       <Footer titulo={titulo} tituloDestacado={tituloDestacado} year={year} subtituloLinea1={subtituloLinea1} subtituloLinea2={subtituloLinea2} />
     </main>
