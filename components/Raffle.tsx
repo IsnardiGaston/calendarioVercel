@@ -2,7 +2,12 @@
 
 import { useInView } from '@/hooks/useInView'
 
-export function Raffle() {
+interface RaffleProps {
+  fechaSorteo: string
+  fechaSorteoCorta: string
+}
+
+export function Raffle({ fechaSorteo, fechaSorteoCorta }: RaffleProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -33,7 +38,7 @@ export function Raffle() {
                 Fecha del sorteo
               </div>
               <div className="font-serif text-2xl md:text-3xl text-white font-light">
-                Jueves 29 de mayo de 2026
+                {fechaSorteo}
               </div>
               <div className="text-base text-white/70 mt-1">Al cierre del Mes del Trabajador</div>
             </div>
@@ -59,7 +64,7 @@ export function Raffle() {
                 },
                 {
                   number: '3',
-                  text: 'El 29 de mayo hacemos el sorteo en vivo con toda la comunidad W&Co.',
+                  text: `El ${fechaSorteoCorta} hacemos el sorteo en vivo con toda la comunidad W&Co.`,
                 },
               ].map((step) => (
                 <li key={step.number} className="flex items-start gap-3 md:gap-4">

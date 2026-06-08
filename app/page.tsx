@@ -23,6 +23,9 @@ export default async function Home() {
   let tituloDestacado = 'Trabajador'
   let subtituloLinea1 = 'Trabajar mejor · Vivir mejor'
   let subtituloLinea2 = 'Un mes dedicado a tu cuerpo, mente y comunidad.'
+  let mostrarSorteo = true
+  let fechaSorteo = 'Jueves 29 de mayo de 2026'
+  let fechaSorteoCorta = '29 de mayo'
   let masterclasses: Masterclass[] = []
 
   try {
@@ -40,6 +43,9 @@ export default async function Home() {
     tituloDestacado = config.tituloDestacado
     subtituloLinea1 = config.subtituloLinea1
     subtituloLinea2 = config.subtituloLinea2
+    mostrarSorteo = config.mostrarSorteo
+    fechaSorteo = config.fechaSorteo
+    fechaSorteoCorta = config.fechaSorteoCorta
     masterclasses = strapiMasterclasses
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
@@ -51,8 +57,9 @@ export default async function Home() {
     <main>
       <Navigation titulo={titulo} tituloDestacado={tituloDestacado} year={year} />
       <Hero events={events} month={month} year={year} titulo={titulo} tituloDestacado={tituloDestacado} subtituloLinea1={subtituloLinea1} subtituloLinea2={subtituloLinea2} />
+      <hr className="border-t-2 border-teal" />
       <Calendar events={events} month={month} year={year} />
-      <Raffle />
+      {mostrarSorteo && <Raffle fechaSorteo={fechaSorteo} fechaSorteoCorta={fechaSorteoCorta} />}
       <Sedes events={events} />
       <ErrorBoundary>
         <Suspense fallback={<MasterclassesSkeleton />}>

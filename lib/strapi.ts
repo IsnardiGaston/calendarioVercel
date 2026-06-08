@@ -9,6 +9,9 @@ export interface Config {
   tituloDestacado: string // ej: "Trabajador" (en cursiva/rosa)
   subtituloLinea1: string // ej: "Trabajar mejor · Vivir mejor"
   subtituloLinea2: string // ej: "Un mes dedicado a tu cuerpo, mente y comunidad."
+  mostrarSorteo: boolean // mostrar/ocultar la seccion de sorteo
+  fechaSorteo: string // ej: "Jueves 29 de mayo de 2026"
+  fechaSorteoCorta: string // ej: "29 de mayo"
 }
 
 const DEFAULT_CONFIG: Config = {
@@ -18,6 +21,9 @@ const DEFAULT_CONFIG: Config = {
   tituloDestacado: 'Trabajador',
   subtituloLinea1: 'Trabajar mejor · Vivir mejor',
   subtituloLinea2: 'Un mes dedicado a tu cuerpo, mente y comunidad.',
+  mostrarSorteo: true,
+  fechaSorteo: 'Jueves 29 de mayo de 2026',
+  fechaSorteoCorta: '29 de mayo',
 }
 
 export async function fetchConfig(): Promise<Config> {
@@ -52,6 +58,9 @@ export async function fetchConfig(): Promise<Config> {
       tituloDestacado: data.data?.tituloDestacado ?? data.data?.TituloDestacado ?? DEFAULT_CONFIG.tituloDestacado,
       subtituloLinea1: data.data?.subtituloLinea1 ?? data.data?.SubtituloLinea1 ?? DEFAULT_CONFIG.subtituloLinea1,
       subtituloLinea2: data.data?.subtituloLinea2 ?? data.data?.SubtituloLinea2 ?? DEFAULT_CONFIG.subtituloLinea2,
+      mostrarSorteo: data.data?.mostrarSorteo ?? data.data?.MostrarSorteo ?? DEFAULT_CONFIG.mostrarSorteo,
+      fechaSorteo: data.data?.fechaSorteo ?? data.data?.FechaSorteo ?? DEFAULT_CONFIG.fechaSorteo,
+      fechaSorteoCorta: data.data?.fechaSorteoCorta ?? data.data?.FechaSorteoCorta ?? DEFAULT_CONFIG.fechaSorteoCorta,
     }
   } catch (error) {
     console.warn('Config not available, using defaults:', error)
