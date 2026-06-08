@@ -11,6 +11,7 @@ import { Footer } from '@/components/Footer'
 import { MOCK_EVENTS } from '@/data/events'
 import { fetchEvents, fetchConfig, fetchMasterclasses, fetchGaleria, type Masterclass, type GaleriaFoto } from '@/lib/strapi'
 import { Galeria } from '@/components/Galeria'
+import { Beneficios } from '@/components/Beneficios'
 import { MasterclassFlyersCarousel } from '@/components/MasterclassFlyersCarousel'
 import { MasterclassesSkeleton } from '@/components/MasterclassesSkeleton'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
@@ -79,6 +80,7 @@ export default async function Home() {
         </Suspense>
       </ErrorBoundary>
       {mostrarGaleria && <Galeria fotos={galeria} titulo={tituloGaleria} subtitulo={subtituloGaleria} />}
+      <Beneficios />
       <Newsletter />
       <Footer titulo={titulo} tituloDestacado={tituloDestacado} year={year} subtituloLinea1={subtituloLinea1} subtituloLinea2={subtituloLinea2} />
     </main>
