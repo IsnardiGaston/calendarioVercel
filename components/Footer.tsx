@@ -36,6 +36,20 @@ export function Footer({ titulo, tituloDestacado, year, subtituloLinea1, subtitu
       >
         workingand.co →
       </a>
+
+      <div className="w-full text-center pt-4 mt-2 border-t border-teal/20">
+        <p className="text-[11px] text-gray-500">
+          Diseñado y desarrollado por{' '}
+          <a
+            href="https://isndesign.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-teal hover:text-pink transition-colors font-semibold"
+          >
+            isndesign.com
+          </a>
+        </p>
+      </div>
     </footer>
   )
 }
