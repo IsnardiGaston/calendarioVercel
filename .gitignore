@@ -21,6 +21,7 @@ Thumbs.db
 !.env.example
 
 # Build
+*.tsbuildinfo
 /web/.next/
 /web/out/
 /web/build/

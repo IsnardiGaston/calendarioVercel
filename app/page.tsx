@@ -20,6 +20,8 @@ export default async function Home() {
   let events = MOCK_EVENTS
   let month = new Date().getMonth() // 0-11
   let year = new Date().getFullYear()
+  let titulo = 'Mes del'
+  let tituloDestacado = 'Trabajador'
   let masterclasses: Masterclass[] = []
 
   try {
@@ -33,6 +35,8 @@ export default async function Home() {
     }
     month = config.month - 1 // Convert from 1-12 to 0-11
     year = config.year
+    titulo = config.titulo
+    tituloDestacado = config.tituloDestacado
     masterclasses = strapiMasterclasses
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
@@ -43,7 +47,7 @@ export default async function Home() {
   return (
     <main>
       <Navigation />
-      <Hero events={events} month={month} year={year} />
+      <Hero events={events} month={month} year={year} titulo={titulo} tituloDestacado={tituloDestacado} />
       <Pilares />
       <Calendar events={events} month={month} year={year} />
       <Raffle />

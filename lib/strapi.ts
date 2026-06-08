@@ -5,11 +5,15 @@ const STRAPI_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337
 export interface Config {
   month: number // 1-12
   year: number
+  titulo: string // ej: "Mes del"
+  tituloDestacado: string // ej: "Trabajador" (en cursiva/rosa)
 }
 
 const DEFAULT_CONFIG: Config = {
   month: new Date().getMonth() + 1, // Convert from 0-11 to 1-12
   year: new Date().getFullYear(),
+  titulo: 'Mes del',
+  tituloDestacado: 'Trabajador',
 }
 
 export async function fetchConfig(): Promise<Config> {
@@ -40,6 +44,8 @@ export async function fetchConfig(): Promise<Config> {
     return {
       month: typeof mes === 'string' ? parseInt(mes.replace(/[.,]/g, '')) : mes,
       year: typeof ano === 'string' ? parseInt(ano.replace(/[.,]/g, '')) : ano,
+      titulo: data.data?.titulo ?? data.data?.Titulo ?? DEFAULT_CONFIG.titulo,
+      tituloDestacado: data.data?.tituloDestacado ?? data.data?.TituloDestacado ?? DEFAULT_CONFIG.tituloDestacado,
     }
   } catch (error) {
     console.warn('Config not available, using defaults:', error)

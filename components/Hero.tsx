@@ -8,9 +8,11 @@ interface HeroProps {
   events: Event[]
   month: number
   year: number
+  titulo: string
+  tituloDestacado: string
 }
 
-export function Hero({ events, month, year }: HeroProps) {
+export function Hero({ events, month, year, titulo, tituloDestacado }: HeroProps) {
   const currentMonth = MONTHS[month]
   const currentYear = year
   const scrollToCalendar = () => {
@@ -46,9 +48,9 @@ export function Hero({ events, month, year }: HeroProps) {
         </div>
 
         <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-teal leading-tight font-light mb-2">
-          Mes del
+          {titulo}
           <br />
-          <span className="italic text-pink">Trabajador</span>
+          <span className="italic text-pink">{tituloDestacado}</span>
         </h1>
 
         <div className="font-serif text-xl sm:text-2xl md:text-3xl text-teal-lt mb-5 md:mb-8 tracking-wider">
