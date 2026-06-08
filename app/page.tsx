@@ -46,7 +46,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Navigation />
+      <Navigation titulo={titulo} tituloDestacado={tituloDestacado} year={year} />
       <Hero events={events} month={month} year={year} titulo={titulo} tituloDestacado={tituloDestacado} />
       <Pilares />
       <Calendar events={events} month={month} year={year} />

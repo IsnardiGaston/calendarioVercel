@@ -1,6 +1,12 @@
 'use client'
 
-export function Navigation() {
+interface NavigationProps {
+  titulo: string
+  tituloDestacado: string
+  year: number
+}
+
+export function Navigation({ titulo, tituloDestacado, year }: NavigationProps) {
   const scrollToHome = () => {
     document.querySelector('main')?.scrollIntoView({ behavior: 'smooth' })
   }
@@ -19,7 +25,7 @@ export function Navigation() {
           Work your way
         </span>
         <span className="bg-pink text-white text-xs sm:text-sm md:text-base font-black px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 rounded-full tracking-wider whitespace-nowrap focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-teal">
-          Mes del Trabajador 2026
+          {titulo} {tituloDestacado} {year}
         </span>
       </div>
     </nav>
