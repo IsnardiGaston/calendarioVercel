@@ -25,7 +25,7 @@ export function Navigation({ titulo, tituloDestacado, year }: NavigationProps) {
           Work your way
         </span>
         <span className="bg-pink text-white text-xs sm:text-sm md:text-base font-black px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 rounded-full tracking-wider whitespace-nowrap focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-teal">
-          {titulo} {tituloDestacado} {year}
+          {titulo} {tituloDestacado}
         </span>
       </div>
     </nav>

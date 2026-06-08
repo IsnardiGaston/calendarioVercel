@@ -7,6 +7,8 @@ export interface Config {
   year: number
   titulo: string // ej: "Mes del"
   tituloDestacado: string // ej: "Trabajador" (en cursiva/rosa)
+  subtituloLinea1: string // ej: "Trabajar mejor · Vivir mejor"
+  subtituloLinea2: string // ej: "Un mes dedicado a tu cuerpo, mente y comunidad."
 }
 
 const DEFAULT_CONFIG: Config = {
@@ -14,6 +16,8 @@ const DEFAULT_CONFIG: Config = {
   year: new Date().getFullYear(),
   titulo: 'Mes del',
   tituloDestacado: 'Trabajador',
+  subtituloLinea1: 'Trabajar mejor · Vivir mejor',
+  subtituloLinea2: 'Un mes dedicado a tu cuerpo, mente y comunidad.',
 }
 
 export async function fetchConfig(): Promise<Config> {
@@ -46,6 +50,8 @@ export async function fetchConfig(): Promise<Config> {
       year: typeof ano === 'string' ? parseInt(ano.replace(/[.,]/g, '')) : ano,
       titulo: data.data?.titulo ?? data.data?.Titulo ?? DEFAULT_CONFIG.titulo,
       tituloDestacado: data.data?.tituloDestacado ?? data.data?.TituloDestacado ?? DEFAULT_CONFIG.tituloDestacado,
+      subtituloLinea1: data.data?.subtituloLinea1 ?? data.data?.SubtituloLinea1 ?? DEFAULT_CONFIG.subtituloLinea1,
+      subtituloLinea2: data.data?.subtituloLinea2 ?? data.data?.SubtituloLinea2 ?? DEFAULT_CONFIG.subtituloLinea2,
     }
   } catch (error) {
     console.warn('Config not available, using defaults:', error)

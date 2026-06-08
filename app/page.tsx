@@ -3,7 +3,6 @@ export const dynamic = 'force-dynamic'
 import { Suspense } from 'react'
 import { Navigation } from '@/components/Navigation'
 import { Hero } from '@/components/Hero'
-import { Pilares } from '@/components/Pilares'
 import { Calendar } from '@/components/Calendar'
 import { Raffle } from '@/components/Raffle'
 import { Sedes } from '@/components/Sedes'
@@ -22,6 +21,8 @@ export default async function Home() {
   let year = new Date().getFullYear()
   let titulo = 'Mes del'
   let tituloDestacado = 'Trabajador'
+  let subtituloLinea1 = 'Trabajar mejor · Vivir mejor'
+  let subtituloLinea2 = 'Un mes dedicado a tu cuerpo, mente y comunidad.'
   let masterclasses: Masterclass[] = []
 
   try {
@@ -37,6 +38,8 @@ export default async function Home() {
     year = config.year
     titulo = config.titulo
     tituloDestacado = config.tituloDestacado
+    subtituloLinea1 = config.subtituloLinea1
+    subtituloLinea2 = config.subtituloLinea2
     masterclasses = strapiMasterclasses
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
@@ -47,8 +50,7 @@ export default async function Home() {
   return (
     <main>
       <Navigation titulo={titulo} tituloDestacado={tituloDestacado} year={year} />
-      <Hero events={events} month={month} year={year} titulo={titulo} tituloDestacado={tituloDestacado} />
-      <Pilares />
+      <Hero events={events} month={month} year={year} titulo={titulo} tituloDestacado={tituloDestacado} subtituloLinea1={subtituloLinea1} subtituloLinea2={subtituloLinea2} />
       <Calendar events={events} month={month} year={year} />
       <Raffle />
       <Sedes events={events} />
@@ -58,7 +60,7 @@ export default async function Home() {
         </Suspense>
       </ErrorBoundary>
       <Newsletter />
-      <Footer />
+      <Footer titulo={titulo} tituloDestacado={tituloDestacado} year={year} subtituloLinea1={subtituloLinea1} subtituloLinea2={subtituloLinea2} />
     </main>
   )
 }
