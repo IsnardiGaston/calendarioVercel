@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Serif_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { fetchConfig } from '@/lib/strapi'
 import './globals.css'
 
 const dmSerif = DM_Serif_Display({
@@ -10,31 +11,47 @@ const dmSerif = DM_Serif_Display({
   variable: '--font-serif',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://calendar-working-co.vercel.app'),
-  title: 'Mes del Trabajador 2026 — Working&Co',
-  description: 'Trabajar mejor · Vivir mejor. Un mes dedicado a tu cuerpo, mente y comunidad.',
-  keywords: ['Working&Co', 'Mes del Trabajador', 'wellness', 'masterclass', 'comunidad'],
-  authors: [{ name: 'Working&Co' }],
-  alternates: { canonical: '/' },
-  openGraph: {
-    title: 'Mes del Trabajador 2026 — Working&Co',
-    description: 'Trabajar mejor · Vivir mejor. Un mes dedicado a tu cuerpo, mente y comunidad.',
-    url: '/',
-    siteName: 'Working&Co',
-    locale: 'es_AR',
-    type: 'website',
-    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Mes del Trabajador 2026' }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Mes del Trabajador 2026 — Working&Co',
-    description: 'Trabajar mejor · Vivir mejor.',
-    images: ['/og-image.jpg'],
-  },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-  icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
-  manifest: '/manifest.json',
+const SITE_URL = 'https://workingandco.isndesign.com'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const config = await fetchConfig().catch(() => null)
+
+  const titulo = config?.titulo ?? 'Mes del'
+  const tituloDestacado = config?.tituloDestacado ?? 'Trabajador'
+  const year = config?.year ?? new Date().getFullYear()
+  const sub1 = config?.subtituloLinea1 ?? 'Trabajar mejor · Vivir mejor'
+  const sub2 = config?.subtituloLinea2 ?? 'Un mes dedicado a tu cuerpo, mente y comunidad.'
+
+  const pageTitle = `${titulo} ${tituloDestacado} ${year} — Working&Co`
+  const description = `${sub1}. ${sub2}`
+  const ogAlt = `${titulo} ${tituloDestacado} ${year}`
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: pageTitle,
+    description,
+    keywords: ['Working&Co', `${titulo} ${tituloDestacado}`, 'wellness', 'masterclass', 'comunidad', 'calendario'],
+    authors: [{ name: 'Working&Co' }],
+    alternates: { canonical: '/' },
+    openGraph: {
+      title: pageTitle,
+      description,
+      url: '/',
+      siteName: 'Working&Co',
+      locale: 'es_AR',
+      type: 'website',
+      images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: ogAlt }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: pageTitle,
+      description: sub1,
+      images: ['/og-image.jpg'],
+    },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+    icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
+    manifest: '/manifest.json',
+  }
 }
 
 export const viewport: Viewport = {
