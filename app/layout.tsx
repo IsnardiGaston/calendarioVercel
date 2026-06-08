@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from 'next'
 import { DM_Serif_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
-import { Navigation } from '@/components/Navigation'
 
 const dmSerif = DM_Serif_Display({
   subsets: ['latin'],
@@ -52,7 +51,6 @@ export default function RootLayout({
   return (
     <html lang="es" className={dmSerif.variable}>
       <body className="font-sans bg-arena text-black">
-        <Navigation />
         {children}
         <Analytics />
       </body>
