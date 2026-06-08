@@ -1,4 +1,12 @@
-export function Footer() {
+interface FooterProps {
+  titulo: string
+  tituloDestacado: string
+  year: number
+  subtituloLinea1: string
+  subtituloLinea2: string
+}
+
+export function Footer({ titulo, tituloDestacado, year, subtituloLinea1, subtituloLinea2 }: FooterProps) {
   return (
     <footer className="bg-arena border-t-2 border-teal p-5 md:p-8 lg:p-12 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 lg:gap-8 flex-wrap">
       <div>
@@ -6,16 +14,16 @@ export function Footer() {
           WORKING<span className="amp">&</span>CO
         </div>
         <div className="text-base italic text-teal font-semibold tracking-wider mt-1">
-          Work your way · Mes del Trabajador 2026
+          Work your way · {titulo} {tituloDestacado} {year}
         </div>
       </div>
 
       <div className="text-center">
         <div className="text-base md:text-base text-teal italic font-semibold">
-          Trabajar mejor · Vivir mejor
+          {subtituloLinea1}
         </div>
         <div className="text-base text-gray-700 mt-1">
-          Un mes dedicado a tu cuerpo, mente y comunidad
+          {subtituloLinea2}
         </div>
       </div>
 

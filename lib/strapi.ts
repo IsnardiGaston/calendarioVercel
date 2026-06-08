@@ -7,6 +7,15 @@ export interface Config {
   year: number
   titulo: string // ej: "Mes del"
   tituloDestacado: string // ej: "Trabajador" (en cursiva/rosa)
+  subtituloLinea1: string // ej: "Trabajar mejor · Vivir mejor"
+  subtituloLinea2: string // ej: "Un mes dedicado a tu cuerpo, mente y comunidad."
+  mostrarSorteo: boolean // mostrar/ocultar la seccion de sorteo
+  fechaSorteo: string // ej: "Jueves 29 de mayo de 2026"
+  fechaSorteoCorta: string // ej: "29 de mayo"
+  mostrarMasterclasses: boolean // mostrar/ocultar la seccion de masterclasses
+  mostrarGaleria: boolean // mostrar/ocultar la galeria del mes anterior
+  tituloGaleria: string // ej: "El mes pasado"
+  subtituloGaleria: string // ej: "Así lo vivimos"
 }
 
 const DEFAULT_CONFIG: Config = {
@@ -14,6 +23,15 @@ const DEFAULT_CONFIG: Config = {
   year: new Date().getFullYear(),
   titulo: 'Mes del',
   tituloDestacado: 'Trabajador',
+  subtituloLinea1: 'Trabajar mejor · Vivir mejor',
+  subtituloLinea2: 'Un mes dedicado a tu cuerpo, mente y comunidad.',
+  mostrarSorteo: true,
+  fechaSorteo: 'Jueves 29 de mayo de 2026',
+  fechaSorteoCorta: '29 de mayo',
+  mostrarMasterclasses: true,
+  mostrarGaleria: true,
+  tituloGaleria: 'El mes pasado',
+  subtituloGaleria: 'Así lo vivimos',
 }
 
 export async function fetchConfig(): Promise<Config> {
@@ -46,6 +64,15 @@ export async function fetchConfig(): Promise<Config> {
       year: typeof ano === 'string' ? parseInt(ano.replace(/[.,]/g, '')) : ano,
       titulo: data.data?.titulo ?? data.data?.Titulo ?? DEFAULT_CONFIG.titulo,
       tituloDestacado: data.data?.tituloDestacado ?? data.data?.TituloDestacado ?? DEFAULT_CONFIG.tituloDestacado,
+      subtituloLinea1: data.data?.subtituloLinea1 ?? data.data?.SubtituloLinea1 ?? DEFAULT_CONFIG.subtituloLinea1,
+      subtituloLinea2: data.data?.subtituloLinea2 ?? data.data?.SubtituloLinea2 ?? DEFAULT_CONFIG.subtituloLinea2,
+      mostrarSorteo: data.data?.mostrarSorteo ?? data.data?.MostrarSorteo ?? DEFAULT_CONFIG.mostrarSorteo,
+      fechaSorteo: data.data?.fechaSorteo ?? data.data?.FechaSorteo ?? DEFAULT_CONFIG.fechaSorteo,
+      fechaSorteoCorta: data.data?.fechaSorteoCorta ?? data.data?.FechaSorteoCorta ?? DEFAULT_CONFIG.fechaSorteoCorta,
+      mostrarMasterclasses: data.data?.mostrarMasterclasses ?? data.data?.MostrarMasterclasses ?? DEFAULT_CONFIG.mostrarMasterclasses,
+      mostrarGaleria: data.data?.mostrarGaleria ?? data.data?.MostrarGaleria ?? DEFAULT_CONFIG.mostrarGaleria,
+      tituloGaleria: data.data?.tituloGaleria ?? data.data?.TituloGaleria ?? DEFAULT_CONFIG.tituloGaleria,
+      subtituloGaleria: data.data?.subtituloGaleria ?? data.data?.SubtituloGaleria ?? DEFAULT_CONFIG.subtituloGaleria,
     }
   } catch (error) {
     console.warn('Config not available, using defaults:', error)
@@ -89,6 +116,47 @@ export async function fetchEvents(): Promise<Event[]> {
     }) || []
   } catch (error) {
     console.error('Error fetching events:', error)
+    return []
+  }
+}
+
+export interface GaleriaFoto {
+  id: string | number
+  imageUrl: string
+  caption: string
+}
+
+export async function fetchGaleria(): Promise<GaleriaFoto[]> {
+  try {
+    const res = await fetch(`${STRAPI_URL}/api/galerias?populate=*`, {
+      headers: {
+        Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+      },
+      next: { revalidate: 3600 },
+    })
+    if (!res.ok) {
+      console.warn(`Galeria endpoint returned ${res.status}. Make sure you created the "galeria" collection in Strapi`)
+      return []
+    }
+    const data = await res.json()
+
+    return data.data?.map((item: any) => {
+      const img = item.image || item.imagen || item.foto
+      const imageUrl =
+        item.imageUrl ||
+        img?.url ||
+        img?.data?.attributes?.url ||
+        ''
+      // Strapi puede devolver una url relativa
+      const fullUrl = imageUrl && imageUrl.startsWith('/') ? `${STRAPI_URL}${imageUrl}` : imageUrl
+      return {
+        id: item.id,
+        imageUrl: fullUrl,
+        caption: item.caption || item.Caption || item.titulo || item.descripcion || '',
+      }
+    }).filter((f: GaleriaFoto) => f.imageUrl) || []
+  } catch (error) {
+    console.warn('Galeria not available:', error)
     return []
   }
 }

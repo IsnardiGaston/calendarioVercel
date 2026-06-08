@@ -10,17 +10,15 @@ interface HeroProps {
   year: number
   titulo: string
   tituloDestacado: string
+  subtituloLinea1: string
+  subtituloLinea2: string
 }
 
-export function Hero({ events, month, year, titulo, tituloDestacado }: HeroProps) {
+export function Hero({ events, month, year, titulo, tituloDestacado, subtituloLinea1, subtituloLinea2 }: HeroProps) {
   const currentMonth = MONTHS[month]
   const currentYear = year
   const scrollToCalendar = () => {
     document.getElementById('calendario')?.scrollIntoView({ behavior: 'smooth' })
-  }
-
-  const scrollToPilares = () => {
-    document.getElementById('pilares')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -58,9 +56,9 @@ export function Hero({ events, month, year, titulo, tituloDestacado }: HeroProps
         </div>
 
         <p className="text-sm sm:text-base md:text-lg font-medium text-black mb-5 md:mb-8 border-l-4 border-pink pl-4 max-w-md leading-relaxed">
-          Trabajar mejor · Vivir mejor
+          {subtituloLinea1}
           <br />
-          Un mes dedicado a tu cuerpo, mente y comunidad.
+          {subtituloLinea2}
         </p>
 
         <div className="flex flex-wrap gap-2 md:gap-1.5 mb-5 md:mb-8">
@@ -93,13 +91,6 @@ export function Hero({ events, month, year, titulo, tituloDestacado }: HeroProps
             aria-label="Desplazarse al calendario completo"
           >
             Ver calendario
-          </button>
-          <button
-            onClick={scrollToPilares}
-            className="btn-secondary focus:outline-none focus:ring-2 focus:ring-teal focus:ring-offset-2 active:scale-95 transition-all duration-200"
-            aria-label="Desplazarse a los pilares del programa"
-          >
-            Conocer más
           </button>
         </div>
       </div>

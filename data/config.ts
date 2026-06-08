@@ -10,6 +10,13 @@ export const COLORS = {
   white: '#ffffff',
 }
 
+export const HERO_DEFAULTS = {
+  titulo: 'Mes del',
+  tituloDestacado: 'Trabajador',
+  subtituloLinea1: 'Trabajar mejor · Vivir mejor',
+  subtituloLinea2: 'Un mes dedicado a tu cuerpo, mente y comunidad.',
+}
+
 export const SEDES = [
   'Artilleros',
   'Virrey del Pino',
