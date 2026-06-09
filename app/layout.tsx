@@ -49,7 +49,13 @@ export async function generateMetadata(): Promise<Metadata> {
       images: ['/og-image.jpg'],
     },
     robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-    icons: { icon: '/favicon.ico', apple: '/apple-touch-icon.png' },
+    icons: {
+      icon: [
+        { url: '/favicon.ico', sizes: '32x32' },
+        { url: '/favicon-192.png', type: 'image/png', sizes: '192x192' },
+      ],
+      apple: '/apple-touch-icon.png',
+    },
     manifest: '/manifest.json',
   }
 }
