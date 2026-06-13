@@ -17,7 +17,13 @@ const nextConfig = {
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          // Allow the isndesign portfolio to embed this site as a live preview.
+          // CSP frame-ancestors supersedes X-Frame-Options in modern browsers,
+          // so we use it instead of the deny-all SAMEORIGIN value.
+          {
+            key: 'Content-Security-Policy',
+            value: "frame-ancestors 'self' https://isndesign.com https://*.isndesign.com",
+          },
         ],
       },
     ]
