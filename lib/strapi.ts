@@ -2,6 +2,29 @@ import type { Event } from '@/data/events'
 
 const STRAPI_URL = (process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337').replace(/\/admin\/?$/, '').replace(/\/$/, '')
 
+// Tiempo máximo de espera por request a Strapi antes de fallar.
+// Evita que la página quede colgada ~100s cuando Strapi no responde.
+const STRAPI_TIMEOUT_MS = 8000
+
+/**
+ * Comprueba que Strapi esté respondiendo. Lanza un error si está caído o lento.
+ * Se usa en la home para mostrar la página de mantenimiento (404) cuando falla.
+ */
+export async function checkStrapiHealth(): Promise<void> {
+  const res = await fetch(`${STRAPI_URL}/api/config`, {
+    headers: {
+      Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+    },
+    signal: AbortSignal.timeout(STRAPI_TIMEOUT_MS),
+    next: { revalidate: 0 },
+  })
+  // 401/403/404 significa que Strapi está vivo (responde), solo falta config/permiso.
+  // 5xx o un throw (timeout / red) significa que está caído.
+  if (res.status >= 500) {
+    throw new Error(`Strapi unavailable: HTTP ${res.status}`)
+  }
+}
+
 export interface Config {
   month: number // 1-12
   year: number
@@ -40,6 +63,7 @@ export async function fetchConfig(): Promise<Config> {
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
       },
+      signal: AbortSignal.timeout(STRAPI_TIMEOUT_MS),
       next: { revalidate: 3600 },
     })
     if (!res.ok) {
@@ -86,6 +110,7 @@ export async function fetchEvents(): Promise<Event[]> {
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
       },
+      signal: AbortSignal.timeout(STRAPI_TIMEOUT_MS),
       next: { revalidate: 0 },
     })
     if (!res.ok) {
@@ -132,6 +157,7 @@ export async function fetchGaleria(): Promise<GaleriaFoto[]> {
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
       },
+      signal: AbortSignal.timeout(STRAPI_TIMEOUT_MS),
       next: { revalidate: 3600 },
     })
     if (!res.ok) {
@@ -179,6 +205,7 @@ export async function fetchMasterclasses(): Promise<Masterclass[]> {
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
       },
+      signal: AbortSignal.timeout(STRAPI_TIMEOUT_MS),
       next: { revalidate: 3600 },
     })
     if (!res.ok) {

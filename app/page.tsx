@@ -9,7 +9,8 @@ import { Sedes } from '@/components/Sedes'
 import { Newsletter } from '@/components/Newsletter'
 import { Footer } from '@/components/Footer'
 import { MOCK_EVENTS } from '@/data/events'
-import { fetchEvents, fetchConfig, fetchMasterclasses, fetchGaleria, type Masterclass, type GaleriaFoto } from '@/lib/strapi'
+import { notFound } from 'next/navigation'
+import { fetchEvents, fetchConfig, fetchMasterclasses, fetchGaleria, checkStrapiHealth, type Masterclass, type GaleriaFoto } from '@/lib/strapi'
 import { Galeria } from '@/components/Galeria'
 import { Beneficios } from '@/components/Beneficios'
 import { MasterclassFlyersCarousel } from '@/components/MasterclassFlyersCarousel'
@@ -34,6 +35,16 @@ export default async function Home() {
   let subtituloGaleria = 'Así lo vivimos'
   let masterclasses: Masterclass[] = []
   let galeria: GaleriaFoto[] = []
+
+  // Si Strapi está caído o no responde, mostrar la página de mantenimiento (404).
+  try {
+    await checkStrapiHealth()
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('Strapi no disponible - mostrando página de mantenimiento')
+    }
+    notFound()
+  }
 
   try {
     const [strapiEvents, config, strapiMasterclasses, strapiGaleria] = await Promise.all([
