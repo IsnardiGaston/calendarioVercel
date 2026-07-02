@@ -84,7 +84,7 @@ export default async function Home() {
       <hr className="border-t-2 border-teal" />
       <Calendar events={events} month={month} year={year} />
       {mostrarSorteo && <Raffle fechaSorteo={fechaSorteo} fechaSorteoCorta={fechaSorteoCorta} />}
-      <Sedes events={events} />
+      <Sedes events={events} month={month} />
       <ErrorBoundary>
         <Suspense fallback={<MasterclassesSkeleton />}>
           {mostrarMasterclasses && masterclasses.length > 0 && <MasterclassFlyersCarousel masterclasses={masterclasses} />}

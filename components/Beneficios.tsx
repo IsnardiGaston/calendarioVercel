@@ -14,16 +14,23 @@ const BENEFICIOS = [
   'Beneficio Hasta la masa.png',
   'Beneficio Inti Zen.png',
   'Beneficio Leira.png',
-  'Beneficio Luena Cafe.png',
+  'Beneficio Luena Cafe.jpeg',
   'Beneficio On Fit.png',
   'Beneficio Paulo Cocina.png',
   'Beneficio Selva.png',
   'Beneficio Sushi Live.png',
   'Beneficio Tema Calcos.png',
+  'Beneficio Kentucky Pizzeria.jpeg',
+  'Beneficio Kongo Coffee Bar.jpeg',
+  'Beneficio Campo Bravo Corporativo.jpeg',
+  'Beneficio Cafe Nomada.jpeg',
+  'Beneficio Clave Cafe.jpeg',
+  'Beneficio Bacaro Palermo.jpeg',
+  'Beneficio TMT Burgers.jpeg',
 ]
 
 function nombreBeneficio(file: string) {
-  return file.replace(/^Beneficio /, '').replace(/\.png$/, '')
+  return file.replace(/^Beneficio /, '').replace(/\.(png|jpe?g)$/i, '')
 }
 
 interface BeneficiosProps {

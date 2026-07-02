@@ -1,14 +1,15 @@
 'use client'
 
 import type { Event } from '@/data/events'
-import { SEDES } from '@/data/config'
+import { SEDES, MONTHS } from '@/data/config'
 import { useInView } from '@/hooks/useInView'
 
 interface SedesProps {
   events: Event[]
+  month: number // 0-11
 }
 
-export function Sedes({ events }: SedesProps) {
+export function Sedes({ events, month }: SedesProps) {
   const { ref, isInView } = useInView()
 
   return (
@@ -17,12 +18,12 @@ export function Sedes({ events }: SedesProps) {
       <section ref={ref} className={`bg-teal border-t-2 border-b-2 border-black p-6 md:p-10 lg:p-12 ${isInView ? 'animate-revealIn' : 'opacity-0'}`}>
         <div className="max-w-3xl mx-auto text-center">
           <div className="text-base font-black tracking-widest uppercase text-yellow mb-3">
-            ¡Arrancó el mes del Mundial y con él llegaron un montón de novedades! 🏆
+            ¡Seguimos con espíritu mundialista en julio! 🏆 Alentamos a la selección y festejamos el mes de la amistad 🤝
           </div>
           <p className="font-serif text-2xl md:text-3xl text-white/90 leading-relaxed italic">
-            Chequeá nuestro calendario de actividades y los beneficios que ya están activos para vos en la comunidad.
+            Mirá el calendario de actividades y los beneficios activos para vos en la comunidad.
             <br />
-            ¿A qué estás esperando para sumarte?
+            ¡Sumate!
           </p>
         </div>
       </section>
@@ -64,7 +65,7 @@ export function Sedes({ events }: SedesProps) {
                   {sede}
                 </div>
                 <div className="text-base text-white/90 font-medium mb-4">
-                  <span className="font-black text-yellow">{sedeEvents.length}</span> actividad{sedeEvents.length !== 1 ? 'es' : ''} en mayo
+                  <span className="font-black text-yellow">{sedeEvents.length}</span> actividad{sedeEvents.length !== 1 ? 'es' : ''} en {MONTHS[month].toLowerCase()}
                 </div>
                 <div className="flex gap-2" aria-label="Categorías disponibles">
                   {hasCuerpo && (
